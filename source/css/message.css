@@ -1,0 +1,64 @@
+/* -------------------------------------------------------------
+MESSAGE
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+.message
+{
+	background: #CCC url(images/silk/icon_notice.gif) no-repeat 10px 11px;
+	font-size: 13px;
+	color: #74655f;
+	display:block;	
+	padding:10px 10px 10px 40px;
+	margin-bottom: 1em;
+	border: 1px solid #c2beb1;
+	position:relative;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	text-align:left;
+	z-index:0;
+}
+
+	.message span  
+	{	
+		display: none !important;
+		position: absolute;
+		right:7px;
+		top:7px;
+		font-weight:bold;
+		font-size:10px;
+		padding:5px;
+		cursor:pointer;		
+	}
+	
+		.message-closable span { display: block !important; }
+
+	.message-warning 
+	{
+		background-color: #fffcd3;
+		background-image: url(images/silk/error.png);
+		color: #74655f;
+		border-color: #c2beb1;
+	}
+	
+	.message-success 
+	{
+		background-color: #e5f993;
+		background-image: url(images/silk/accept.png);
+		color: #688006;
+		border-color: #9bac55;
+	}
+	
+	.message-info 
+	{
+		background-color: #d4ebfa;
+		background-image: url(images/silk/information.png);
+		color: #4b6bab;
+		border-color: #90b1c7;
+	}
+	
+	.message-error 
+	{
+		background-color: #f6b9b9;
+		background-image: url(images/silk/exclamation.png);
+		color: #c32727;
+		border-color: #e18484;
+	}

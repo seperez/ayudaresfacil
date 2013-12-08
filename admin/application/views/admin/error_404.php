@@ -1,0 +1,1 @@
+<?php	$this->load->view('admin/template/header');	$this->load->view('admin/template/userbar');?>	<div id="body">		<h1 class="errorpage_title">404: No encontrado</h1>		<h2 class="errorpage_subtitle">El servidor no puede encontrar la página solicitada.</h2>	</div><?php	$this->load->view('admin/template/footer');?>
