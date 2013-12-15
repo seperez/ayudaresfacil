@@ -6,7 +6,7 @@ class Admin extends CI_Controller{
     
 	public function __construct(){
 		parent::__construct();	
-		checkLogin();
+		//checkLogin();
 	}
 		
 	public function index(){
@@ -18,21 +18,25 @@ class Admin extends CI_Controller{
 		
 	public function login()
 	{
+		//echo $username; 
+		//echo $password;
 		$arrPost = array();	
-		$arrPost['username'] = $this->input->post('txtUsername');
-		$arrPost['password'] = $this->input->post('txtPassword');		
+		$arrPost['username'] = $this->input->get('username');
+		$arrPost['password'] = $this->input->get('password');		
+
+		//$arrPost['username'] = $username;
+		//$arrPost['password'] = $password;	
 		
 		$user = CI_User::login($arrPost['username'], $arrPost['password']);
 
 		if($user) {
 			setSessionData($user);
-			redirect( base_url() . "admin/welcome" );
+			$return["result"] = "OK";
+			$return["user"] = $user;
 		} else {
-			$data['msgError'] = "Datos incorrectos!";
-		}
-			
-		$this->load->view('admin/login', $data);	
-		
+			$return["result"] = "EXECUTE_ERROR";
+		}				
+		echo json_encode($return);	
 	}
 		
 	public function recoverPassword() 

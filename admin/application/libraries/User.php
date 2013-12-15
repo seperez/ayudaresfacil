@@ -128,32 +128,5 @@ class CI_User {
 		}
 		return $return;
 	}
-	
-	public static function listUserRoles($limit, $offset)
-	{
-		$CI = & get_instance();
-		$CI->load->model('user_model');
-		$results = $CI->user_model->listUserRoles($limit, $offset);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = $result;
-			}
-		}
-		return $return;
-	}
-	
-	public static function getUserRoleById($id)
-	{
-		$CI = & get_instance();
-		$CI->load->model('user_model');
-		$results = $CI->user_model->getUserRoleById($id);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return = $result;
-			}
-		}
-		return $return;
-	}
+
 }

@@ -18,22 +18,6 @@ class User_model extends CI_Model
 		return $query->result();
 	}
 	
-	public function listUserRoles($limit, $offset){
-		$this->db->select('*');	
-		$this->db->from('user_roles');
-		$this->db->limit($limit, $offset);
-		$query = $this->db->get();
-		return $query->result();
-	}
-	
-	public function getUserRoleById($id){
-		$this->db->select('*');	
-		$this->db->from('user_roles');
-		$this->db->where('id',$id);
-		$query = $this->db->get();
-		return $query->result();
-	}
-	
 	public function login($username, $password){
 		$this->db->select('*');	
 		$this->db->from('users');
