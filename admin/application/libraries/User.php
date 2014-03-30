@@ -108,4 +108,11 @@ class CI_User {
 		return $return;
 	}
 
+	public function confirmation()
+	{
+		$CI =& get_instance();
+		$CI->load->model('user_model');
+		return $CI->user_model->confirmation($this->id);
+	}
+
 }

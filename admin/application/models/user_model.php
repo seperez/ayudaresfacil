@@ -77,4 +77,20 @@ class User_model extends CI_Model
 		
 		return $id;
 	}
+
+	public function confirmation($id){
+		$this->db->trans_start();
+		
+		$data = array ('enabled' => 1);
+		$this->db->where('user_id', $id);
+		$this->db->update('user',$data);
+		$this->db->trans_complete();
+		
+		if ($this->db->trans_status() === FALSE){
+			$id = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		
+		return $id;
+	}
 }
