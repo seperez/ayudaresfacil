@@ -13,7 +13,7 @@ class User_model extends CI_Model
 	public function getById($id){
 		$this->db->select('*');	
 		$this->db->from('user');
-		$this->db->where('id',$id);
+		$this->db->where('user_id',$id);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -63,10 +63,9 @@ class User_model extends CI_Model
 	public function delete($id){
 		$this->db->trans_start();
 		
-		$data = array 	('deleted' => 1);
+		$data = array ('deleted' => 1);
 		$this->db->where('user_id', $id);
 		$this->db->update('user',$data);
-		
 		$this->db->trans_complete();
 		
 		if ($this->db->trans_status() === FALSE){

@@ -2,13 +2,10 @@
 
 class CI_User {
 	private $id;
-	private $roleId;
-	private $username;
+	private $email;
 	private $password;
 	private $name;
-	private $surname;
-	private $email;
-	
+
 	public function getId() {return $this->id;}
 	
 	public function getEmail(){return $this->email;}
@@ -44,12 +41,7 @@ class CI_User {
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
 		$user = new self;
-		$user->id = (isset($row->id)) ? $row->id : 0;
-		$user->roleId = (isset($row->roleId)) ? $row->roleId : 0;
-		$user->username = (isset($row->username)) ? $row->username : '';
-		$user->password = (isset($row->password)) ? $row->password : '';
-		$user->name = (isset($row->name)) ? $row->name : '';
-		$user->surname = (isset($row->surname)) ? $row->surname : '';
+		$user->id = (isset($row->user_id)) ? $row->user_id : 0;
 		$user->email = (isset($row->email)) ? $row->email : '';
 		return $user;
 	}

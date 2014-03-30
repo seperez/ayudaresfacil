@@ -40,10 +40,10 @@ class User extends CI_Controller{
 	
 	public function save()
 	{
-		$arrOptions['id'] = ($this->input->post('Id') > 0) ? $this->post('Id') : 0;
-		$arrOptions['email'] = $this->input->post('Email');
-		$arrOptions['password'] = $this->input->post('Password');
-		$arrOptions['name'] = $this->input->post('Name');
+		$arrOptions['id'] = ($this->input->post('id') > 0) ? $this->post('id') : 0;
+		$arrOptions['email'] = $this->input->post('email');
+		$arrOptions['password'] = $this->input->post('password');
+		$arrOptions['name'] = $this->input->post('name');
 
 		if($arrOptions['id'] > 0){
 			$user = CI_User::getById($id);
@@ -71,16 +71,19 @@ class User extends CI_Controller{
 		echo json_encode($return);
 	}
 	
-	public function delete($id) 
+	public function delete() 
 	{
 		$error = $info = $success = "";
-		$user = CI_User::getById($id);
-		
-		if($user->delete()){
-			$return["result"] = "OK";
-		}else{
-			$return["result"] = "NOOK";
+		$return["result"] = "NOOK";
+		$id = ($this->input->post('id') > 0) ? $this->input->post('id') :0;
+		if($id > 0){
+
+			$user = CI_User::getById($id);
+			if($user->delete()){
+				$return["result"] = "OK";
+			}
 		}
+		
 		echo json_encode($return);	
 	}
 }
