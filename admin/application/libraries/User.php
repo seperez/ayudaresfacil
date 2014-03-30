@@ -94,7 +94,7 @@ class CI_User {
 		$CI->load->model('user_model');
 		return $CI->user_model->delete($this->id);
 	}
-	
+
 	public static function login($username, $password)
 	{
 		$CI = & get_instance();
@@ -107,6 +107,13 @@ class CI_User {
 			}
 		}
 		return $return;
+	}
+
+	public function confirmation()
+	{
+		$CI =& get_instance();
+		$CI->load->model('user_model');
+		return $CI->user_model->confirmation($this->id);
 	}
 
 }

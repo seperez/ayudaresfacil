@@ -86,4 +86,19 @@ class User extends CI_Controller{
 		
 		echo json_encode($return);	
 	}
+
+	public function confirmation() 
+	{
+		$error = $info = $success = "";
+		$return["result"] = "NOOK";
+		$id = ($this->input->get_post('id') > 0) ? $this->input->get_post('id') :0;
+		if($id > 0){
+			$user = CI_User::getById($id);
+			if ($user && $user->confirmation())
+				$return["result"] = "OK";
+
+		}
+		
+		echo json_encode($return);	
+	}
 }
