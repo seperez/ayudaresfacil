@@ -43,6 +43,7 @@ class CI_User {
 		$user = new self;
 		$user->id = (isset($row->user_id)) ? $row->user_id : 0;
 		$user->email = (isset($row->email)) ? $row->email : '';
+		$user->password = (isset($row->password)) ? $row->password : '';
 		return $user;
 	}
 	
@@ -95,16 +96,14 @@ class CI_User {
 		return $CI->user_model->delete($this->id);
 	}
 	
-	public static function login($username, $password)
+	public static function login($options)
 	{
 		$CI = & get_instance();
 		$CI->load->model('user_model');
-		$results = $CI->user_model->login($username, $password);
+		$results = $CI->user_model->login($options);
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
-				$return = self::getInstance($result);
-			}
+			$return = self::getInstance($results[0]);			
 		}
 		return $return;
 	}

@@ -11,7 +11,7 @@ class User extends CI_Controller{
 
 	public function index()
 	{
-		$limit = 9999999999999;
+		$limit = 99.99999999999;
 		$offset = 0;
 		if(getRoleId() == 2){
 			$data["users"] = CI_User::listClients($limit, $offset);
@@ -21,6 +21,24 @@ class User extends CI_Controller{
 		$this->load->view('admin/list_user',$data);
 	}
 	
+	public function login()
+	{
+		$arrOptions['email'] = $this->input->post('email');
+		$arrOptions['password'] = $this->input->post('password');
+		$user = CI_User::login($arrOptions);
+		if($user){
+			$return["result"] = "OK";
+			$myUser = new stdClass();
+			$myUser->id = $user->getId();
+			$myUser->email = $user->getEmail();
+
+			$return["data"] = $myUser;
+		}else{
+			$return["result"] = "NOOK";
+		}
+		echo json_encode($return);
+	}
+
 	public function modify($id)
 	{
 		$limit = 9999999999999;
