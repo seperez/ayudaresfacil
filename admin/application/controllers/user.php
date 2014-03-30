@@ -9,18 +9,27 @@ class User extends CI_Controller{
 		//checkLogin();
 	}
 
-	public function index()
-	{
-		$limit = 99.99999999999;
-		$offset = 0;
-		if(getRoleId() == 2){
-			$data["users"] = CI_User::listClients($limit, $offset);
-		}else{
-			$data["users"] = CI_User::listUsers($limit, $offset);	
-		}
-		$this->load->view('admin/list_user',$data);
-	}
+	public function index(){}
 	
+	public function getUsers()
+	{
+		$return["result"] = "NOOK";
+		$users = CI_User::getUsers();
+		if($users){
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($users as $key => $user) {
+			 	$myUser = new stdClass();
+				$myUser->id = $user->getId();
+				$myUser->email = $user->getEmail();
+				$return["data"][$key] = $myUser;
+			 } 
+		}
+
+		echo json_encode($return);
+	}
+
 	public function login()
 	{
 		$arrOptions['email'] = $this->input->post('email');

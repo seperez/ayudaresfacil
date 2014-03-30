@@ -2,10 +2,11 @@
 
 class User_model extends CI_Model
 {
-	public function listuser($limit, $offset){
+	public function getUsers(){
 		$this->db->select('*');	
-		$this->db->from('user');		
-		$this->db->limit($limit, $offset);
+		$this->db->from('user');
+		$this->db->where('enabled',1);
+		$this->db->where('deleted',0);		
 		$query = $this->db->get();
 		return $query->result();
 	}

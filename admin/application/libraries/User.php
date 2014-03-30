@@ -47,11 +47,11 @@ class CI_User {
 		return $user;
 	}
 	
-	public static function listUsers($limit, $offset)
+	public static function getUsers()
 	{
 		$CI = & get_instance();
 		$CI->load->model('user_model');
-		$results = $CI->user_model->listUsers($limit, $offset);
+		$results = $CI->user_model->getUsers();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
