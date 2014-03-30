@@ -66,7 +66,7 @@ class User extends CI_Controller{
 
 			$return["data"] = $myUser;
 		}else{
-			$return["error"] = "NOOK";
+			$return["result"] = "NOOK";
 		}
 		echo json_encode($return);
 	}
@@ -76,10 +76,11 @@ class User extends CI_Controller{
 		$error = $info = $success = "";
 		$user = CI_User::getById($id);
 		
-		if($user->delete())
-			$this->session->set_flashdata('msgSuccess','El registro fue eliminado con exito.');	
-		else
-			$this->session->set_flashdata('msgError','Surgió un error al intentar realizar la operación requerida.'); 
-		redirect("user/index/");		
+		if($user->delete()){
+			$return["result"] = "OK";
+		}else{
+			$return["result"] = "NOOK";
+		}
+		echo json_encode($return);	
 	}
 }
