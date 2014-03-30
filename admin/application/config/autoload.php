@@ -55,8 +55,7 @@ $autoload['packages'] = array();
 $autoload['libraries'] = array(
 								'Native_session',
 								'session',
-								'database',	
-								'Cart',					
+								'database',
 								'User'
 								);
 

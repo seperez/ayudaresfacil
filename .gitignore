@@ -4,5 +4,4 @@
 */cache/*
 */cache/!index.html
 
-
-admin/application/logs/*
+admin/application/logs/

@@ -6,7 +6,7 @@ class User extends CI_Controller{
 	public function __construct()
 	{
 		parent::__construct(); 	
-		checkLogin();
+		//checkLogin();
 	}
 
 	public function index()
@@ -38,60 +38,37 @@ class User extends CI_Controller{
 		$this->load->view('admin/form_user',$data);
 	}
 	
-	public function save($id, $isMobile = FALSE)
+	public function save()
 	{
-		$arrPost['id'] = (isset($id) && $id > 0) ? $id : 0;
-		$arrPost['roleId'] = $this->input->post('cmbRoles');
-		$arrPost['username'] = $this->input->post('txtUsername');
-		$arrPost['password'] = $this->input->post('txtPassword');
-		$arrPost['name'] = $this->input->post('txtName');
-		$arrPost['surname'] = $this->input->post('txtSurname');
-		$arrPost['email'] = $this->input->post('txtEmail');
-		
-		if(getRoleId() == 2){
-			//ADMINISTRATIVOS SOLO PUEDEN DAR DE ALTA CLIENTES.
-			$arrPost['roleId'] = 4;
-		}
-		
-		if($arrPost['id'] > 0){
+		$arrOptions['id'] = ($this->input->post('Id') > 0) ? $this->post('Id') : 0;
+		$arrOptions['email'] = $this->input->post('Email');
+		$arrOptions['password'] = $this->input->post('Password');
+		$arrOptions['name'] = $this->input->post('Name');
+
+		if($arrOptions['id'] > 0){
 			$user = CI_User::getById($id);
-			$user->setRoleId($arrPost['roleId']);
-			$user->setUsername($arrPost['username']);
-			$user->setPassword($arrPost['password']);
-			$user->setName($arrPost['name']);
-			$user->setSurname($arrPost['surname']);
-			$user->setEmail($arrPost['email']);
+			$user->setEmail($arrOptions['email']);
+			$user->setPassword($arrOptions['password']);
+			$user->setName($arrOptions['name']);
 		}else{
-			$object->id = 0;
-			$object->roleId = $arrPost['roleId'];
-			$object->username = $arrPost['username'];
-			$object->password = $arrPost['password'];
-			$object->name = $arrPost['name'];
-			$object->surname = $arrPost['surname'];
-			$object->email = $arrPost['email'];
+			$object = new stdClass();
+			$object->email = $arrOptions['email'];
+			$object->password = $arrOptions['password'];
+			$object->name = $arrOptions['name'];
 			$user = CI_User::getInstance($object);
 		}
 		
-		if(!$isMobile){
-			if($user->save()){
-				$this->session->set_flashdata('msgSuccess','El registro fue modificado con exito.');
-				redirect("user/index/");
-			}else{
-				$this->session->set_flashdata('msgError','Surgió un error al intentar realizar la operación requerida.');
-				$view = "admin/form_user";
-				$data['arrPost'] = $arrPost;
-				$this->load->view($view,$data);
-			}			
+		if($user->save()){
+			$return["result"] = "OK";
+			$myUser = new stdClass();
+			$myUser->id = $user->getId();
+			$myUser->email = $user->getEmail();
+
+			$return["data"] = $myUser;
 		}else{
-			if($user->save()){
-				$return["error"] = FALSE;
-				$return["message"] = "El cliente fue dado de alta con exito!";
-			}else{
-				$return["error"] = TRUE;
-				$return["message"] = "Surgió un error al intentar dar de alta el cliente!";	
-			}
-			echo json_encode($return);
+			$return["error"] = "NOOK";
 		}
+		echo json_encode($return);
 	}
 	
 	public function delete($id) 

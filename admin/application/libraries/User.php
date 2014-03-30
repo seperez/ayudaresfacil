@@ -11,23 +11,14 @@ class CI_User {
 	
 	public function getId() {return $this->id;}
 	
-	public function getRoleId(){return $this->roleId;}
-	public function setRoleId($roleId){$this->roleId = $roleId;}
-	
-	public function getUsername(){return $this->username;}
-	public function setUsername($username){$this->username = $username;}
+	public function getEmail(){return $this->email;}
+	public function setEmail($email){$this->email = $email;}
 	
 	public function getPassword(){return $this->password;}
 	public function setPassword($password){$this->password = $password;}
 	
 	public function getName(){return $this->name;}
 	public function setName($name){$this->name = $name;}
-	
-	public function getSurname(){return $this->surname;}
-	public function setSurname($surname){$this->surname = $surname;}
-	
-	public function getEmail(){return $this->email;}
-	public function setEmail($email){$this->email = $email;}
 	
 	public function getEnabled(){return $this->enabled;}
 	public function setEnabled($enabled){$this->enabled = $enabled;}
@@ -40,13 +31,11 @@ class CI_User {
 	 * @return object
 	 */
 	private function getData(){
+		$object = new stdClass();
 		$object->id = $this->id;
-		$object->roleId = $this->roleId;
-		$object->username = $this->username;
+		$object->email = $this->email;
 		$object->password = $this->password;
 		$object->name = $this->name;
-		$object->surname = $this->surname;
-		$object->email = $this->email;
 		return $object;
 	}
 	
@@ -97,14 +86,13 @@ class CI_User {
 		$return = TRUE;
 		$CI = & get_instance();
 		$CI->load->model('user_model');
-		$CI->db->trans_start();
-		if(isset($this->id) && $this->id > 0){
+		if(isset($this->id) && $this->id > 0)
 			$CI->user_model->update($this->getData());
-		}else{
+		else{
 			$this->id = $CI->user_model->create($this->getData());
+			if($this->id === null)
+				$return = FALSE;
 		}
-		$CI->db->trans_complete();
-		if ($CI->db->trans_status() === FALSE) $return = FALSE;
 		return $return;
 	}
 	

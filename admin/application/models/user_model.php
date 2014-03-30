@@ -2,9 +2,9 @@
 
 class User_model extends CI_Model
 {
-	public function listUsers($limit, $offset){
+	public function listuser($limit, $offset){
 		$this->db->select('*');	
-		$this->db->from('users');		
+		$this->db->from('user');		
 		$this->db->limit($limit, $offset);
 		$query = $this->db->get();
 		return $query->result();
@@ -12,7 +12,7 @@ class User_model extends CI_Model
 	
 	public function getById($id){
 		$this->db->select('*');	
-		$this->db->from('users');
+		$this->db->from('user');
 		$this->db->where('id',$id);
 		$query = $this->db->get();
 		return $query->result();
@@ -20,40 +20,48 @@ class User_model extends CI_Model
 	
 	public function login($username, $password){
 		$this->db->select('*');	
-		$this->db->from('users');
+		$this->db->from('user');
 		$this->db->where('username',$username);
 		$this->db->where('password',sha1($password));
 		$query = $this->db->get();
 		return $query->result();
 	}
 	
-	public function create($post){
+	public function create($options){
+		$this->db->trans_start();
 		$data = array 	(
-							'roleId' => $post->roleId,
-							'username' => $post->username,
-							'password' => sha1($post->password),
-							'name' => $post->name,
-							'surname' => $post->surname,
-							'email' => $post->email
+							'email' => $options->email,
+							'password' => sha1($options->password)
 						);
-		$this->db->insert('users', $data);
-		return $this->db->insert_id();
+		$this->db->insert('user', $data);
+		$id = $this->db->insert_id();
+		$data = array 	(
+							'user_id' => $id,
+							'name' => $options->name
+						);
+		$this->db->insert('user_data', $data);
+		$this->db->trans_complete();
+		if ($this->db->trans_status() === FALSE){
+			$id = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return $id;
 	}
 	
 	public function update($post){
 		$data = array 	(
 							'roleId' => $post->roleId,
-							'username' => $post->username,
+							'email' => $post->email,
 							'name' => $post->name,
 							'surname' => $post->surname,
 							'email' => $post->email
 						); 
 		$this->db->where('id', $post->id);
-		return $this->db->update('users', $data);
+		return $this->db->update('user', $data);
 	}
 	
 	public function delete($id){	
 		$this->db->where('id', $id);
-		return $this->db->delete('users');
+		return $this->db->delete('user');
 	}
 }
