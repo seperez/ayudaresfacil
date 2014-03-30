@@ -1,6 +1,6 @@
 /*
-SQLyog Trial v11.4 (32 bit)
-MySQL - 5.6.16 : Database - ayudaresfacil
+SQLyog Enterprise - MySQL GUI v8.05 
+MySQL - 5.5.32 : Database - ayudaresfacil
 *********************************************************************
 */
 
@@ -8,10 +8,9 @@ MySQL - 5.6.16 : Database - ayudaresfacil
 
 /*!40101 SET SQL_MODE=''*/;
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`ayudaresfacil` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */;
 
 USE `ayudaresfacil`;
@@ -397,16 +396,19 @@ insert  into `type_phone`(`type_phone_id`,`description`) values (1,'PARTICULAR')
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `user_id` mediumint(9) NOT NULL,
+  `user_id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
   `password` char(40) NOT NULL,
   `last_login` date DEFAULT NULL,
-  `enabled` tinyint(1) DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT '0',
+  `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `UQ_User_email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
+
+insert  into `user`(`user_id`,`email`,`password`,`last_login`,`enabled`,`deleted`) values (1,'asd@asd.com','601f1889667efaebb33b8c12572835da3f027f78',NULL,0,1);
 
 /*Table structure for table `user_address` */
 
@@ -450,6 +452,8 @@ CREATE TABLE `user_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `user_data` */
+
+insert  into `user_data`(`user_id`,`name`,`last_name`,`birthday_date`,`description`) values (1,'asd',NULL,NULL,NULL);
 
 /*Table structure for table `user_phone` */
 
@@ -512,5 +516,3 @@ CREATE TABLE `user_score` (
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
