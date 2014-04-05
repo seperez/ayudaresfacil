@@ -56,7 +56,8 @@ $autoload['libraries'] = array(
 								'Native_session',
 								'session',
 								'database',
-								'User'
+								'User',
+								'Publication'	
 								);
 
 /*

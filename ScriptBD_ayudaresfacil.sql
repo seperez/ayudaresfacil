@@ -1,8 +1,9 @@
 /*
 SQLyog Enterprise - MySQL GUI v8.05 
-MySQL - 5.5.32 : Database - ayudaresfacil
+MySQL - 5.6.11 : Database - ayudaresfacil
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -42,6 +43,8 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `category` */
+
+insert  into `category`(`category_id`,`description`,`common_state_id`) values (1,'CATEGORY1','A');
 
 /*Table structure for table `city` */
 
@@ -92,7 +95,7 @@ CREATE TABLE `donated_object` (
 DROP TABLE IF EXISTS `donation`;
 
 CREATE TABLE `donation` (
-  `donation_id` int(11) NOT NULL,
+  `donation_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(9) NOT NULL,
   `publication_id` int(11) NOT NULL,
   `donation_date` datetime NOT NULL,
@@ -114,7 +117,7 @@ CREATE TABLE `donation` (
 DROP TABLE IF EXISTS `favourite_publication`;
 
 CREATE TABLE `favourite_publication` (
-  `favourite_id` int(11) NOT NULL,
+  `favourite_id` int(11) NOT NULL AUTO_INCREMENT,
   `publication_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
   `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -132,7 +135,7 @@ CREATE TABLE `favourite_publication` (
 DROP TABLE IF EXISTS `message`;
 
 CREATE TABLE `message` (
-  `message_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id_from` mediumint(9) NOT NULL,
   `user_id_to` mediumint(9) NOT NULL,
   `publication_id` int(11) DEFAULT NULL,
@@ -188,7 +191,7 @@ CREATE TABLE `nonmonetary_order` (
 DROP TABLE IF EXISTS `object`;
 
 CREATE TABLE `object` (
-  `object_id` int(11) NOT NULL,
+  `object_id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(200) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   PRIMARY KEY (`object_id`)
@@ -280,7 +283,7 @@ CREATE TABLE `province` (
 DROP TABLE IF EXISTS `publication`;
 
 CREATE TABLE `publication` (
-  `publication_id` int(11) NOT NULL,
+  `publication_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(9) NOT NULL,
   `creation_date` datetime NOT NULL,
   `tittle` varchar(50) NOT NULL,
@@ -301,6 +304,8 @@ CREATE TABLE `publication` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `publication` */
+
+insert  into `publication`(`publication_id`,`user_id`,`creation_date`,`tittle`,`description`,`expiration_date`,`category_id`,`subcategory_id`,`views`,`process_state_id`) values (0,9,'0000-00-00 00:00:00','Un titulo para la publicación','Una descripción para la publicación','0000-00-00 00:00:00',1,1,12222,NULL),(1,9,'0000-00-00 00:00:00','aa','ssas',NULL,1,1,111,NULL),(2,9,'0000-00-00 00:00:00','aa','sssasa',NULL,1,1,2121,NULL);
 
 /*Table structure for table `publication_socialnetwork_activity` */
 
@@ -326,7 +331,7 @@ CREATE TABLE `publication_socialnetwork_activity` (
 DROP TABLE IF EXISTS `sponsor`;
 
 CREATE TABLE `sponsor` (
-  `sponsor_id` mediumint(9) NOT NULL,
+  `sponsor_id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `social_network_id` int(11) DEFAULT NULL,
@@ -377,6 +382,8 @@ CREATE TABLE `subcategory` (
 
 /*Data for the table `subcategory` */
 
+insert  into `subcategory`(`category_id`,`subcategory_id`,`description`,`common_state_id`) values (1,1,'SUBCATEGORY1','A');
+
 /*Table structure for table `type_phone` */
 
 DROP TABLE IF EXISTS `type_phone`;
@@ -404,18 +411,18 @@ CREATE TABLE `user` (
   `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `UQ_User_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`user_id`,`email`,`password`,`last_login`,`enabled`,`deleted`) values (1,'asd@asd.com','601f1889667efaebb33b8c12572835da3f027f78',NULL,0,1);
+insert  into `user`(`user_id`,`email`,`password`,`last_login`,`enabled`,`deleted`) values (4,'sabrina@tcs.com','da39a3ee5e6b4b0d3255bfef95601890afd80709',NULL,0,0),(9,'sabrina2@tcs.com','7c4a8d09ca3762af61e59520943dc26494f8941b',NULL,1,0),(10,'sabrina3@tcs.com','7c4a8d09ca3762af61e59520943dc26494f8941b',NULL,1,0);
 
 /*Table structure for table `user_address` */
 
 DROP TABLE IF EXISTS `user_address`;
 
 CREATE TABLE `user_address` (
-  `address_id` int(11) NOT NULL,
+  `address_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(9) NOT NULL,
   `street` varchar(100) DEFAULT NULL,
   `number` decimal(8,0) DEFAULT NULL,
@@ -453,14 +460,14 @@ CREATE TABLE `user_data` (
 
 /*Data for the table `user_data` */
 
-insert  into `user_data`(`user_id`,`name`,`last_name`,`birthday_date`,`description`) values (1,'asd',NULL,NULL,NULL);
+insert  into `user_data`(`user_id`,`name`,`last_name`,`birthday_date`,`description`) values (4,NULL,NULL,NULL,NULL),(9,NULL,NULL,NULL,NULL),(10,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `user_phone` */
 
 DROP TABLE IF EXISTS `user_phone`;
 
 CREATE TABLE `user_phone` (
-  `user_id` mediumint(9) NOT NULL,
+  `user_id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `phone_id` mediumint(9) NOT NULL,
   `number` varchar(25) DEFAULT NULL,
   `type_phone_id` tinyint(4) DEFAULT NULL,
@@ -498,7 +505,7 @@ CREATE TABLE `user_request` (
 DROP TABLE IF EXISTS `user_score`;
 
 CREATE TABLE `user_score` (
-  `user_id_from` mediumint(9) NOT NULL,
+  `user_id_from` mediumint(9) NOT NULL AUTO_INCREMENT,
   `user_id_to` mediumint(9) NOT NULL,
   `publication_id` int(11) NOT NULL,
   `score` decimal(1,0) DEFAULT NULL,

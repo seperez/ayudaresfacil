@@ -67,7 +67,7 @@ class User extends CI_Controller{
 	
 	public function save()
 	{
-		$arrOptions['id'] = ($this->input->post('id') > 0) ? $this->post('id') : 0;
+		$arrOptions['id'] = ($this->input->post('id') > 0) ? $this->input->post('id') : 0;
 		$arrOptions['email'] = $this->input->post('email');
 		$arrOptions['password'] = $this->input->post('password');
 		$arrOptions['name'] = $this->input->post('name');
