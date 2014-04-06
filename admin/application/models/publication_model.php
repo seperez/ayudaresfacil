@@ -14,6 +14,7 @@ class Publication_model extends CI_Model
 		$this->db->select('*');	
 		$this->db->from('publication');
 		$this->db->where('publication_id',$id);
+		$this->db->where('deleted',0);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -36,6 +37,22 @@ class Publication_model extends CI_Model
 			$id = null;
       		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
 		}
+		return $id;
+	}
+	
+	public function delete($id){
+		
+		$this->db->trans_start();
+		$data = array ('deleted' => 1);
+		$this->db->where('publication_id', $id);
+		$this->db->update('publication',$data);
+		$this->db->trans_complete();
+		
+		if ($this->db->trans_status() === FALSE){
+			$id = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		
 		return $id;
 	}
 

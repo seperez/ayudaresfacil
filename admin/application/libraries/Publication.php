@@ -65,14 +65,14 @@ class CI_Publication {
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
 		$publication = new self;
-		$publication->id = (isset($row->publicationId)) ? $row->publicationId : 0;
-		$publication->userId = (isset($row->userId)) ? $row->userId : '';
-		$publication->creationDate = (isset($row->creationDate)) ? $row->creationDate : '';
+		$publication->id = (isset($row->publication_id)) ? $row->publication_id : 0;
+		$publication->userId = (isset($row->user_id)) ? $row->user_id : '';
+		$publication->creationDate = (isset($row->creation_date)) ? $row->creation_date : '';
 		$publication->tittle = (isset($row->tittle)) ? $row->tittle : '';
 		$publication->description = (isset($row->description)) ? $row->description : '';
-		$publication->expirationDate = (isset($row->expirationDate)) ? $row->expirationDate : '';
-		$publication->categoryId = (isset($row->categoryId)) ? $row->categoryId : '';
-		$publication->subcategoryId = (isset($row->subcategoryId)) ? $row->subcategoryId : '';
+		$publication->expirationDate = (isset($row->expiration_date)) ? $row->expiration_date : '';
+		$publication->categoryId = (isset($row->category_id)) ? $row->category_id : '';
+		$publication->subcategoryId = (isset($row->subcategory_id)) ? $row->subcategory_id : '';
 		$publication->views = (isset($row->views)) ? $row->views : '';
 		return $publication;
 	}
@@ -114,6 +114,13 @@ class CI_Publication {
 			$return = FALSE;
 		}
 		return $return;
+	}
+	
+	public function delete()
+	{
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		return $CI->publication_model->delete($this->id);
 	}
 
 

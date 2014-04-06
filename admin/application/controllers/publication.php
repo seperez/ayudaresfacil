@@ -93,4 +93,21 @@ class Publication extends CI_Controller{
 		}
 		echo json_encode($return);
 	}
+	
+	public function delete() 
+	{
+		$error = $info = $success = "";
+		$return["result"] = "NOOK";
+		$id = $this->input->post('id');
+		
+		if($id > 0){
+			$publication = CI_Publication::getById($id);
+			if($publication->delete()){
+				$return["result"] = "OK";
+			}
+		}
+		
+		echo json_encode($return);	
+	}
+
 }

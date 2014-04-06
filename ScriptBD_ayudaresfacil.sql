@@ -293,6 +293,7 @@ CREATE TABLE `publication` (
   `subcategory_id` tinyint(4) DEFAULT NULL,
   `views` int(11) DEFAULT NULL,
   `process_state_id` char(1) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`publication_id`),
   KEY `category_id` (`category_id`),
   KEY `process_state_id` (`process_state_id`),
