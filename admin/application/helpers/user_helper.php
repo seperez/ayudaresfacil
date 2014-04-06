@@ -18,7 +18,7 @@ function checkLogin(){
 		current_url() != (base_url()."admin/index") && 
 		current_url() != base_url() && 
 		current_url() != (base_url()."admin/login")
-		
+
 	){
 		if(!isLoggedIn()){
 			redirect(base_url()."admin/index");
@@ -70,20 +70,20 @@ function isAllowedSection($section){
 	$return = FALSE;	
 	$CI =& get_instance();
 	$roleId = $CI->native_session->userdata('roleId');
-	
+
 	//PERMISOS DE LOS USUARIOS
 	//Admin
 	$arrAdminSectionPermmissions = array('welcome','user');
-	
+
 	//CRONISTA
 	$arrInvitedSectionPermmissions = array('welcome');
-	
+
 	//SETEO LOS PERMISOS DEL USUARIO Y LOS GUARDO EN UNA CONSTANTE
 	$arrPermissions = array();
 	if($roleId == 1) $arrPermissions = $arrEditorSectionPermmissions;
 	elseif($roleId == 2) $arrPermissions = $arrCronistSectionPermmissions;
-			
+
 	if(in_array($section, $arrPermissions)) $return = TRUE;
-	
+
 	return $return;
 }

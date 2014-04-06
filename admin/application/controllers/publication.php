@@ -22,13 +22,13 @@ class Publication extends CI_Controller{
 			foreach ($publications as $key => $publication) {
 			 	$myPublication = new stdClass();
 				$myPublication->id = $publication->getId();
-				$myPublication->userId = $publication->getUserId();
-				$myPublication->creationDate = $publication->getCreationDate();
+				$myPublication->user_id = $publication->getuser_id();
+				$myPublication->creation_date = $publication->getcreation_date();
 				$myPublication->tittle = $publication->getTittle();
 				$myPublication->description = $publication->getDescription();
-				$myPublication->expirationDate = $publication->getExpirationDate();
-				$myPublication->categoryId = $publication->getCategoryId();
-				$myPublication->subcategoryId = $publication->getSubcategoryId();
+				$myPublication->expiration_date = $publication->getexpiration_date();
+				$myPublication->category_id = $publication->getcategory_id();
+				$myPublication->subcategory_id = $publication->getSubcategory_id();
 				$myPublication->views = $publication->getViews();
 
 				$return["data"][$key] = $myPublication;
@@ -41,34 +41,34 @@ class Publication extends CI_Controller{
 	public function save()
 	{
 		$arrOptions['id'] = ($this->input->post('id') > 0) ? $this->input->post('id') : 0;
-		$arrOptions['userId'] = $this->input->post('userId');
-		$arrOptions['creationDate'] = $this->input->post('creationDate');
+		$arrOptions['user_id'] = $this->input->post('user_id');
+		$arrOptions['creation_date'] = $this->input->post('creation_date');
 		$arrOptions['tittle'] = $this->input->post('tittle');
 		$arrOptions['description'] = $this->input->post('description');
-		$arrOptions['expirationDate'] = $this->input->post('expirationDate');
-		$arrOptions['categoryId'] = $this->input->post('categoryId');
-		$arrOptions['subcategoryId'] = $this->input->post('subcategoryId');
+		$arrOptions['expiration_date'] = $this->input->post('expiration_date');
+		$arrOptions['category_id'] = $this->input->post('category_id');
+		$arrOptions['subcategory_id'] = $this->input->post('subcategory_id');
 		$arrOptions['views'] = $this->input->post('views');
 
 		if($arrOptions['id'] > 0){
-			$publication = CI_Publication::getById($id);
-			$publication->setUserId($arrOptions['userId']);
-			$publication->setCreationDate($arrOptions['creationDate']);
+			$publication = CI_Publication::getById($arrOptions['id']);
+			$publication->setUser_id($arrOptions['user_id']);
+			$publication->setCreation_date($arrOptions['creation_date']);
 			$publication->setTittle($arrOptions['tittle']);
 			$publication->setDescription($arrOptions['description']);
-			$publication->setExpirationDate($arrOptions['expirationDate']);
-			$publication->setCategoryId($arrOptions['categoryId']);
-			$publication->setSubcategoryId($arrOptions['subcategoryId']);
+			$publication->setExpiration_date($arrOptions['expiration_date']);
+			$publication->setCategory_id($arrOptions['category_id']);
+			$publication->setSubcategory_id($arrOptions['subcategory_id']);
 			$publication->setViews($arrOptions['views']);
 		}else{
 			$object = new stdClass();
-			$object->userId = $arrOptions['userId'];
-			$object->creationDate = $arrOptions['creationDate'];
+			$object->user_id = $arrOptions['user_id'];
+			$object->creation_date = $arrOptions['creation_date'];
 			$object->tittle = $arrOptions['tittle'];
 			$object->description = $arrOptions['description'];
-			$object->expirationDate = $arrOptions['expirationDate'];
-			$object->categoryId = $arrOptions['categoryId'];
-			$object->subcategoryId = $arrOptions['subcategoryId'];
+			$object->expiration_date = $arrOptions['expiration_date'];
+			$object->category_id = $arrOptions['category_id'];
+			$object->subcategory_id = $arrOptions['subcategory_id'];
 			$object->views = $arrOptions['views'];
 			$publication = CI_Publication::getInstance($object);
 		}
@@ -78,13 +78,13 @@ class Publication extends CI_Controller{
 
 			$myPublication = new stdClass();
 			$myPublication->id = $publication->getId();
-			$myPublication->userId = $publication->getUserId();
-			$myPublication->creationDate = $publication->getCreationDate();
+			$myPublication->user_id = $publication->getUser_id();
+			$myPublication->creation_date = $publication->getCreation_date();
 			$myPublication->tittle = $publication->getTittle();
 			$myPublication->description = $publication->getDescription();
-			$myPublication->expirationDate = $publication->getExpirationDate();
-			$myPublication->categoryId = $publication->getCategoryId();
-			$myPublication->subcategoryId = $publication->getSubcategoryId();
+			$myPublication->expiration_date = $publication->getExpiration_date();
+			$myPublication->category_id = $publication->getCategory_id();
+			$myPublication->subcategory_id = $publication->getSubcategory_id();
 			$myPublication->views = $publication->getViews();
 
 			$return["data"] = $myPublication;
