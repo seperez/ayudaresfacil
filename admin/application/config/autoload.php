@@ -57,7 +57,8 @@ $autoload['libraries'] = array(
 								'session',
 								'database',
 								'User',
-								'Publication'	
+								'Publication',
+								'Message'
 								);
 
 /*

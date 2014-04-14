@@ -1,0 +1,68 @@
+<?php
+
+class Message_model extends CI_Model
+{
+
+	public function getById($id){
+		$this->db->select('*');	
+		$this->db->from('message');
+		$this->db->where('message_id',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function create($options){
+		$this->db->trans_start();
+		
+		$data = array 	(
+							'user_Id_From' => $options->userIdFrom,
+							'user_Id_To' => $options->userIdTo,
+							'publication_Id' => $options->publicationId,
+							'first_Message_Id' => $options->firstMessageId,
+							'FAQ' => $options->FAQ,
+							'common_State_Id' => $options->commonStateId,
+							'text' => $options->text,
+							'create_Date' => $options->createDate
+						);
+
+		$this->db->insert('message', $data);
+		$this->db->trans_complete();
+
+		$id = $this->db->insert_id();
+
+		if ($this->db->trans_status() === FALSE){
+			$id = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+
+		return $id;
+	}
+
+	public function update($options){
+		$this->db->trans_start();
+		
+		$data = array 	(
+							'user_Id_From' => $options->userIdFrom,
+							'user_Id_To' => $options->userIdTo,
+							'publication_Id' => $options->publicationId,
+							'first_Message_Id' => $options->firstMessageId,
+							'FAQ' => $options->FAQ,
+							'common_State_Id' => $options->commonStateId,
+							'text' => $options->text,
+							'update_Date' => $options->updateDate
+						); 
+
+		$this->db->where('message_id', $options->id);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+      		$id = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+
+		return $this->db->update('message', $data);
+	}
+
+}
+
+
