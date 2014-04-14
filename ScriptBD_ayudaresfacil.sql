@@ -1,9 +1,8 @@
 /*
 SQLyog Enterprise - MySQL GUI v8.05 
-MySQL - 5.6.11 : Database - ayudaresfacil
+MySQL - 5.6.16 : Database - ayudaresfacil
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -142,6 +141,10 @@ CREATE TABLE `message` (
   `first_message_id` int(11) DEFAULT NULL,
   `FAQ` tinyint(1) DEFAULT '0',
   `common_state_id` char(1) NOT NULL,
+  `text` varchar(800) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  `delete_date` datetime DEFAULT NULL,
   PRIMARY KEY (`message_id`),
   KEY `publication_id` (`publication_id`),
   KEY `common_state_id` (`common_state_id`),
@@ -151,9 +154,11 @@ CREATE TABLE `message` (
   CONSTRAINT `FK_Message_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
   CONSTRAINT `FK_Message_User_From` FOREIGN KEY (`user_id_from`) REFERENCES `user` (`user_id`),
   CONSTRAINT `FK_Message_User_To` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `message` */
+
+insert  into `message`(`message_id`,`user_id_from`,`user_id_to`,`publication_id`,`first_message_id`,`FAQ`,`common_state_id`,`text`,`create_date`,`update_date`,`delete_date`) values (1,4,4,1,0,0,'N','Mensaje modificado yaa','2014-04-13 22:06:05','2014-04-13 22:33:12','2014-04-14 00:09:08'),(2,4,4,1,0,0,'N','Nuevo mensaje','2014-04-13 22:33:25',NULL,NULL);
 
 /*Table structure for table `monetary_order` */
 
@@ -302,11 +307,11 @@ CREATE TABLE `publication` (
   CONSTRAINT `FK_Publication_Category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
   CONSTRAINT `FK_Publication_Process_state` FOREIGN KEY (`process_state_id`) REFERENCES `process_state` (`process_state_id`),
   CONSTRAINT `FK_Publication_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `publication` */
 
-insert  into `publication`(`publication_id`,`user_id`,`creation_date`,`tittle`,`description`,`expiration_date`,`category_id`,`subcategory_id`,`views`,`process_state_id`) values (0,9,'0000-00-00 00:00:00','Un titulo para la publicación','Una descripción para la publicación','0000-00-00 00:00:00',1,1,12222,NULL),(1,9,'0000-00-00 00:00:00','aa','ssas',NULL,1,1,111,NULL),(2,9,'0000-00-00 00:00:00','aa','sssasa',NULL,1,1,2121,NULL);
+insert  into `publication`(`publication_id`,`user_id`,`creation_date`,`tittle`,`description`,`expiration_date`,`category_id`,`subcategory_id`,`views`,`process_state_id`,`deleted`) values (0,9,'0000-00-00 00:00:00','Un titulo para la publicación','Una descripción para la publicación','0000-00-00 00:00:00',1,1,12222,NULL,0),(1,9,'0000-00-00 00:00:00','aa','ssas',NULL,1,1,111,NULL,0),(2,9,'0000-00-00 00:00:00','aa','sssasa',NULL,1,1,2121,NULL,0);
 
 /*Table structure for table `publication_socialnetwork_activity` */
 
@@ -412,11 +417,11 @@ CREATE TABLE `user` (
   `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `UQ_User_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`user_id`,`email`,`password`,`last_login`,`enabled`,`deleted`) values (4,'sabrina@tcs.com','da39a3ee5e6b4b0d3255bfef95601890afd80709',NULL,0,0),(9,'sabrina2@tcs.com','7c4a8d09ca3762af61e59520943dc26494f8941b',NULL,1,0),(10,'sabrina3@tcs.com','7c4a8d09ca3762af61e59520943dc26494f8941b',NULL,1,0);
+insert  into `user`(`user_id`,`email`,`password`,`last_login`,`enabled`,`deleted`) values (4,'sabrina@tcs.com','da39a3ee5e6b4b0d3255bfef95601890afd80709',NULL,0,0),(9,'sabrina2@tcs.com','7c4a8d09ca3762af61e59520943dc26494f8941b',NULL,1,0),(10,'sabrina3@tcs.com','7c4a8d09ca3762af61e59520943dc26494f8941b',NULL,1,0),(11,'0','da39a3ee5e6b4b0d3255bfef95601890afd80709',NULL,0,0);
 
 /*Table structure for table `user_address` */
 
@@ -461,7 +466,7 @@ CREATE TABLE `user_data` (
 
 /*Data for the table `user_data` */
 
-insert  into `user_data`(`user_id`,`name`,`last_name`,`birthday_date`,`description`) values (4,NULL,NULL,NULL,NULL),(9,NULL,NULL,NULL,NULL),(10,NULL,NULL,NULL,NULL);
+insert  into `user_data`(`user_id`,`name`,`last_name`,`birthday_date`,`description`) values (4,NULL,NULL,NULL,NULL),(9,NULL,NULL,NULL,NULL),(10,NULL,NULL,NULL,NULL),(11,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `user_phone` */
 
