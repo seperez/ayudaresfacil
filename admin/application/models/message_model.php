@@ -63,6 +63,20 @@ class Message_model extends CI_Model
 		return $this->db->update('message', $data);
 	}
 
+	public function delete($id){
+		$this->db->trans_start();
+		
+		$data = array ('delete_date' => date('Y/m/d H:i:s'));
+		$this->db->where('message_id', $id);
+		$this->db->update('message',$data);
+		$this->db->trans_complete();
+		
+		if ($this->db->trans_status() === FALSE){
+			$id = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		
+		return $id;
+	}
+
 }
-
-

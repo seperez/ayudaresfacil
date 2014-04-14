@@ -147,5 +147,12 @@ class CI_Message {
 		}
 		return $return;
 	}
+
+	public function delete()
+	{
+		$CI =& get_instance();
+		$CI->load->model('message_model');
+		return $CI->message_model->delete($this->id);
+	}
 	
 }

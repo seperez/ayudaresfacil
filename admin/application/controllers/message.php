@@ -79,4 +79,23 @@ class Message extends CI_Controller{
 
 		echo json_encode($return);
 	}
+
+	public function delete() 
+	{
+		$error = $info = $success = "";
+		$return["result"] = "NOOK";
+		
+		$id = ($this->input->post('id') > 0) ? $this->input->post('id') :0;
+		
+		if($id > 0){
+
+			$message = CI_Message::getById($id);
+			if($message->delete()){
+				$return["result"] = "OK";
+			}
+		}
+		
+		echo json_encode($return);	
+	}
+
 }
