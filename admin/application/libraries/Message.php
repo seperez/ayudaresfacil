@@ -75,42 +75,19 @@ class CI_Message {
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}
-
 		$message = new self;
-
-		if(!(isset($row->message_id))){
-
-		$message->id = (isset($row->id)) ? $row->id : 0;
-		$message->userIdFrom = (isset($row->userIdFrom)) ? $row->userIdFrom : '';
-		$message->userIdTo = (isset($row->userIdTo)) ? $row->userIdTo : '';
-		$message->publicationId = (isset($row->publicationId)) ? $row->publicationId : '';
-		$message->firstMessageId = (isset($row->firstMessageId)) ? $row->firstMessageId : '';
-		$message->FAQ = (isset($row->FAQ)) ? $row->FAQ : '';
-		$message->commonStateId = (isset($row->commonStateId)) ? $row->commonStateId : '';
-		$message->text = (isset($row->text)) ? $row->text : '';
-		$message->createDate = (isset($row->createDate)) ? $row->createDate : '';
-		$message->updateDate = (isset($row->updateDate)) ? $row->updateDate : '';
-		$message->deleteDate = (isset($row->deleteDate)) ? $row->deleteDate : '';
-		
-		}
-		
-		else{
-
 		$message->id = (isset($row->message_id)) ? $row->message_id : 0;
-		$message->useridfrom = (isset($row->user_id_from)) ? $row->user_id_from : '';
-		$message->useridto = (isset($row->user_id_to)) ? $row->user_id_to : '';
-		$message->publicationid = (isset($row->publication_id)) ? $row->publication_id : '';
-		$message->firstmessageid = (isset($row->first_message_id)) ? $row->first_message_id : '';
+		$message->userIdFrom = (isset($row->user_id_from)) ? $row->user_id_from : '';
+		$message->userIdTo = (isset($row->user_id_to)) ? $row->user_id_to : '';
+		$message->publicationId = (isset($row->publication_id)) ? $row->publication_id : '';
+		$message->firstMessageId = (isset($row->first_message_id)) ? $row->first_message_id : '';
 		$message->FAQ = (isset($row->FAQ)) ? $row->FAQ : '';
-		$message->commonstateid = (isset($row->common_state_id)) ? $row->common_state_id : '';
+		$message->commonStateId = (isset($row->common_state_id)) ? $row->common_state_id : '';
 		$message->text = (isset($row->text)) ? $row->text : '';
-		$message->createdate = (isset($row->create_date)) ? $row->create_date : '';
-		$message->updatedate = (isset($row->update_date)) ? $row->update_date : '';
-		$message->deletedate = (isset($row->delete_date)) ? $row->delete_date : '';
-		}
-
+		$message->createDate = (isset($row->create_date)) ? $row->create_date : '';
+		$message->updateDate = (isset($row->update_date)) ? $row->update_date : '';
+		$message->deleteDate = (isset($row->delete_date)) ? $row->delete_date : '';
 		return $message;
-
 	}
 
 	public static function getById($id)
@@ -134,16 +111,11 @@ class CI_Message {
 		$CI->load->model('message_model');
 		
 		if(isset($this->id) && $this->id > 0)
-
 			$CI->message_model->update($this->getData());
-
 		else{
-
 			$this->id = $CI->message_model->create($this->getData());
-
 			if($this->id === null)
 				$return = FALSE;
-		
 		}
 		return $return;
 	}

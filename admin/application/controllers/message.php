@@ -10,7 +10,6 @@ class Message extends CI_Controller{
 		parent::__construct();
 	}
 
-
 	public function save()
 	{
 		$arrOptions['id'] = ($this->input->post('id') > 0) ? $this->input->post('id') : 0;
@@ -24,9 +23,7 @@ class Message extends CI_Controller{
 		$arrOptions['createDate'] = $arrOptions['updateDate'] = date('Y/m/d H:i:s');
 		
 		if($arrOptions['id'] > 0){
-
 			$message = CI_Message::getById($arrOptions['id']);
-
 			$message->setUserIdFrom($arrOptions['userIdFrom']);
 			$message->setUserIdTo($arrOptions['userIdTo']);
 			$message->setPublicationId($arrOptions['publicationId']);
@@ -35,29 +32,22 @@ class Message extends CI_Controller{
 			$message->setCommonStateId($arrOptions['commonStateId']);
 			$message->setText($arrOptions['text']);
 			$message->setUpdateDate($arrOptions['updateDate']);
-
 		}else{
-
-			$object = new stdClass();
-			
-			$object->userIdFrom = $arrOptions['userIdFrom'];
-			$object->userIdTo = $arrOptions['userIdTo'];
-			$object->publicationId = $arrOptions['publicationId'];
-			$object->firstMessageId = $arrOptions['firstMessageId'];
-			$object->FAQ = $arrOptions['FAQ'];
-			$object->commonStateId = $arrOptions['commonStateId'];
-			$object->text = $arrOptions['text'];
-			$object->createDate = $arrOptions['createDate'];
-			
-			$message = CI_Message::getInstance($object);
-
+			$message = new CI_Message();
+			$message->setUserIdFrom($arrOptions['userIdFrom']);
+			$message->setUserIdTo($arrOptions['userIdTo']);
+			$message->setPublicationId($arrOptions['publicationId']);
+			$message->setFirstMessageId($arrOptions['firstMessageId']);
+			$message->setFAQ($arrOptions['FAQ']);
+			$message->setCommonStateId($arrOptions['commonStateId']);
+			$message->setText($arrOptions['text']);
+			$message->setCreateDate($arrOptions['createDate']);
 		}
 		
 		if($message->save()){
 			$return["result"] = "OK";
 
 			$myMessage = new stdClass();
-
 			$myMessage->id = $message->getId();
 			$myMessage->userIdTo = $message->getUserIdTo();
 			$myMessage->userIdFrom = $message->getUserIdFrom();
@@ -68,15 +58,11 @@ class Message extends CI_Controller{
 			$myMessage->text = $message->getText();
 			$myMessage->createDate = $message->getCreateDate();
 			$myMessage->updateDate = $message->getUpdateDate();
-
+			
 			$return["data"] = $myMessage;
-
 		}else{
-
 			$return["result"] = "NOOK";
-
 		}
-
 		echo json_encode($return);
 	}
 
