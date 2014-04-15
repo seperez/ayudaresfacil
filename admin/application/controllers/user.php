@@ -78,11 +78,10 @@ class User extends CI_Controller{
 			$user->setPassword($arrOptions['password']);
 			$user->setName($arrOptions['name']);
 		}else{
-			$object = new stdClass();
-			$object->email = $arrOptions['email'];
-			$object->password = $arrOptions['password'];
-			$object->name = $arrOptions['name'];
-			$user = CI_User::getInstance($object);
+			$user = new CI_User();
+			$user->setEmail($arrOptions['email']);
+			$user->setPassword($arrOptions['password']);
+			$user->setName($arrOptions['name']);
 		}
 		
 		if($user->save()){
