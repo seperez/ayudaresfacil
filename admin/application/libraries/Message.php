@@ -90,8 +90,7 @@ class CI_Message {
 		return $message;
 	}
 
-	public static function getById($id)
-	{
+	public static function getById($id){
 		$CI = & get_instance();
 		$CI->load->model('message_model');
 		$results = $CI->message_model->getById($id);
@@ -120,11 +119,9 @@ class CI_Message {
 		return $return;
 	}
 
-	public function delete()
-	{
+	public function delete(){
 		$CI =& get_instance();
 		$CI->load->model('message_model');
 		return $CI->message_model->delete($this->id);
 	}
-	
 }

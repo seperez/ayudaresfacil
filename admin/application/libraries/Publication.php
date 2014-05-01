@@ -77,8 +77,7 @@ class CI_Publication {
 		return $publication;
 	}
 	
-	public static function getPublications()
-	{
+	public static function getPublications(){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
 		$results = $CI->publication_model->getPublications();
@@ -91,8 +90,7 @@ class CI_Publication {
 		return $return;
 	}
 	
-	public static function getById($id)
-	{
+	public static function getById($id){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
 		$results = $CI->publication_model->getById($id);
@@ -119,10 +117,22 @@ class CI_Publication {
 		return $return;
 	}
 	
-	public function delete()
-	{
+	public function delete(){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
 		return $CI->publication_model->delete($this->id);
+	}
+
+	public function getDidDonations($userId){
+		//TODO: OBTENER TODAS LAS DONACIONES HECHAS POR EL USUARIO (JOIN PUBLICATIONS - DONATIONS) 
+	}
+
+	public function getReceivedDonations($userId){
+		//TODO: OBTENER TODAS LAS DONACIONES QUE RECIVIO EL USUARIO. (JOIN PUBLICATIONS - DONATIONS) 
+		//FILTRANDO POR EL ID DE USUARIO QUE ESTA EN LA TABLA DONATIONS
+	}
+
+	public function getOffers(){
+		//TODO: OBTENER TODOS LOS OFRECIMIENTOS QUE HIZO EL USUARIO. (JOIN PUBLICATIONS - OFFERS)
 	}
 }

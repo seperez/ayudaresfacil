@@ -1,0 +1,24 @@
+<script id="categoryItemTmpl" type="text/x-jquery-tmpl">
+	<a href="catalogue.html?category=${name}" class="list-group-item">${name}</a>
+</script>
+
+<script id="featuredProductItemTmpl" type="text/x-jquery-tmpl">
+	<div class="col-lg-4 col-sm-4 hero-feature text-center">
+        <div class="thumbnail">
+        	<a href="detail.html?id=${id}" class="link-p">
+            	<img src="images/product-2.jpg" alt="">
+        	</a>
+            <div class="caption prod-caption">
+                <h4><a href="detail.html?id=${id}">${name}</a></h4>
+                <p>${description}</p>
+                <p>
+                	<div class="btn-group">
+                    	<a href="#" class="btn btn-default">$ ${price}</a>
+                    	<a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Comprar</a>
+                	</div>
+                </p>
+            </div>
+        </div>
+    </div>
+</script>
+

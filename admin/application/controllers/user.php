@@ -47,23 +47,6 @@ class User extends CI_Controller{
 		}
 		echo json_encode($return);
 	}
-
-	public function modify($id)
-	{
-		$limit = 9999999999999;
-		$offset = 0;
-		$data['user'] = CI_User::getById($id); 
-		$data['userRoles'] = CI_User::listUserRoles($limit, $offset);
-		$this->load->view('admin/form_user',$data);
-	}
-	
-	public function add()
-	{
-		$limit = 9999999999999;
-		$offset = 0;
-		$data['userRoles'] = CI_User::listUserRoles($limit, $offset);
-		$this->load->view('admin/form_user',$data);
-	}
 	
 	public function save()
 	{
@@ -113,7 +96,7 @@ class User extends CI_Controller{
 		echo json_encode($return);	
 	}
 
-	public function confirmation() 
+	public function registrationConfirm() 
 	{
 		$error = $info = $success = "";
 		$return["result"] = "NOOK";
@@ -122,7 +105,6 @@ class User extends CI_Controller{
 			$user = CI_User::getById($id);
 			if ($user && $user->confirmation())
 				$return["result"] = "OK";
-
 		}
 		
 		echo json_encode($return);	

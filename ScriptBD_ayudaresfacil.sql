@@ -1,6 +1,6 @@
 /*
 SQLyog Enterprise - MySQL GUI v8.05 
-MySQL - 5.6.16 : Database - ayudaresfacil
+MySQL - 5.5.32 : Database - ayudaresfacil
 *********************************************************************
 */
 
@@ -42,8 +42,6 @@ CREATE TABLE `category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `category` */
-
-insert  into `category`(`category_id`,`description`,`common_state_id`) values (1,'CATEGORY1','A');
 
 /*Table structure for table `city` */
 
@@ -94,11 +92,10 @@ CREATE TABLE `donated_object` (
 DROP TABLE IF EXISTS `donation`;
 
 CREATE TABLE `donation` (
-  `donation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `donation_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
   `publication_id` int(11) NOT NULL,
   `donation_date` datetime NOT NULL,
-  `amount` decimal(10,0) DEFAULT NULL,
   `process_state_id` char(1) NOT NULL,
   PRIMARY KEY (`donation_id`),
   KEY `process_state_id` (`process_state_id`),
@@ -116,7 +113,7 @@ CREATE TABLE `donation` (
 DROP TABLE IF EXISTS `favourite_publication`;
 
 CREATE TABLE `favourite_publication` (
-  `favourite_id` int(11) NOT NULL AUTO_INCREMENT,
+  `favourite_id` int(11) NOT NULL,
   `publication_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
   `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -134,17 +131,13 @@ CREATE TABLE `favourite_publication` (
 DROP TABLE IF EXISTS `message`;
 
 CREATE TABLE `message` (
-  `message_id` int(11) NOT NULL AUTO_INCREMENT,
+  `message_id` int(11) NOT NULL,
   `user_id_from` mediumint(9) NOT NULL,
   `user_id_to` mediumint(9) NOT NULL,
   `publication_id` int(11) DEFAULT NULL,
   `first_message_id` int(11) DEFAULT NULL,
   `FAQ` tinyint(1) DEFAULT '0',
   `common_state_id` char(1) NOT NULL,
-  `text` varchar(800) DEFAULT NULL,
-  `create_date` datetime DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `delete_date` datetime DEFAULT NULL,
   PRIMARY KEY (`message_id`),
   KEY `publication_id` (`publication_id`),
   KEY `common_state_id` (`common_state_id`),
@@ -154,49 +147,16 @@ CREATE TABLE `message` (
   CONSTRAINT `FK_Message_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
   CONSTRAINT `FK_Message_User_From` FOREIGN KEY (`user_id_from`) REFERENCES `user` (`user_id`),
   CONSTRAINT `FK_Message_User_To` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `message` */
-
-insert  into `message`(`message_id`,`user_id_from`,`user_id_to`,`publication_id`,`first_message_id`,`FAQ`,`common_state_id`,`text`,`create_date`,`update_date`,`delete_date`) values (1,4,4,1,0,0,'N','Mensaje modificado yaa','2014-04-13 22:06:05','2014-04-13 22:33:12','2014-04-14 00:09:08'),(2,4,4,1,0,0,'N','Nuevo mensaje','2014-04-13 22:33:25',NULL,NULL);
-
-/*Table structure for table `monetary_order` */
-
-DROP TABLE IF EXISTS `monetary_order`;
-
-CREATE TABLE `monetary_order` (
-  `publication_id` int(11) NOT NULL,
-  `total_amount` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`publication_id`),
-  KEY `publication_id` (`publication_id`),
-  CONSTRAINT `FK_Monetary_Order_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `monetary_order` */
-
-/*Table structure for table `nonmonetary_order` */
-
-DROP TABLE IF EXISTS `nonmonetary_order`;
-
-CREATE TABLE `nonmonetary_order` (
-  `publication_id` int(11) NOT NULL,
-  `object_id` int(11) NOT NULL,
-  `quantity` decimal(4,0) DEFAULT NULL,
-  PRIMARY KEY (`publication_id`,`object_id`),
-  KEY `object_id` (`object_id`),
-  KEY `publication_id` (`publication_id`),
-  CONSTRAINT `FK_NonMonetary_Order_Object` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`),
-  CONSTRAINT `FK_NonMonetary_Order_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `nonmonetary_order` */
 
 /*Table structure for table `object` */
 
 DROP TABLE IF EXISTS `object`;
 
 CREATE TABLE `object` (
-  `object_id` int(11) NOT NULL AUTO_INCREMENT,
+  `object_id` int(11) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   PRIMARY KEY (`object_id`)
@@ -288,17 +248,17 @@ CREATE TABLE `province` (
 DROP TABLE IF EXISTS `publication`;
 
 CREATE TABLE `publication` (
-  `publication_id` int(11) NOT NULL AUTO_INCREMENT,
+  `publication_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
+  `publication_type_id` tinyint(4) DEFAULT NULL,
   `creation_date` datetime NOT NULL,
-  `tittle` varchar(50) NOT NULL,
+  `title` varchar(50) NOT NULL,
   `description` text NOT NULL,
   `expiration_date` datetime DEFAULT NULL,
   `category_id` tinyint(4) DEFAULT NULL,
   `subcategory_id` tinyint(4) DEFAULT NULL,
   `views` int(11) DEFAULT NULL,
   `process_state_id` char(1) DEFAULT NULL,
-  `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`publication_id`),
   KEY `category_id` (`category_id`),
   KEY `process_state_id` (`process_state_id`),
@@ -307,11 +267,26 @@ CREATE TABLE `publication` (
   CONSTRAINT `FK_Publication_Category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
   CONSTRAINT `FK_Publication_Process_state` FOREIGN KEY (`process_state_id`) REFERENCES `process_state` (`process_state_id`),
   CONSTRAINT `FK_Publication_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `publication` */
 
-insert  into `publication`(`publication_id`,`user_id`,`creation_date`,`tittle`,`description`,`expiration_date`,`category_id`,`subcategory_id`,`views`,`process_state_id`,`deleted`) values (0,9,'0000-00-00 00:00:00','Un titulo para la publicación','Una descripción para la publicación','0000-00-00 00:00:00',1,1,12222,NULL,0),(1,9,'0000-00-00 00:00:00','aa','ssas',NULL,1,1,111,NULL,0),(2,9,'0000-00-00 00:00:00','aa','sssasa',NULL,1,1,2121,NULL,0);
+/*Table structure for table `publication_order` */
+
+DROP TABLE IF EXISTS `publication_order`;
+
+CREATE TABLE `publication_order` (
+  `publication_id` int(11) NOT NULL,
+  `object_id` int(11) NOT NULL,
+  `quantity` decimal(4,0) DEFAULT NULL,
+  PRIMARY KEY (`publication_id`,`object_id`),
+  KEY `object_id` (`object_id`),
+  KEY `publication_id` (`publication_id`),
+  CONSTRAINT `FK_NonMonetary_Order_Object` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`),
+  CONSTRAINT `FK_NonMonetary_Order_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `publication_order` */
 
 /*Table structure for table `publication_socialnetwork_activity` */
 
@@ -332,12 +307,27 @@ CREATE TABLE `publication_socialnetwork_activity` (
 
 /*Data for the table `publication_socialnetwork_activity` */
 
+/*Table structure for table `publication_type` */
+
+DROP TABLE IF EXISTS `publication_type`;
+
+CREATE TABLE `publication_type` (
+  `publication_type_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `description` varchar(300) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`publication_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+/*Data for the table `publication_type` */
+
+insert  into `publication_type`(`publication_type_id`,`name`,`description`) values (1,'Ofrecimiento',NULL),(2,'Pedido Monetario',NULL),(3,'Pedido de Objetos',NULL);
+
 /*Table structure for table `sponsor` */
 
 DROP TABLE IF EXISTS `sponsor`;
 
 CREATE TABLE `sponsor` (
-  `sponsor_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `sponsor_id` mediumint(9) NOT NULL,
   `name` varchar(50) NOT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `social_network_id` int(11) DEFAULT NULL,
@@ -388,8 +378,6 @@ CREATE TABLE `subcategory` (
 
 /*Data for the table `subcategory` */
 
-insert  into `subcategory`(`category_id`,`subcategory_id`,`description`,`common_state_id`) values (1,1,'SUBCATEGORY1','A');
-
 /*Table structure for table `type_phone` */
 
 DROP TABLE IF EXISTS `type_phone`;
@@ -417,18 +405,18 @@ CREATE TABLE `user` (
   `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `UQ_User_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
 
-insert  into `user`(`user_id`,`email`,`password`,`last_login`,`enabled`,`deleted`) values (4,'sabrina@tcs.com','da39a3ee5e6b4b0d3255bfef95601890afd80709',NULL,0,0),(9,'sabrina2@tcs.com','7c4a8d09ca3762af61e59520943dc26494f8941b',NULL,1,0),(10,'sabrina3@tcs.com','7c4a8d09ca3762af61e59520943dc26494f8941b',NULL,1,0),(11,'0','da39a3ee5e6b4b0d3255bfef95601890afd80709',NULL,0,0);
+insert  into `user`(`user_id`,`email`,`password`,`last_login`,`enabled`,`deleted`) values (1,'asd@asd.com','601f1889667efaebb33b8c12572835da3f027f78',NULL,1,0),(2,'asdddd@adsd.com','da39a3ee5e6b4b0d3255bfef95601890afd80709',NULL,1,0);
 
 /*Table structure for table `user_address` */
 
 DROP TABLE IF EXISTS `user_address`;
 
 CREATE TABLE `user_address` (
-  `address_id` int(11) NOT NULL AUTO_INCREMENT,
+  `address_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
   `street` varchar(100) DEFAULT NULL,
   `number` decimal(8,0) DEFAULT NULL,
@@ -466,14 +454,14 @@ CREATE TABLE `user_data` (
 
 /*Data for the table `user_data` */
 
-insert  into `user_data`(`user_id`,`name`,`last_name`,`birthday_date`,`description`) values (4,NULL,NULL,NULL,NULL),(9,NULL,NULL,NULL,NULL),(10,NULL,NULL,NULL,NULL),(11,NULL,NULL,NULL,NULL);
+insert  into `user_data`(`user_id`,`name`,`last_name`,`birthday_date`,`description`) values (1,'asd',NULL,NULL,NULL),(2,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `user_phone` */
 
 DROP TABLE IF EXISTS `user_phone`;
 
 CREATE TABLE `user_phone` (
-  `user_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `user_id` mediumint(9) NOT NULL,
   `phone_id` mediumint(9) NOT NULL,
   `number` varchar(25) DEFAULT NULL,
   `type_phone_id` tinyint(4) DEFAULT NULL,
@@ -511,7 +499,7 @@ CREATE TABLE `user_request` (
 DROP TABLE IF EXISTS `user_score`;
 
 CREATE TABLE `user_score` (
-  `user_id_from` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `user_id_from` mediumint(9) NOT NULL,
   `user_id_to` mediumint(9) NOT NULL,
   `publication_id` int(11) NOT NULL,
   `score` decimal(1,0) DEFAULT NULL,
