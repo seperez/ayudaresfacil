@@ -174,7 +174,7 @@ DROP TABLE IF EXISTS `publication_offer`;
 
 CREATE TABLE `publication_offer` (
   `publication_id` int(11) NOT NULL,
-  `process_state_id` char(1) DEFAULT NULL,
+  `process_state_offer` char(1) DEFAULT NULL,
   `offer_type_id` tinyint(4) DEFAULT NULL,
   `quantity_users_to_paused` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`publication_id`),
@@ -182,7 +182,7 @@ CREATE TABLE `publication_offer` (
   KEY `process_state_id` (`process_state_id`),
   KEY `publication_id` (`publication_id`),
   CONSTRAINT `FK_Offer_Offer_Type` FOREIGN KEY (`offer_type_id`) REFERENCES `offer_type` (`offer_type_id`),
-  CONSTRAINT `FK_Offer_Process_state` FOREIGN KEY (`process_state_id`) REFERENCES `process_state` (`process_state_id`),
+  CONSTRAINT `FK_Offer_Process_state` FOREIGN KEY (`process_state_offer`) REFERENCES `process_state` (`process_state_id`),
   CONSTRAINT `FK_Offer_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -307,7 +307,7 @@ CREATE TABLE `publication_type` (
 
 /*Data for the table `publication_type` */
 
-insert  into `publication_type`(`publication_type_id`,`name`,`description`) values (1,'Ofrecimiento',NULL),(2,'Pedido Monetario',NULL),(3,'Pedido de Objetos',NULL);
+insert  into `publication_type`(`publication_type_id`,`name`,`description`) values (1,'Ofrecimiento',NULL),(2,'Pedido',NULL);
 
 /*Table structure for table `sponsor` */
 

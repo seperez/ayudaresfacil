@@ -112,16 +112,29 @@ class CI_Publication {
 		$publication->processStateId = (isset($row->process_state_id)) ? $row->process_state_id : '';
 		$publication->objectId = (isset($row->object_id)) ? $row->object_id : '';
 		$publication->quantity = (isset($row->quantity)) ? $row->quantity : '';
-		$publication->processStateIdOffer = (isset($row->process_state_id)) ? $row->process_state_id : '';
+		$publication->processStateIdOffer = (isset($row->process_state_offer)) ? $row->process_state_offer : '';
 		$publication->offerTypeId = (isset($row->offer_type_id)) ? $row->offer_type_id : '';
 		$publication->quantityUsersToPaused = (isset($row->quantity_users_to_paused)) ? $row->quantity_users_to_paused : '';
 		return $publication;
 	}
 
-	public static function getPublications(){
+	public static function getRequests(){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getPublications();
+		$results = $CI->publication_model->getRequests();
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public static function getOffers(){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		$results = $CI->publication_model->getOffers();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -173,7 +186,7 @@ class CI_Publication {
 		//FILTRANDO POR EL ID DE USUARIO QUE ESTA EN LA TABLA DONATIONS
 	}
 
-	public function getOffers(){
+	public function getDidOffers($userId){
 		//TODO: OBTENER TODOS LOS OFRECIMIENTOS QUE HIZO EL USUARIO. (JOIN PUBLICATIONS - OFFERS)
 	}
 }
