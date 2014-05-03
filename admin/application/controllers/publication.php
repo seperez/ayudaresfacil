@@ -10,7 +10,7 @@ class Publication extends CI_Controller{
 	}
 
 	public function index(){}
-	
+
 	public function getPublications()
 	{
 		$return["result"] = "NOOK";
@@ -37,10 +37,11 @@ class Publication extends CI_Controller{
 		echo json_encode($return);
 	}
 
-	public function save()
-	{
-		$arrOptions['id'] = ($this->input->post('id') > 0) ? $this->input->post('id') : 0;
+	public function save(){
+
+		$arrOptions['publicationId'] = ($this->input->post('publicationId') > 0) ? $this->input->post('publicationId') : 0;
 		$arrOptions['userId'] = $this->input->post('userId');
+		$arrOptions['publicationTypeId'] = $this->input->post('publicationTypeId');
 		$arrOptions['creationDate'] = $this->input->post('creationDate');
 		$arrOptions['title'] = $this->input->post('title');
 		$arrOptions['description'] = $this->input->post('description');
@@ -48,13 +49,19 @@ class Publication extends CI_Controller{
 		$arrOptions['categoryId'] = $this->input->post('categoryId');
 		$arrOptions['subcategoryId'] = $this->input->post('subcategoryId');
 		$arrOptions['views'] = $this->input->post('views');
+		$arrOptions['processStateId'] = $this->input->post('processStateId');
+		$arrOptions['objectId'] = $this->input->post('objectId');
+		$arrOptions['quantity'] = $this->input->post('quantity');
+		$arrOptions['processStateIdOffer'] = $this->input->post('processStateIdOffer');
+		$arrOptions['offerTypeId'] = $this->input->post('offerTypeId');
+		$arrOptions['quantityUsersToPaused'] = $this->input->post('quantityUsersToPaused');
 
-		if($arrOptions['id'] > 0){
-			$publication = CI_Publication::getById($arrOptions['id']);
+		if($arrOptions['publicationId'] > 0){
+			$publication = CI_Publication::getById($arrOptions['objectId']);
 
 			$publication->setUserId($arrOptions['userId']);
 			$publication->setCreationDate($arrOptions['creationDate']);
-			$publication->setTittle($arrOptions['title']);
+			$publication->setTitle($arrOptions['title']);
 			$publication->setDescription($arrOptions['description']);
 			$publication->setExpirationDate($arrOptions['expirationDate']);
 			$publication->setCategoryId($arrOptions['categoryId']);
@@ -63,21 +70,29 @@ class Publication extends CI_Controller{
 		}else{
 			$publication = new CI_Publication();
 			$publication->setUserId($arrOptions['userId']);
+			$publication->setPublicationTypeId($arrOptions['publicationTypeId']);
 			$publication->setCreationDate($arrOptions['creationDate']);
-			$publication->setTittle($arrOptions['title']);
+			$publication->setTitle($arrOptions['title']);
 			$publication->setDescription($arrOptions['description']);
 			$publication->setExpirationDate($arrOptions['expirationDate']);
 			$publication->setCategoryId($arrOptions['categoryId']);
 			$publication->setSubcategoryId($arrOptions['subcategoryId']);
 			$publication->setViews($arrOptions['views']);
-		}
-		
+			$publication->setProcessStateId($arrOptions['processStateId']);
+			$publication->setObjectId($arrOptions['objectId']);
+			$publication->setQuantity($arrOptions['quantity']);
+			$publication->setProcessStateIdOffer($arrOptions['processStateIdOffer']);
+			$publication->setOfferTypeId($arrOptions['offerTypeId']);
+			$publication->setQuantityUsersToPaused($arrOptions['quantityUsersToPaused']);
+		} 
+
 		if($publication->save()){
 			$return["result"] = "OK";
 
 			$myPublication = new stdClass();
-			$myPublication->id = $publication->getId();
+			$myPublication->publicationId = $publication->getPublicationId();
 			$myPublication->userId = $publication->getUserId();
+			$myPublication->publicationTypeId = $publication->getPublicationTypeId();
 			$myPublication->creationDate = $publication->getCreationDate();
 			$myPublication->title = $publication->getTitle();
 			$myPublication->description = $publication->getDescription();
@@ -85,6 +100,12 @@ class Publication extends CI_Controller{
 			$myPublication->categoryId = $publication->getCategoryId();
 			$myPublication->subcategoryId = $publication->getSubcategoryId();
 			$myPublication->views = $publication->getViews();
+			$myPublication->processStateId = $publication->getProcessStateId();
+			$myPublication->objectId = $publication->getObjectId();
+			$myPublication->quantity = $publication->getQuantity();
+			$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
+			$myPublication->offerTypeId = $publication->getOfferTypeId();
+			$myPublication->quantityUsersToPaused = $publication->getQuantityUsersToPaused();
 
 			$return["data"] = $myPublication;
 		}else{
@@ -92,20 +113,20 @@ class Publication extends CI_Controller{
 		}
 		echo json_encode($return);
 	}
-	
+
 	public function delete() 
 	{
 		$error = $info = $success = "";
 		$return["result"] = "NOOK";
 		$id = $this->input->post('id');
-		
+
 		if($id > 0){
 			$publication = CI_Publication::getById($id);
 			if($publication->delete()){
 				$return["result"] = "OK";
 			}
 		}
-		
+
 		echo json_encode($return);	
 	}
 

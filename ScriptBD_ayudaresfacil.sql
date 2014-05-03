@@ -2,7 +2,8 @@
 SQLyog Enterprise - MySQL GUI v8.05 
 MySQL - 5.5.32 : Database - ayudaresfacil
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -30,9 +31,9 @@ CREATE TABLE `action` (
 
 /*Table structure for table `category` */
 
-DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `publication_category`;
 
-CREATE TABLE `category` (
+CREATE TABLE `publication_category` (
   `category_id` tinyint(4) NOT NULL,
   `description` varchar(70) NOT NULL,
   `common_state_id` char(1) NOT NULL,
@@ -108,11 +109,11 @@ CREATE TABLE `donation` (
 
 /*Data for the table `donation` */
 
-/*Table structure for table `favourite_publication` */
+/*Table structure for table `publication_favourite` */
 
-DROP TABLE IF EXISTS `favourite_publication`;
+DROP TABLE IF EXISTS `publication_favourite`;
 
-CREATE TABLE `favourite_publication` (
+CREATE TABLE `publication_favourite` (
   `favourite_id` int(11) NOT NULL,
   `publication_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
@@ -120,11 +121,11 @@ CREATE TABLE `favourite_publication` (
   PRIMARY KEY (`favourite_id`,`publication_id`,`user_id`),
   KEY `publication_id` (`publication_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `FK_Favourite_Publication_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
-  CONSTRAINT `FK_Favourite_Publication_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+  CONSTRAINT `FK_Publication_Favourite_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
+  CONSTRAINT `FK_Publication_Favourite_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `favourite_publication` */
+/*Data for the table `publication_favourite` */
 
 /*Table structure for table `message` */
 
@@ -159,16 +160,19 @@ CREATE TABLE `object` (
   `object_id` int(11) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`object_id`)
+  `common_state_id` char(1) NOT NULL,
+  PRIMARY KEY (`object_id`),
+  KEY `common_state_id` (`common_state_id`),
+  CONSTRAINT `FK_Object_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `object` */
 
 /*Table structure for table `offer` */
 
-DROP TABLE IF EXISTS `offer`;
+DROP TABLE IF EXISTS `publication_offer`;
 
-CREATE TABLE `offer` (
+CREATE TABLE `publication_offer` (
   `publication_id` int(11) NOT NULL,
   `process_state_id` char(1) DEFAULT NULL,
   `offer_type_id` tinyint(4) DEFAULT NULL,
@@ -183,23 +187,6 @@ CREATE TABLE `offer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `offer` */
-
-/*Table structure for table `offer_object` */
-
-DROP TABLE IF EXISTS `offer_object`;
-
-CREATE TABLE `offer_object` (
-  `publication_id` int(11) NOT NULL,
-  `object_id` int(11) NOT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  PRIMARY KEY (`publication_id`,`object_id`),
-  KEY `object_id` (`object_id`),
-  KEY `publication_id` (`publication_id`),
-  CONSTRAINT `FK_Offer_Object_Object` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`),
-  CONSTRAINT `FK_Offer_Object_Offer` FOREIGN KEY (`publication_id`) REFERENCES `offer` (`publication_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `offer_object` */
 
 /*Table structure for table `offer_type` */
 
@@ -248,7 +235,7 @@ CREATE TABLE `province` (
 DROP TABLE IF EXISTS `publication`;
 
 CREATE TABLE `publication` (
-  `publication_id` int(11) NOT NULL,
+  `publication_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(9) NOT NULL,
   `publication_type_id` tinyint(4) DEFAULT NULL,
   `creation_date` datetime NOT NULL,
@@ -264,29 +251,29 @@ CREATE TABLE `publication` (
   KEY `process_state_id` (`process_state_id`),
   KEY `category_id_2` (`category_id`,`subcategory_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `FK_Publication_Category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  CONSTRAINT `FK_Publication_Category` FOREIGN KEY (`category_id`) REFERENCES `publication_category` (`category_id`),
   CONSTRAINT `FK_Publication_Process_state` FOREIGN KEY (`process_state_id`) REFERENCES `process_state` (`process_state_id`),
   CONSTRAINT `FK_Publication_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `publication` */
 
-/*Table structure for table `publication_order` */
+/*Table structure for table `publication_object` */
 
-DROP TABLE IF EXISTS `publication_order`;
+DROP TABLE IF EXISTS `publication_object`;
 
-CREATE TABLE `publication_order` (
+CREATE TABLE `publication_object` (
   `publication_id` int(11) NOT NULL,
   `object_id` int(11) NOT NULL,
   `quantity` decimal(4,0) DEFAULT NULL,
   PRIMARY KEY (`publication_id`,`object_id`),
   KEY `object_id` (`object_id`),
   KEY `publication_id` (`publication_id`),
-  CONSTRAINT `FK_NonMonetary_Order_Object` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`),
-  CONSTRAINT `FK_NonMonetary_Order_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
+  CONSTRAINT `FK_Object` FOREIGN KEY (`object_id`) REFERENCES `object` (`object_id`),
+  CONSTRAINT `FK_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `publication_order` */
+/*Data for the table `publication_object` */
 
 /*Table structure for table `publication_socialnetwork_activity` */
 
@@ -340,11 +327,11 @@ CREATE TABLE `sponsor` (
 
 /*Data for the table `sponsor` */
 
-/*Table structure for table `sponsor_publication` */
+/*Table structure for table `publication_sponsor` */
 
-DROP TABLE IF EXISTS `sponsor_publication`;
+DROP TABLE IF EXISTS `publication_sponsor`;
 
-CREATE TABLE `sponsor_publication` (
+CREATE TABLE `publication_sponsor` (
   `sponsor_id` mediumint(9) NOT NULL,
   `publication_id` int(11) NOT NULL,
   `common_state_id` char(1) NOT NULL,
@@ -353,18 +340,18 @@ CREATE TABLE `sponsor_publication` (
   KEY `common_state_id` (`common_state_id`),
   KEY `publication_id` (`publication_id`),
   KEY `sponsor_id` (`sponsor_id`),
-  CONSTRAINT `FK_Sponsor_Publication_Common_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
-  CONSTRAINT `FK_Sponsor_Publication_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
-  CONSTRAINT `FK_Sponsor_Publication_Sponsor` FOREIGN KEY (`sponsor_id`) REFERENCES `sponsor` (`sponsor_id`)
+  CONSTRAINT `FK_Publication_Sponsor_Common_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
+  CONSTRAINT `FK_Publication_Sponsor_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
+  CONSTRAINT `FK_Publication_Sponsor_Sponsor` FOREIGN KEY (`sponsor_id`) REFERENCES `sponsor` (`sponsor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `sponsor_publication` */
+/*Data for the table `publication_sponsor` */
 
 /*Table structure for table `subcategory` */
 
-DROP TABLE IF EXISTS `subcategory`;
+DROP TABLE IF EXISTS `publication_subcategory`;
 
-CREATE TABLE `subcategory` (
+CREATE TABLE `publication_subcategory` (
   `category_id` tinyint(4) NOT NULL,
   `subcategory_id` tinyint(4) NOT NULL,
   `description` varchar(50) NOT NULL,
@@ -372,7 +359,7 @@ CREATE TABLE `subcategory` (
   PRIMARY KEY (`category_id`,`subcategory_id`),
   KEY `category_id` (`category_id`),
   KEY `common_state_id` (`common_state_id`),
-  CONSTRAINT `FK_Subcategory_Category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  CONSTRAINT `FK_Subcategory_Category` FOREIGN KEY (`category_id`) REFERENCES `publication_category` (`category_id`),
   CONSTRAINT `FK_Subcategory_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -408,8 +395,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
-
-insert  into `user`(`user_id`,`email`,`password`,`last_login`,`enabled`,`deleted`) values (1,'asd@asd.com','601f1889667efaebb33b8c12572835da3f027f78',NULL,1,0),(2,'asdddd@adsd.com','da39a3ee5e6b4b0d3255bfef95601890afd80709',NULL,1,0);
 
 /*Table structure for table `user_address` */
 
