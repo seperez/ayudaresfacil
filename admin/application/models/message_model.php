@@ -11,6 +11,24 @@ class Message_model extends CI_Model
 		return $query->result();
 	}
 
+	public function getByUserIdFrom($userId){
+		$this->db->select('*');	
+		$this->db->from('message');
+		$this->db->where('user_id_from',$userId);
+		$this->db->where('delete_date',null);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getByUserIdTo($userId){
+		$this->db->select('*');	
+		$this->db->from('message');
+		$this->db->where('user_id_to',$userId);
+		$this->db->where('delete_date',null);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function create($options){
 		$this->db->trans_start();
 		

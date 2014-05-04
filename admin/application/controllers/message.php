@@ -10,6 +10,62 @@ class Message extends CI_Controller{
 		parent::__construct();
 	}
 
+	public function getByUserIdTo()
+	{
+		$return["result"] = "NOOK";
+		$userIdTo = $this->input->post('userIdTo');
+		$messages = CI_Message::getByUserIdTo($userIdTo);
+		if($messages){
+			$return["result"] = "OK";
+			$return["data"] = "";
+			foreach ($messages as $key => $message) {
+				$myMessage = new  stdClass();
+				$myMessage->id = $message->getId();
+				$myMessage->userIdTo = $message->getUserIdTo();
+				$myMessage->userIdFrom = $message->getUserIdFrom();
+				$myMessage->publicationId = $message->getPublicationId();
+				$myMessage->firstMessageId = $message->getFirstMessageId();
+				$myMessage->FAQ = $message->getFAQ();
+				$myMessage->commonStateId = $message->getCommonStateId();
+				$myMessage->subject = $message->getSubject();
+				$myMessage->text = $message->getText();
+				$myMessage->createDate = $message->getCreateDate();
+				$myMessage->updateDate = $message->getUpdateDate();
+				$return["data"][$key] = $myMessage;
+			 } 
+		}
+
+		echo json_encode($return);
+	}
+
+	public function getByUserIdFrom()
+	{
+		$return["result"] = "NOOK";
+		$userIdFrom = $this->input->post('userIdFrom');
+		$messages = CI_Message::getByUserIdFrom($userIdFrom);
+		if($messages){
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($messages as $key => $message) {
+				$myMessage = new stdClass();
+				$myMessage->id = $message->getId();
+				$myMessage->userIdTo = $message->getUserIdTo();
+				$myMessage->userIdFrom = $message->getUserIdFrom();
+				$myMessage->publicationId = $message->getPublicationId();
+				$myMessage->firstMessageId = $message->getFirstMessageId();
+				$myMessage->FAQ = $message->getFAQ();			
+				$myMessage->commonStateId = $message->getCommonStateId();			
+				$myMessage->text = $message->getText();
+				$myMessage->createDate = $message->getCreateDate();
+				$myMessage->updateDate = $message->getUpdateDate();
+				$return["data"][$key] = $myMessage;
+			 } 
+		}
+
+		echo json_encode($return);
+	}
+
 	public function save()
 	{
 		$arrOptions['id'] = ($this->input->post('id') > 0) ? $this->input->post('id') : 0;

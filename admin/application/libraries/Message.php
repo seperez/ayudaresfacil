@@ -109,6 +109,32 @@ class CI_Message {
 		return $return;
 	}
 
+	public static function getByUserIdTo($userId){
+		$CI = & get_instance();
+		$CI->load->model('message_model');
+		$results = $CI->message_model->getByUserIdTo($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public static function getByUserIdFrom($userId){
+		$CI = & get_instance();
+		$CI->load->model('message_model');
+		$results = $CI->message_model->getByUserIdFrom($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
 	public function save(){
 		$return = TRUE;
 		
