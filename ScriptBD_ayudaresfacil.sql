@@ -1,9 +1,8 @@
 /*
 SQLyog Enterprise - MySQL GUI v8.05 
-MySQL - 5.5.32 : Database - ayudaresfacil
+MySQL - 5.6.16 : Database - ayudaresfacil
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -28,21 +27,6 @@ CREATE TABLE `action` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `action` */
-
-/*Table structure for table `category` */
-
-DROP TABLE IF EXISTS `publication_category`;
-
-CREATE TABLE `publication_category` (
-  `category_id` tinyint(4) NOT NULL,
-  `description` varchar(70) NOT NULL,
-  `common_state_id` char(1) NOT NULL,
-  PRIMARY KEY (`category_id`),
-  KEY `common_state_id` (`common_state_id`),
-  CONSTRAINT `FK_Category_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `category` */
 
 /*Table structure for table `city` */
 
@@ -109,36 +93,23 @@ CREATE TABLE `donation` (
 
 /*Data for the table `donation` */
 
-/*Table structure for table `publication_favourite` */
-
-DROP TABLE IF EXISTS `publication_favourite`;
-
-CREATE TABLE `publication_favourite` (
-  `favourite_id` int(11) NOT NULL,
-  `publication_id` int(11) NOT NULL,
-  `user_id` mediumint(9) NOT NULL,
-  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`favourite_id`,`publication_id`,`user_id`),
-  KEY `publication_id` (`publication_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `FK_Publication_Favourite_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
-  CONSTRAINT `FK_Publication_Favourite_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `publication_favourite` */
-
 /*Table structure for table `message` */
 
 DROP TABLE IF EXISTS `message`;
 
 CREATE TABLE `message` (
-  `message_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id_from` mediumint(9) NOT NULL,
   `user_id_to` mediumint(9) NOT NULL,
   `publication_id` int(11) DEFAULT NULL,
   `first_message_id` int(11) DEFAULT NULL,
   `FAQ` tinyint(1) DEFAULT '0',
   `common_state_id` char(1) NOT NULL,
+  `subject` varchar(50) DEFAULT NULL,
+  `text` varchar(500) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  `delete_date` datetime DEFAULT NULL,
   PRIMARY KEY (`message_id`),
   KEY `publication_id` (`publication_id`),
   KEY `common_state_id` (`common_state_id`),
@@ -148,9 +119,11 @@ CREATE TABLE `message` (
   CONSTRAINT `FK_Message_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
   CONSTRAINT `FK_Message_User_From` FOREIGN KEY (`user_id_from`) REFERENCES `user` (`user_id`),
   CONSTRAINT `FK_Message_User_To` FOREIGN KEY (`user_id_to`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `message` */
+
+insert  into `message`(`message_id`,`user_id_from`,`user_id_to`,`publication_id`,`first_message_id`,`FAQ`,`common_state_id`,`subject`,`text`,`create_date`,`update_date`,`delete_date`) values (1,4,4,0,0,0,'N','testing','Nuevo mensaje','2014-05-04 03:52:11','2014-05-04 04:05:49','2014-05-04 04:08:01'),(2,4,4,0,0,0,'N',NULL,'Nuevo mensaje','2014-05-04 03:52:34',NULL,NULL),(3,4,4,0,0,0,'N','asunto prueba','Nuevo mensaje','2014-05-04 03:55:29','2014-05-04 04:01:59',NULL),(4,4,4,0,0,0,'N','asunto prueba','Nuevo mensaje','2014-05-04 03:58:54',NULL,NULL);
 
 /*Table structure for table `object` */
 
@@ -160,33 +133,10 @@ CREATE TABLE `object` (
   `object_id` int(11) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
-  `common_state_id` char(1) NOT NULL,
-  PRIMARY KEY (`object_id`),
-  KEY `common_state_id` (`common_state_id`),
-  CONSTRAINT `FK_Object_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`)
+  PRIMARY KEY (`object_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `object` */
-
-/*Table structure for table `offer` */
-
-DROP TABLE IF EXISTS `publication_offer`;
-
-CREATE TABLE `publication_offer` (
-  `publication_id` int(11) NOT NULL,
-  `process_state_id` char(1) DEFAULT NULL,
-  `offer_type_id` tinyint(4) DEFAULT NULL,
-  `quantity_users_to_paused` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`publication_id`),
-  KEY `offer_type_id` (`offer_type_id`),
-  KEY `process_state_id` (`process_state_id`),
-  KEY `publication_id` (`publication_id`),
-  CONSTRAINT `FK_Offer_Offer_Type` FOREIGN KEY (`offer_type_id`) REFERENCES `offer_type` (`offer_type_id`),
-  CONSTRAINT `FK_Offer_Process_state` FOREIGN KEY (`process_state_id`) REFERENCES `process_state` (`process_state_id`),
-  CONSTRAINT `FK_Offer_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `offer` */
 
 /*Table structure for table `offer_type` */
 
@@ -235,7 +185,7 @@ CREATE TABLE `province` (
 DROP TABLE IF EXISTS `publication`;
 
 CREATE TABLE `publication` (
-  `publication_id` int(11) NOT NULL AUTO_INCREMENT,
+  `publication_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
   `publication_type_id` tinyint(4) DEFAULT NULL,
   `creation_date` datetime NOT NULL,
@@ -251,12 +201,47 @@ CREATE TABLE `publication` (
   KEY `process_state_id` (`process_state_id`),
   KEY `category_id_2` (`category_id`,`subcategory_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `FK_Publication_Category` FOREIGN KEY (`category_id`) REFERENCES `publication_category` (`category_id`),
+  CONSTRAINT `FK_Publication_Category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
   CONSTRAINT `FK_Publication_Process_state` FOREIGN KEY (`process_state_id`) REFERENCES `process_state` (`process_state_id`),
   CONSTRAINT `FK_Publication_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `publication` */
+
+insert  into `publication`(`publication_id`,`user_id`,`publication_type_id`,`creation_date`,`title`,`description`,`expiration_date`,`category_id`,`subcategory_id`,`views`,`process_state_id`) values (0,4,NULL,'0000-00-00 00:00:00','','',NULL,NULL,NULL,NULL,NULL);
+
+/*Table structure for table `publication_category` */
+
+DROP TABLE IF EXISTS `publication_category`;
+
+CREATE TABLE `publication_category` (
+  `category_id` tinyint(4) NOT NULL,
+  `description` varchar(70) NOT NULL,
+  `common_state_id` char(1) NOT NULL,
+  PRIMARY KEY (`category_id`),
+  KEY `common_state_id` (`common_state_id`),
+  CONSTRAINT `FK_Category_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `publication_category` */
+
+/*Table structure for table `publication_favourite` */
+
+DROP TABLE IF EXISTS `publication_favourite`;
+
+CREATE TABLE `publication_favourite` (
+  `favourite_id` int(11) NOT NULL,
+  `publication_id` int(11) NOT NULL,
+  `user_id` mediumint(9) NOT NULL,
+  `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`favourite_id`,`publication_id`,`user_id`),
+  KEY `publication_id` (`publication_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `FK_Publication_Favourite_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
+  CONSTRAINT `FK_Publication_Favourite_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `publication_favourite` */
 
 /*Table structure for table `publication_object` */
 
@@ -274,6 +259,26 @@ CREATE TABLE `publication_object` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `publication_object` */
+
+/*Table structure for table `publication_offer` */
+
+DROP TABLE IF EXISTS `publication_offer`;
+
+CREATE TABLE `publication_offer` (
+  `publication_id` int(11) NOT NULL,
+  `process_state_id` char(1) DEFAULT NULL,
+  `offer_type_id` tinyint(4) DEFAULT NULL,
+  `quantity_users_to_paused` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`publication_id`),
+  KEY `offer_type_id` (`offer_type_id`),
+  KEY `process_state_id` (`process_state_id`),
+  KEY `publication_id` (`publication_id`),
+  CONSTRAINT `FK_Offer_Offer_Type` FOREIGN KEY (`offer_type_id`) REFERENCES `offer_type` (`offer_type_id`),
+  CONSTRAINT `FK_Offer_Process_state` FOREIGN KEY (`process_state_id`) REFERENCES `process_state` (`process_state_id`),
+  CONSTRAINT `FK_Offer_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `publication_offer` */
 
 /*Table structure for table `publication_socialnetwork_activity` */
 
@@ -293,6 +298,44 @@ CREATE TABLE `publication_socialnetwork_activity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `publication_socialnetwork_activity` */
+
+/*Table structure for table `publication_sponsor` */
+
+DROP TABLE IF EXISTS `publication_sponsor`;
+
+CREATE TABLE `publication_sponsor` (
+  `sponsor_id` mediumint(9) NOT NULL,
+  `publication_id` int(11) NOT NULL,
+  `common_state_id` char(1) NOT NULL,
+  `start_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`sponsor_id`,`publication_id`),
+  KEY `common_state_id` (`common_state_id`),
+  KEY `publication_id` (`publication_id`),
+  KEY `sponsor_id` (`sponsor_id`),
+  CONSTRAINT `FK_Publication_Sponsor_Common_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
+  CONSTRAINT `FK_Publication_Sponsor_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
+  CONSTRAINT `FK_Publication_Sponsor_Sponsor` FOREIGN KEY (`sponsor_id`) REFERENCES `sponsor` (`sponsor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `publication_sponsor` */
+
+/*Table structure for table `publication_subcategory` */
+
+DROP TABLE IF EXISTS `publication_subcategory`;
+
+CREATE TABLE `publication_subcategory` (
+  `category_id` tinyint(4) NOT NULL,
+  `subcategory_id` tinyint(4) NOT NULL,
+  `description` varchar(50) NOT NULL,
+  `common_state_id` char(1) DEFAULT NULL,
+  PRIMARY KEY (`category_id`,`subcategory_id`),
+  KEY `category_id` (`category_id`),
+  KEY `common_state_id` (`common_state_id`),
+  CONSTRAINT `FK_Subcategory_Category` FOREIGN KEY (`category_id`) REFERENCES `publication_category` (`category_id`),
+  CONSTRAINT `FK_Subcategory_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `publication_subcategory` */
 
 /*Table structure for table `publication_type` */
 
@@ -327,44 +370,6 @@ CREATE TABLE `sponsor` (
 
 /*Data for the table `sponsor` */
 
-/*Table structure for table `publication_sponsor` */
-
-DROP TABLE IF EXISTS `publication_sponsor`;
-
-CREATE TABLE `publication_sponsor` (
-  `sponsor_id` mediumint(9) NOT NULL,
-  `publication_id` int(11) NOT NULL,
-  `common_state_id` char(1) NOT NULL,
-  `start_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`sponsor_id`,`publication_id`),
-  KEY `common_state_id` (`common_state_id`),
-  KEY `publication_id` (`publication_id`),
-  KEY `sponsor_id` (`sponsor_id`),
-  CONSTRAINT `FK_Publication_Sponsor_Common_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
-  CONSTRAINT `FK_Publication_Sponsor_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
-  CONSTRAINT `FK_Publication_Sponsor_Sponsor` FOREIGN KEY (`sponsor_id`) REFERENCES `sponsor` (`sponsor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `publication_sponsor` */
-
-/*Table structure for table `subcategory` */
-
-DROP TABLE IF EXISTS `publication_subcategory`;
-
-CREATE TABLE `publication_subcategory` (
-  `category_id` tinyint(4) NOT NULL,
-  `subcategory_id` tinyint(4) NOT NULL,
-  `description` varchar(50) NOT NULL,
-  `common_state_id` char(1) DEFAULT NULL,
-  PRIMARY KEY (`category_id`,`subcategory_id`),
-  KEY `category_id` (`category_id`),
-  KEY `common_state_id` (`common_state_id`),
-  CONSTRAINT `FK_Subcategory_Category` FOREIGN KEY (`category_id`) REFERENCES `publication_category` (`category_id`),
-  CONSTRAINT `FK_Subcategory_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `subcategory` */
-
 /*Table structure for table `type_phone` */
 
 DROP TABLE IF EXISTS `type_phone`;
@@ -392,9 +397,11 @@ CREATE TABLE `user` (
   `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `UQ_User_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
+
+insert  into `user`(`user_id`,`email`,`password`,`last_login`,`enabled`,`deleted`) values (1,'asd@asd.com','601f1889667efaebb33b8c12572835da3f027f78',NULL,1,0),(2,'asdddd@adsd.com','da39a3ee5e6b4b0d3255bfef95601890afd80709',NULL,1,0),(4,'sergio_areco@hotmail.com','7110eda4d09e062aa5e4a390b0a572ac0d2c0220',NULL,0,0);
 
 /*Table structure for table `user_address` */
 
@@ -439,7 +446,7 @@ CREATE TABLE `user_data` (
 
 /*Data for the table `user_data` */
 
-insert  into `user_data`(`user_id`,`name`,`last_name`,`birthday_date`,`description`) values (1,'asd',NULL,NULL,NULL),(2,NULL,NULL,NULL,NULL);
+insert  into `user_data`(`user_id`,`name`,`last_name`,`birthday_date`,`description`) values (1,'asd',NULL,NULL,NULL),(2,NULL,NULL,NULL,NULL),(4,'Sergio',NULL,NULL,NULL);
 
 /*Table structure for table `user_phone` */
 

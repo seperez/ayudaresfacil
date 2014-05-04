@@ -8,6 +8,7 @@ class CI_Message {
 	private $firstMessageId;
 	private $FAQ;
 	private $commonStateId;
+	private $subject;
 	private $text;
 	private $createDate;
 	private $updateDate;
@@ -32,6 +33,9 @@ class CI_Message {
 
 	public function getCommonStateId(){return $this->commonStateId;}
 	public function setCommonStateId($commonStateId){return $this->commonStateId = $commonStateId;}
+
+	public function getSubject(){return $this->subject;}
+	public function setSubject($subject){return $this->subject = $subject;}
 
 	public function getText(){return $this->text;}
 	public function setText($text){return $this->text = $text;}
@@ -63,6 +67,7 @@ class CI_Message {
 		$object->firstMessageId = $this->firstMessageId;
 		$object->FAQ = $this->FAQ;
 		$object->commonStateId = $this->commonStateId;
+		$object->subject = $this->subject;
 		$object->text = $this->text;
 		$object->createDate = $this->createDate;
 		$object->updateDate = $this->updateDate;
@@ -83,6 +88,7 @@ class CI_Message {
 		$message->firstMessageId = (isset($row->first_message_id)) ? $row->first_message_id : '';
 		$message->FAQ = (isset($row->FAQ)) ? $row->FAQ : '';
 		$message->commonStateId = (isset($row->common_state_id)) ? $row->common_state_id : '';
+		$message->subject = (isset($row->subject)) ? $row->subject : '';		
 		$message->text = (isset($row->text)) ? $row->text : '';
 		$message->createDate = (isset($row->create_date)) ? $row->create_date : '';
 		$message->updateDate = (isset($row->update_date)) ? $row->update_date : '';

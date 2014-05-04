@@ -21,6 +21,7 @@ class Message_model extends CI_Model
 							'first_Message_Id' => $options->firstMessageId,
 							'FAQ' => $options->FAQ,
 							'common_State_Id' => $options->commonStateId,
+							'subject' => $options->subject,
 							'text' => $options->text,
 							'create_Date' => $options->createDate
 						);
@@ -48,6 +49,7 @@ class Message_model extends CI_Model
 							'first_Message_Id' => $options->firstMessageId,
 							'FAQ' => $options->FAQ,
 							'common_State_Id' => $options->commonStateId,
+							'subject' => $options->subject,
 							'text' => $options->text,
 							'update_Date' => $options->updateDate
 						); 
