@@ -12,9 +12,10 @@ class Publication extends CI_Controller{
 	public function index(){}
 
 	public function getRequests()
-	{
+	{	
 		$return["result"] = "NOOK";
-		$publications = CI_Publication::getRequests();
+		$userId = ($this->input->post('userId') > 0) ? $this->input->post('userId') : 0;
+		$publications = CI_Publication::getRequests($userId);
 		if($publications){
 			$return["result"] = "OK";
 			$return["data"] = "";
@@ -44,7 +45,8 @@ class Publication extends CI_Controller{
 	public function getOffers()
 	{
 		$return["result"] = "NOOK";
-		$publications = CI_Publication::getOffers();
+		$userId = ($this->input->post('userId') > 0) ? $this->input->post('userId') : 0;
+		$publications = CI_Publication::getOffers($userId);
 		if($publications){
 			$return["result"] = "OK";
 			$return["data"] = "";
@@ -73,6 +75,7 @@ class Publication extends CI_Controller{
 		}
 		echo json_encode($return);
 	}
+
 	public function save(){
 
 		$arrOptions['publicationId'] = ($this->input->post('publicationId') > 0) ? $this->input->post('publicationId') : 0;

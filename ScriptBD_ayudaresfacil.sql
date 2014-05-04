@@ -179,7 +179,7 @@ CREATE TABLE `publication_offer` (
   `quantity_users_to_paused` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`publication_id`),
   KEY `offer_type_id` (`offer_type_id`),
-  KEY `process_state_id` (`process_state_id`),
+  KEY `process_state_offer` (`process_state_offer`),
   KEY `publication_id` (`publication_id`),
   CONSTRAINT `FK_Offer_Offer_Type` FOREIGN KEY (`offer_type_id`) REFERENCES `offer_type` (`offer_type_id`),
   CONSTRAINT `FK_Offer_Process_state` FOREIGN KEY (`process_state_offer`) REFERENCES `process_state` (`process_state_id`),

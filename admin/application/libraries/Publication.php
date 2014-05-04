@@ -118,10 +118,10 @@ class CI_Publication {
 		return $publication;
 	}
 
-	public static function getRequests(){
+	public static function getRequests($userId){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getRequests();
+		$results = $CI->publication_model->getRequests($userId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -131,10 +131,23 @@ class CI_Publication {
 		return $return;
 	}
 
-	public static function getOffers(){
+	public static function getOffers($userId){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getOffers();
+		$results = $CI->publication_model->getOffers($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public static function getRequestsById(){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		$results = $CI->publication_model->getRequestsById();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -184,9 +197,5 @@ class CI_Publication {
 	public function getReceivedDonations($userId){
 		//TODO: OBTENER TODAS LAS DONACIONES QUE RECIVIO EL USUARIO. (JOIN PUBLICATIONS - DONATIONS) 
 		//FILTRANDO POR EL ID DE USUARIO QUE ESTA EN LA TABLA DONATIONS
-	}
-
-	public function getDidOffers($userId){
-		//TODO: OBTENER TODOS LOS OFRECIMIENTOS QUE HIZO EL USUARIO. (JOIN PUBLICATIONS - OFFERS)
 	}
 }
