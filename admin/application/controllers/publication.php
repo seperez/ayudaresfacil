@@ -76,6 +76,44 @@ class Publication extends CI_Controller{
 		echo json_encode($return);
 	}
 
+	public function getById(){
+		$publicationId = $this->input->post('publicationId');
+		$return["result"] = "NOOK";
+		
+		$publicationType = CI_Publication::getType($publicationId);
+		$arrOptions['publicationId'] = $publicationId;
+		$arrOptions['publicationType'] = $publicationType->getPublicationTypeId();
+
+		$publication = CI_Publication::getById($arrOptions);
+
+		if($publication){
+			$return["result"] = "OK";
+			$return["data"] = "";
+			
+			$myPublication = new stdClass();
+			$myPublication->publicationId = $publication->getPublicationId();
+			$myPublication->userId = $publication->getUserId();
+			$myPublication->publicationTypeId = $publication->getPublicationTypeId();
+			$myPublication->creationDate = $publication->getCreationDate();
+			$myPublication->title = $publication->getTitle();
+			$myPublication->description = $publication->getDescription();
+			$myPublication->expirationDate = $publication->getExpirationDate();
+			$myPublication->categoryId = $publication->getCategoryId();
+			$myPublication->subcategoryId = $publication->getSubcategoryId();
+			$myPublication->views = $publication->getViews();
+			$myPublication->processStateId = $publication->getProcessStateId();
+			$myPublication->objectId = $publication->getObjectId();
+			$myPublication->quantity = $publication->getQuantity();
+			if($arrOptions['publicationType'] == 1){
+				$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
+				$myPublication->offerTypeId = $publication->getOfferTypeId();
+				$myPublication->quantityUsersToPaused = $publication->getQuantityUsersToPaused();				
+			}
+			$return["data"] = $myPublication;
+		}
+		echo json_encode($return);
+	}
+
 	public function save(){
 
 		$arrOptions['publicationId'] = ($this->input->post('publicationId') > 0) ? $this->input->post('publicationId') : 0;
@@ -165,8 +203,15 @@ class Publication extends CI_Controller{
 				$return["result"] = "OK";
 			}
 		}
-
 		echo json_encode($return);	
 	}
 
+	public function getDidDonations($userId){
+		//TODO: OBTENER TODAS LAS DONACIONES HECHAS POR EL USUARIO (JOIN PUBLICATIONS - DONATIONS) 
+	}
+
+	public function getReceivedDonations($userId){
+		//TODO: OBTENER TODAS LAS DONACIONES QUE RECIVIO EL USUARIO. (JOIN PUBLICATIONS - DONATIONS) 
+		//FILTRANDO POR EL ID DE USUARIO QUE ESTA EN LA TABLA DONATIONS
+	}
 }

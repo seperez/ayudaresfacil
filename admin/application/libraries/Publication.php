@@ -157,10 +157,23 @@ class CI_Publication {
 		return $return;
 	}
 
-	public static function getById($id){
+	public static function getById($options){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getById($id);
+		$results = $CI->publication_model->getById($options);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public static function getType($publicationId){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		$results = $CI->publication_model->getType($publicationId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {

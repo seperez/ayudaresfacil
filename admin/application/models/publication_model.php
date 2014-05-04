@@ -29,11 +29,30 @@ class Publication_model extends CI_Model
 		return $query->result();
 	}
 
-	public function getById($id){
+	public function getType($publicationId){
 		$this->db->select('*');	
-		$this->db->from('publication');
-		$this->db->where('publication_id',$id);
-		$this->db->where('deleted',0);
+		$this->db->from('publication');	
+		$this->db->where('publication_id',$publicationId);
+		$this->db->where('process_state_id', 'V');		
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getById($options){
+		if($options['publicationType'] == 1){
+			$this->db->select('*');	
+			$this->db->from('publication');	
+			$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+			$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+			$this->db->where('publication.publication_id',$options['publicationId']);
+			$this->db->where('process_state_id', 'V');	
+		}else{
+			$this->db->select('*');	
+			$this->db->from('publication');	
+			$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+			$this->db->where('publication.publication_id',$options['publicationId']);
+			$this->db->where('process_state_id', 'V');				
+		}
 		$query = $this->db->get();
 		return $query->result();
 	}
