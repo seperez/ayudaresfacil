@@ -2,19 +2,57 @@
 
 class Publication_model extends CI_Model
 {
-	public function getPublications(){
+	public function getOffers($userId){
 		$this->db->select('*');	
-		$this->db->from('publication');		
+		$this->db->from('publication');	
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+		if ($userId > 0) {
+			$this->db->where('user_id', $userId);	
+		}
+		$this->db->where('publication_type_id', 1);		
+		$this->db->where('process_state_id', 'V');		
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-
-	public function getById($id){
+	public function getRequests($userId){
 		$this->db->select('*');	
-		$this->db->from('publication');
-		$this->db->where('publication_id',$id);
-		$this->db->where('deleted',0);
+		$this->db->from('publication');	
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		if ($userId > 0) {
+			$this->db->where('user_id', $userId);	
+		}
+		$this->db->where('publication_type_id', 2);	
+		$this->db->where('process_state_id', 'V');			
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getType($publicationId){
+		$this->db->select('*');	
+		$this->db->from('publication');	
+		$this->db->where('publication_id',$publicationId);
+		$this->db->where('process_state_id', 'V');		
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getById($options){
+		if($options['publicationType'] == 1){
+			$this->db->select('*');	
+			$this->db->from('publication');	
+			$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+			$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+			$this->db->where('publication.publication_id',$options['publicationId']);
+			$this->db->where('process_state_id', 'V');	
+		}else{
+			$this->db->select('*');	
+			$this->db->from('publication');	
+			$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+			$this->db->where('publication.publication_id',$options['publicationId']);
+			$this->db->where('process_state_id', 'V');				
+		}
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -44,7 +82,7 @@ class Publication_model extends CI_Model
 		if ($options->publicationTypeId == 1) {
 			$data = array 	(
 								'publication_id' => $id,
-								'process_state_id' => $options->processStateIdOffer,
+								'process_state_offer' => $options->processStateIdOffer,
 								'offer_type_id' => $options->offerTypeId,
 								'quantity_users_to_paused' => $options->quantityUsersToPaused,
 							);

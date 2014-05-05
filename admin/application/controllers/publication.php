@@ -11,28 +11,105 @@ class Publication extends CI_Controller{
 
 	public function index(){}
 
-	public function getPublications()
-	{
+	public function getRequests()
+	{	
 		$return["result"] = "NOOK";
-		$publications = CI_Publication::getPublications();
+		$userId = ($this->input->post('userId') > 0) ? $this->input->post('userId') : 0;
+		$publications = CI_Publication::getRequests($userId);
 		if($publications){
 			$return["result"] = "OK";
 			$return["data"] = "";
 
 			foreach ($publications as $key => $publication) {
-			 	$myPublication = new stdClass();
-				$myPublication->id = $publication->getId();
+				$myPublication = new stdClass();
+				$myPublication->publicationId = $publication->getPublicationId();
 				$myPublication->userId = $publication->getUserId();
+				$myPublication->publicationTypeId = $publication->getPublicationTypeId();
 				$myPublication->creationDate = $publication->getCreationDate();
 				$myPublication->title = $publication->getTitle();
 				$myPublication->description = $publication->getDescription();
 				$myPublication->expirationDate = $publication->getExpirationDate();
 				$myPublication->categoryId = $publication->getCategoryId();
-				$myPublication->subcategory_Id = $publication->getSubcategoryId();
+				$myPublication->subcategoryId = $publication->getSubcategoryId();
 				$myPublication->views = $publication->getViews();
+				$myPublication->processStateId = $publication->getProcessStateId();
+				$myPublication->objectId = $publication->getObjectId();
+				$myPublication->quantity = $publication->getQuantity();
 
 				$return["data"][$key] = $myPublication;
 			 } 
+		}
+		echo json_encode($return);
+	}
+
+	public function getOffers()
+	{
+		$return["result"] = "NOOK";
+		$userId = ($this->input->post('userId') > 0) ? $this->input->post('userId') : 0;
+		$publications = CI_Publication::getOffers($userId);
+		if($publications){
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($publications as $key => $publication) {
+				$myPublication = new stdClass();
+				$myPublication->publicationId = $publication->getPublicationId();
+				$myPublication->userId = $publication->getUserId();
+				$myPublication->publicationTypeId = $publication->getPublicationTypeId();
+				$myPublication->creationDate = $publication->getCreationDate();
+				$myPublication->title = $publication->getTitle();
+				$myPublication->description = $publication->getDescription();
+				$myPublication->expirationDate = $publication->getExpirationDate();
+				$myPublication->categoryId = $publication->getCategoryId();
+				$myPublication->subcategoryId = $publication->getSubcategoryId();
+				$myPublication->views = $publication->getViews();
+				$myPublication->processStateId = $publication->getProcessStateId();
+				$myPublication->objectId = $publication->getObjectId();
+				$myPublication->quantity = $publication->getQuantity();
+				$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
+				$myPublication->offerTypeId = $publication->getOfferTypeId();
+				$myPublication->quantityUsersToPaused = $publication->getQuantityUsersToPaused();
+
+				$return["data"][$key] = $myPublication;
+			 } 
+		}
+		echo json_encode($return);
+	}
+
+	public function getById(){
+		$publicationId = $this->input->post('publicationId');
+		$return["result"] = "NOOK";
+		
+		$publicationType = CI_Publication::getType($publicationId);
+		$arrOptions['publicationId'] = $publicationId;
+		$arrOptions['publicationType'] = $publicationType->getPublicationTypeId();
+
+		$publication = CI_Publication::getById($arrOptions);
+
+		if($publication){
+			$return["result"] = "OK";
+			$return["data"] = "";
+			
+			$myPublication = new stdClass();
+			$myPublication->publicationId = $publication->getPublicationId();
+			$myPublication->userId = $publication->getUserId();
+			$myPublication->publicationTypeId = $publication->getPublicationTypeId();
+			$myPublication->creationDate = $publication->getCreationDate();
+			$myPublication->title = $publication->getTitle();
+			$myPublication->description = $publication->getDescription();
+			$myPublication->expirationDate = $publication->getExpirationDate();
+			$myPublication->categoryId = $publication->getCategoryId();
+			$myPublication->subcategoryId = $publication->getSubcategoryId();
+			$myPublication->views = $publication->getViews();
+			$myPublication->processStateId = $publication->getProcessStateId();
+			$myPublication->objectId = $publication->getObjectId();
+			$myPublication->quantity = $publication->getQuantity();
+			if($arrOptions['publicationType'] == 1){
+				$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
+				$myPublication->offerTypeId = $publication->getOfferTypeId();
+				$myPublication->quantityUsersToPaused = $publication->getQuantityUsersToPaused();				
+			}
+			$return["data"] = $myPublication;
 		}
 		echo json_encode($return);
 	}
@@ -126,8 +203,15 @@ class Publication extends CI_Controller{
 				$return["result"] = "OK";
 			}
 		}
-
 		echo json_encode($return);	
 	}
 
+	public function getDidDonations($userId){
+		//TODO: OBTENER TODAS LAS DONACIONES HECHAS POR EL USUARIO (JOIN PUBLICATIONS - DONATIONS) 
+	}
+
+	public function getReceivedDonations($userId){
+		//TODO: OBTENER TODAS LAS DONACIONES QUE RECIVIO EL USUARIO. (JOIN PUBLICATIONS - DONATIONS) 
+		//FILTRANDO POR EL ID DE USUARIO QUE ESTA EN LA TABLA DONATIONS
+	}
 }

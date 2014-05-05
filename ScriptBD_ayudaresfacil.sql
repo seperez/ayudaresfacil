@@ -2,7 +2,8 @@
 SQLyog Enterprise - MySQL GUI v8.05 
 MySQL - 5.6.16 : Database - ayudaresfacil
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -137,6 +138,26 @@ CREATE TABLE `object` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `object` */
+
+/*Table structure for table `offer` */
+
+DROP TABLE IF EXISTS `publication_offer`;
+
+CREATE TABLE `publication_offer` (
+  `publication_id` int(11) NOT NULL,
+  `process_state_offer` char(1) DEFAULT NULL,
+  `offer_type_id` tinyint(4) DEFAULT NULL,
+  `quantity_users_to_paused` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`publication_id`),
+  KEY `offer_type_id` (`offer_type_id`),
+  KEY `process_state_offer` (`process_state_offer`),
+  KEY `publication_id` (`publication_id`),
+  CONSTRAINT `FK_Offer_Offer_Type` FOREIGN KEY (`offer_type_id`) REFERENCES `offer_type` (`offer_type_id`),
+  CONSTRAINT `FK_Offer_Process_state` FOREIGN KEY (`process_state_offer`) REFERENCES `process_state` (`process_state_id`),
+  CONSTRAINT `FK_Offer_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `offer` */
 
 /*Table structure for table `offer_type` */
 
@@ -298,6 +319,39 @@ CREATE TABLE `publication_socialnetwork_activity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `publication_socialnetwork_activity` */
+
+/*Table structure for table `publication_type` */
+
+DROP TABLE IF EXISTS `publication_type`;
+
+CREATE TABLE `publication_type` (
+  `publication_type_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `description` varchar(300) COLLATE utf8_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`publication_type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+/*Data for the table `publication_type` */
+
+insert  into `publication_type`(`publication_type_id`,`name`,`description`) values (1,'Ofrecimiento',NULL),(2,'Pedido',NULL);
+
+/*Table structure for table `sponsor` */
+
+DROP TABLE IF EXISTS `sponsor`;
+
+CREATE TABLE `sponsor` (
+  `sponsor_id` mediumint(9) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `social_network_id` int(11) DEFAULT NULL,
+  `common_state_id` char(1) DEFAULT NULL,
+  PRIMARY KEY (`sponsor_id`),
+  UNIQUE KEY `UQ_Sponsor_social_network_id` (`social_network_id`),
+  KEY `common_state_id` (`common_state_id`),
+  CONSTRAINT `FK_Sponsor_Common_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sponsor` */
 
 /*Table structure for table `publication_sponsor` */
 

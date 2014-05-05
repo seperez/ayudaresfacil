@@ -112,16 +112,16 @@ class CI_Publication {
 		$publication->processStateId = (isset($row->process_state_id)) ? $row->process_state_id : '';
 		$publication->objectId = (isset($row->object_id)) ? $row->object_id : '';
 		$publication->quantity = (isset($row->quantity)) ? $row->quantity : '';
-		$publication->processStateIdOffer = (isset($row->process_state_id)) ? $row->process_state_id : '';
+		$publication->processStateIdOffer = (isset($row->process_state_offer)) ? $row->process_state_offer : '';
 		$publication->offerTypeId = (isset($row->offer_type_id)) ? $row->offer_type_id : '';
 		$publication->quantityUsersToPaused = (isset($row->quantity_users_to_paused)) ? $row->quantity_users_to_paused : '';
 		return $publication;
 	}
 
-	public static function getPublications(){
+	public static function getRequests($userId){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getPublications();
+		$results = $CI->publication_model->getRequests($userId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -131,10 +131,49 @@ class CI_Publication {
 		return $return;
 	}
 
-	public static function getById($id){
+	public static function getOffers($userId){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getById($id);
+		$results = $CI->publication_model->getOffers($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public static function getRequestsById(){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		$results = $CI->publication_model->getRequestsById();
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public static function getById($options){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		$results = $CI->publication_model->getById($options);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public static function getType($publicationId){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		$results = $CI->publication_model->getType($publicationId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -171,9 +210,5 @@ class CI_Publication {
 	public function getReceivedDonations($userId){
 		//TODO: OBTENER TODAS LAS DONACIONES QUE RECIVIO EL USUARIO. (JOIN PUBLICATIONS - DONATIONS) 
 		//FILTRANDO POR EL ID DE USUARIO QUE ESTA EN LA TABLA DONATIONS
-	}
-
-	public function getOffers(){
-		//TODO: OBTENER TODOS LOS OFRECIMIENTOS QUE HIZO EL USUARIO. (JOIN PUBLICATIONS - OFFERS)
 	}
 }
