@@ -13,8 +13,8 @@ class Message extends CI_Controller{
 	public function getByUserIdTo()
 	{
 		$return["result"] = "NOOK";
-		$userIdTo = $this->input->post('userIdTo');
-		$messages = CI_Message::getByUserIdTo($userIdTo);
+		$userId = $this->input->post('userId');
+		$messages = CI_Message::getByUserIdTo($userId);
 		if($messages){
 			$return["result"] = "OK";
 			$return["data"] = "";
@@ -41,8 +41,36 @@ class Message extends CI_Controller{
 	public function getByUserIdFrom()
 	{
 		$return["result"] = "NOOK";
-		$userIdFrom = $this->input->post('userIdFrom');
-		$messages = CI_Message::getByUserIdFrom($userIdFrom);
+		$userId = $this->input->post('userId');
+		$messages = CI_Message::getByUserIdFrom($userId);
+		if($messages){
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($messages as $key => $message) {
+				$myMessage = new stdClass();
+				$myMessage->id = $message->getId();
+				$myMessage->userIdTo = $message->getUserIdTo();
+				$myMessage->userIdFrom = $message->getUserIdFrom();
+				$myMessage->publicationId = $message->getPublicationId();
+				$myMessage->firstMessageId = $message->getFirstMessageId();
+				$myMessage->FAQ = $message->getFAQ();			
+				$myMessage->commonStateId = $message->getCommonStateId();			
+				$myMessage->text = $message->getText();
+				$myMessage->createDate = $message->getCreateDate();
+				$myMessage->updateDate = $message->getUpdateDate();
+				$return["data"][$key] = $myMessage;
+			 } 
+		}
+
+		echo json_encode($return);
+	}
+
+	public function getByPublicationId()
+	{
+		$return["result"] = "NOOK";
+		$publicationId = $this->input->post('publicationId');
+		$messages = CI_Message::getByPublicationId($publicationId);
 		if($messages){
 			$return["result"] = "OK";
 			$return["data"] = "";

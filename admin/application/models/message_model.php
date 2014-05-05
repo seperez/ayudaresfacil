@@ -29,6 +29,15 @@ class Message_model extends CI_Model
 		return $query->result();
 	}
 
+	public function getByPublicationId($publicationId){
+		$this->db->select('*');
+		$this->db->from('message');
+		$this->db->where('publication_Id',$publicationId);
+		$this->db->where('delete_date',null);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function create($options){
 		$this->db->trans_start();
 		

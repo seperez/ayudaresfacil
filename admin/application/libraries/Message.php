@@ -135,6 +135,19 @@ class CI_Message {
 		return $return;
 	}
 
+	public static function getByPublicationId($publicationId){
+		$CI = & get_instance();
+		$CI->load->model('message_model');
+		$results = $CI->message_model->getByPublicationId($publicationId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
 	public function save(){
 		$return = TRUE;
 		
