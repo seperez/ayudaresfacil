@@ -157,10 +157,10 @@ class CI_Publication {
 		return $return;
 	}
 
-	public static function getById($options){
+	public static function getById($publicationId){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getById($options);
+		$results = $CI->publication_model->getById($publicationId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -173,7 +173,7 @@ class CI_Publication {
 	public static function getType($publicationId){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getType($publicationId);
+		$result = $CI->publication_model->getType($publicationId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -187,7 +187,7 @@ class CI_Publication {
 		$return = TRUE;
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		if(isset($this->id) && $this->id > 0)
+		if(isset($this->publicationId) && $this->publicationId > 0)
 			$CI->publication_model->update($this->getData());
 		else{
 			$this->id = $CI->publication_model->create($this->getData());

@@ -79,12 +79,7 @@ class Publication extends CI_Controller{
 	public function getById(){
 		$publicationId = $this->input->post('publicationId');
 		$return["result"] = "NOOK";
-		
-		$publicationType = CI_Publication::getType($publicationId);
-		$arrOptions['publicationId'] = $publicationId;
-		$arrOptions['publicationType'] = $publicationType->getPublicationTypeId();
-
-		$publication = CI_Publication::getById($arrOptions);
+		$publication = CI_Publication::getById($publicationId);
 
 		if($publication){
 			$return["result"] = "OK";
@@ -104,7 +99,7 @@ class Publication extends CI_Controller{
 			$myPublication->processStateId = $publication->getProcessStateId();
 			$myPublication->objectId = $publication->getObjectId();
 			$myPublication->quantity = $publication->getQuantity();
-			if($arrOptions['publicationType'] == 1){
+			if($myPublication->publicationTypeId == 1){
 				$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
 				$myPublication->offerTypeId = $publication->getOfferTypeId();
 				$myPublication->quantityUsersToPaused = $publication->getQuantityUsersToPaused();				
@@ -134,34 +129,31 @@ class Publication extends CI_Controller{
 		$arrOptions['quantityUsersToPaused'] = $this->input->post('quantityUsersToPaused');
 
 		if($arrOptions['publicationId'] > 0){
-			$publication = CI_Publication::getById($arrOptions['objectId']);
-
-			$publication->setUserId($arrOptions['userId']);
-			$publication->setCreationDate($arrOptions['creationDate']);
-			$publication->setTitle($arrOptions['title']);
-			$publication->setDescription($arrOptions['description']);
-			$publication->setExpirationDate($arrOptions['expirationDate']);
-			$publication->setCategoryId($arrOptions['categoryId']);
-			$publication->setSubcategoryId($arrOptions['subcategoryId']);
-			$publication->setViews($arrOptions['views']);
+			$publication = CI_Publication::getById($arrOptions['publicationId']);
 		}else{
 			$publication = new CI_Publication();
-			$publication->setUserId($arrOptions['userId']);
-			$publication->setPublicationTypeId($arrOptions['publicationTypeId']);
-			$publication->setCreationDate($arrOptions['creationDate']);
-			$publication->setTitle($arrOptions['title']);
-			$publication->setDescription($arrOptions['description']);
-			$publication->setExpirationDate($arrOptions['expirationDate']);
-			$publication->setCategoryId($arrOptions['categoryId']);
-			$publication->setSubcategoryId($arrOptions['subcategoryId']);
-			$publication->setViews($arrOptions['views']);
-			$publication->setProcessStateId($arrOptions['processStateId']);
-			$publication->setObjectId($arrOptions['objectId']);
-			$publication->setQuantity($arrOptions['quantity']);
+		} 
+		
+		$publication->setUserId($arrOptions['userId']);
+		$publication->setPublicationTypeId($arrOptions['publicationTypeId']);
+		$publication->setCreationDate($arrOptions['creationDate']);
+		$publication->setTitle($arrOptions['title']);
+		$publication->setDescription($arrOptions['description']);
+		$publication->setExpirationDate($arrOptions['expirationDate']);
+		$publication->setCategoryId($arrOptions['categoryId']);
+		$publication->setSubcategoryId($arrOptions['subcategoryId']);
+		$publication->setViews($arrOptions['views']);
+		$publication->setProcessStateId($arrOptions['processStateId']);
+		$publication->setObjectId($arrOptions['objectId']);
+		$publication->setQuantity($arrOptions['quantity']);
+		$publication->setProcessStateIdOffer($arrOptions['processStateIdOffer']);
+		$publication->setOfferTypeId($arrOptions['offerTypeId']);
+		$publication->setQuantityUsersToPaused($arrOptions['quantityUsersToPaused']);
+		if ($arrOptions['publicationTypeId'] == 1) {
 			$publication->setProcessStateIdOffer($arrOptions['processStateIdOffer']);
 			$publication->setOfferTypeId($arrOptions['offerTypeId']);
 			$publication->setQuantityUsersToPaused($arrOptions['quantityUsersToPaused']);
-		} 
+		}
 
 		if($publication->save()){
 			$return["result"] = "OK";
