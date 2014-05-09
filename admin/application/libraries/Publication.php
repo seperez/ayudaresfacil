@@ -189,4 +189,10 @@ class CI_Publication {
 		$CI->load->model('publication_model');
 		return $CI->publication_model->delete($this->publicationId);
 	}
+
+	public function pauseOffer(){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		return $CI->publication_model->pauseOffer($this->publicationId);
+	}
 }

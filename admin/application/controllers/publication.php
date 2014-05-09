@@ -197,4 +197,19 @@ class Publication extends CI_Controller{
 		}
 		echo json_encode($return);	
 	}
+
+	public function pauseOffer() 
+	{
+		$error = $info = $success = "";
+		$return["result"] = "NOOK";
+		$publicationId = $this->input->post('publicationId');
+
+		if($publicationId > 0){
+			$publication = CI_Publication::getById($publicationId);
+			if($publication->pauseOffer($publicationId)){
+				$return["result"] = "OK";
+			}
+		}
+		echo json_encode($return);	
+	}
 }
