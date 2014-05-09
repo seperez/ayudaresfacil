@@ -187,23 +187,14 @@ class Publication extends CI_Controller{
 	{
 		$error = $info = $success = "";
 		$return["result"] = "NOOK";
-		$id = $this->input->post('id');
+		$publicationId = $this->input->post('publicationId');
 
-		if($id > 0){
-			$publication = CI_Publication::getById($id);
-			if($publication->delete()){
+		if($publicationId > 0){
+			$publication = CI_Publication::getById($publicationId);
+			if($publication->delete($publicationId)){
 				$return["result"] = "OK";
 			}
 		}
 		echo json_encode($return);	
-	}
-
-	public function getDidDonations($userId){
-		//TODO: OBTENER TODAS LAS DONACIONES HECHAS POR EL USUARIO (JOIN PUBLICATIONS - DONATIONS) 
-	}
-
-	public function getReceivedDonations($userId){
-		//TODO: OBTENER TODAS LAS DONACIONES QUE RECIVIO EL USUARIO. (JOIN PUBLICATIONS - DONATIONS) 
-		//FILTRANDO POR EL ID DE USUARIO QUE ESTA EN LA TABLA DONATIONS
 	}
 }

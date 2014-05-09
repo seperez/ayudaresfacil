@@ -170,19 +170,6 @@ class CI_Publication {
 		return $return;
 	}
 
-	public static function getType($publicationId){
-		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		$result = $CI->publication_model->getType($publicationId);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return = self::getInstance($result);
-			}
-		}
-		return $return;
-	}
-
 	public function save(){
 		$return = TRUE;
 		$CI =& get_instance();
@@ -201,14 +188,5 @@ class CI_Publication {
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
 		return $CI->publication_model->delete($this->publicationId);
-	}
-
-	public function getDidDonations($userId){
-		//TODO: OBTENER TODAS LAS DONACIONES HECHAS POR EL USUARIO (JOIN PUBLICATIONS - DONATIONS) 
-	}
-
-	public function getReceivedDonations($userId){
-		//TODO: OBTENER TODAS LAS DONACIONES QUE RECIVIO EL USUARIO. (JOIN PUBLICATIONS - DONATIONS) 
-		//FILTRANDO POR EL ID DE USUARIO QUE ESTA EN LA TABLA DONATIONS
 	}
 }

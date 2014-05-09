@@ -29,15 +29,6 @@ class Publication_model extends CI_Model
 		return $query->result();
 	}
 
-	public function getType($publicationId){
-		$this->db->select('*');	
-		$this->db->from('publication');	
-		$this->db->where('publication_id',$publicationId);
-		$this->db->where('process_state_id', 'V');		
-		$query = $this->db->get();
-		return $query->result();
-	}
-
 	public function getById($publicationId){	
 		$this->db->select('*');	
 		$this->db->from('publication');	
@@ -98,20 +89,20 @@ class Publication_model extends CI_Model
 		return $id;
 	}
 
-	public function delete($id){
+	public function delete($publicationId){
 
 		$this->db->trans_start();
-		$data = array ('deleted' => 1);
-		$this->db->where('publication_id', $id);
+		$data = array ('process_state_id' => 'C');
+		$this->db->where('publication_id', $publicationId);
 		$this->db->update('publication',$data);
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === FALSE){
-			$id = null;
+			$publicationId = null;
       		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
 		}
 
-		return $id;
+		return $publicationId;
 	}
 
 	public function update($options){
