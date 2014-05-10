@@ -89,38 +89,6 @@ class Publication_model extends CI_Model
 		return $id;
 	}
 
-	public function delete($publicationId){
-
-		$this->db->trans_start();
-		$data = array ('process_state_id' => 'C');
-		$this->db->where('publication_id', $publicationId);
-		$this->db->update('publication',$data);
-		$this->db->trans_complete();
-
-		if ($this->db->trans_status() === FALSE){
-			$publicationId = null;
-      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
-		}
-
-		return $publicationId;
-	}
-
-	public function pauseOffer($publicationId){
-
-		$this->db->trans_start();
-		$data = array ('process_state_offer' => 'P');
-		$this->db->where('publication_id', $publicationId);
-		$this->db->update('publication_offer',$data);
-		$this->db->trans_complete();
-
-		if ($this->db->trans_status() === FALSE){
-			$publicationId = null;
-      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
-		}
-
-		return $publicationId;
-	}
-
 	public function update($options){
 		$this->db->trans_start();
 		$data = array 	(
@@ -158,5 +126,48 @@ class Publication_model extends CI_Model
 			$id = null;
       		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
 		}
+	}
+
+	public function delete($publicationId){
+
+		$this->db->trans_start();
+		$data = array ('process_state_id' => 'C');
+		$this->db->where('publication_id', $publicationId);
+		$this->db->update('publication',$data);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+
+		return $publicationId;
+	}
+
+	public function pauseOffer($publicationId){
+
+		$this->db->trans_start();
+		$data = array ('process_state_offer' => 'P');
+		$this->db->where('publication_id', $publicationId);
+		$this->db->update('publication_offer',$data);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+
+		return $publicationId;
+	}
+
+	public function addFavourite($options){
+		$data = array 	(
+							'publication_id' => $options['publicationId'],
+							'user_id' => $options['userId']
+						);
+		$this->db->insert('publication_favourite', $data);
+		$id = $this->db->insert_id();
+
+		return $id;
 	}
 }

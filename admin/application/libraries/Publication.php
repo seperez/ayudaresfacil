@@ -195,4 +195,10 @@ class CI_Publication {
 		$CI->load->model('publication_model');
 		return $CI->publication_model->pauseOffer($this->publicationId);
 	}
+
+	public function addFavourite($options){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		return $CI->publication_model->addFavourite($options);
+	}
 }

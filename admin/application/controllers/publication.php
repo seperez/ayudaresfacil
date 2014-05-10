@@ -11,8 +11,7 @@ class Publication extends CI_Controller{
 
 	public function index(){}
 
-	public function getRequests()
-	{	
+	public function getRequests(){	
 		$return["result"] = "NOOK";
 		$userId = ($this->input->post('userId') > 0) ? $this->input->post('userId') : 0;
 		$publications = CI_Publication::getRequests($userId);
@@ -42,8 +41,7 @@ class Publication extends CI_Controller{
 		echo json_encode($return);
 	}
 
-	public function getOffers()
-	{
+	public function getOffers(){
 		$return["result"] = "NOOK";
 		$userId = ($this->input->post('userId') > 0) ? $this->input->post('userId') : 0;
 		$publications = CI_Publication::getOffers($userId);
@@ -183,8 +181,7 @@ class Publication extends CI_Controller{
 		echo json_encode($return);
 	}
 
-	public function delete() 
-	{
+	public function delete(){
 		$error = $info = $success = "";
 		$return["result"] = "NOOK";
 		$publicationId = $this->input->post('publicationId');
@@ -198,8 +195,7 @@ class Publication extends CI_Controller{
 		echo json_encode($return);	
 	}
 
-	public function pauseOffer() 
-	{
+	public function pauseOffer(){
 		$error = $info = $success = "";
 		$return["result"] = "NOOK";
 		$publicationId = $this->input->post('publicationId');
@@ -207,6 +203,22 @@ class Publication extends CI_Controller{
 		if($publicationId > 0){
 			$publication = CI_Publication::getById($publicationId);
 			if($publication->pauseOffer($publicationId)){
+				$return["result"] = "OK";
+			}
+		}
+		echo json_encode($return);	
+	}
+
+	public function addFavourite(){
+		$error = $info = $success = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->input->post('publicationId');
+		$arrOptions['userId'] = $this->input->post('userId');
+
+		if($arrOptions['publicationId'] > 0){
+			$publication = CI_Publication::getById($arrOptions['publicationId']);
+			if($publication->addFavourite($arrOptions)){
 				$return["result"] = "OK";
 			}
 		}
