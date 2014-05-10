@@ -206,7 +206,7 @@ CREATE TABLE `province` (
 DROP TABLE IF EXISTS `publication`;
 
 CREATE TABLE `publication` (
-  `publication_id` int(11) NOT NULL,
+  `publication_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(9) NOT NULL,
   `publication_type_id` tinyint(4) DEFAULT NULL,
   `creation_date` datetime NOT NULL,
@@ -222,7 +222,7 @@ CREATE TABLE `publication` (
   KEY `process_state_id` (`process_state_id`),
   KEY `category_id_2` (`category_id`,`subcategory_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `FK_Publication_Category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  CONSTRAINT `FK_Publication_Category` FOREIGN KEY (`category_id`) REFERENCES `publication_category` (`category_id`),
   CONSTRAINT `FK_Publication_Process_state` FOREIGN KEY (`process_state_id`) REFERENCES `process_state` (`process_state_id`),
   CONSTRAINT `FK_Publication_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -251,7 +251,7 @@ CREATE TABLE `publication_category` (
 DROP TABLE IF EXISTS `publication_favourite`;
 
 CREATE TABLE `publication_favourite` (
-  `favourite_id` int(11) NOT NULL,
+  `favourite_id` int(11) NOT NULL AUTO_INCREMENT,
   `publication_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
   `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -287,15 +287,15 @@ DROP TABLE IF EXISTS `publication_offer`;
 
 CREATE TABLE `publication_offer` (
   `publication_id` int(11) NOT NULL,
-  `process_state_id` char(1) DEFAULT NULL,
+  `process_state_offer` char(1) DEFAULT NULL,
   `offer_type_id` tinyint(4) DEFAULT NULL,
   `quantity_users_to_paused` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`publication_id`),
   KEY `offer_type_id` (`offer_type_id`),
-  KEY `process_state_id` (`process_state_id`),
+  KEY `process_state_offer` (`process_state_offer`),
   KEY `publication_id` (`publication_id`),
   CONSTRAINT `FK_Offer_Offer_Type` FOREIGN KEY (`offer_type_id`) REFERENCES `offer_type` (`offer_type_id`),
-  CONSTRAINT `FK_Offer_Process_state` FOREIGN KEY (`process_state_id`) REFERENCES `process_state` (`process_state_id`),
+  CONSTRAINT `FK_Offer_Process_state` FOREIGN KEY (`process_state_offer`) REFERENCES `process_state` (`process_state_id`),
   CONSTRAINT `FK_Offer_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
