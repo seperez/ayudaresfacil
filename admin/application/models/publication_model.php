@@ -170,4 +170,29 @@ class Publication_model extends CI_Model
 
 		return $id;
 	}
+
+	public function getOffersFavourites($userId){		
+		$this->db->select('*');	
+		$this->db->from('publication');	
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+		$this->db->join('publication_favourite', "publication.publication_id = publication_favourite.publication_id");
+		$this->db->where('publication_favourite.user_id', $userId);	
+		$this->db->where('publication.publication_type_id', 1);	
+		$this->db->where('publication.process_state_id', 'V');	
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getRequestsFavourites($userId){		
+		$this->db->select('*');	
+		$this->db->from('publication');	
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		$this->db->join('publication_favourite', "publication.publication_id = publication_favourite.publication_id");
+		$this->db->where('publication_favourite.user_id', $userId);	
+		$this->db->where('publication.publication_type_id', 2);	
+		$this->db->where('publication.process_state_id', 'V');	
+		$query = $this->db->get();
+		return $query->result();
+	}
 }

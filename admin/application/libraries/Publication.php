@@ -201,4 +201,30 @@ class CI_Publication {
 		$CI->load->model('publication_model');
 		return $CI->publication_model->addFavourite($options);
 	}
+
+	public static function getOffersFavourites($userId){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		$results = $CI->publication_model->getOffersFavourites($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+	
+	public static function getRequestsFavourites($userId){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+		$results = $CI->publication_model->getRequestsFavourites($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
 }
