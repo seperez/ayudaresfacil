@@ -58,6 +58,7 @@ $autoload['libraries'] = array(
 								'database',
 								'User',
 								'Publication',
+								'PublicationType',
 								'Message'
 								);
 

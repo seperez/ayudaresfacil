@@ -23,7 +23,7 @@ class Publication extends CI_Controller{
 				$myPublication = new stdClass();
 				$myPublication->publicationId = $publication->getPublicationId();
 				$myPublication->userId = $publication->getUserId();
-				$myPublication->publicationTypeId = $publication->getPublicationTypeId();
+				$myPublication->type = $publication->getType();
 				$myPublication->creationDate = $publication->getCreationDate();
 				$myPublication->title = $publication->getTitle();
 				$myPublication->description = $publication->getDescription();

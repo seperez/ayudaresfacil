@@ -3,7 +3,7 @@
 class CI_Publication {
 	private $publicationId;
 	private $userId;
-	private $publicationTypeId;
+	private $type;
 	private $creationDate;
 	private $title;
 	private $description;
@@ -21,10 +21,10 @@ class CI_Publication {
 	public function getPublicationId() {return $this->publicationId;}
 
 	public function getUserId() {return $this->userId;}
-	public function setUserId($userId){$this->userId = $userId;}
+	public function setUserId($userId){$this->userId = CI_User::getById($userId);}
 	
-	public function getPublicationTypeId(){return $this->publicationTypeId;}
-	public function setPublicationTypeId($publicationTypeId){$this->publicationTypeId = $publicationTypeId;}
+	public function getType(){return $this->type;}
+	public function setType($publicationTypeId){$this->type = CI_PublicationType::getById($publicationTypeId);}
 
 	public function getCreationDate(){return $this->creationDate;}
 	public function setCreationDate($creationDate){$this->creationDate = $creationDate;}
@@ -67,7 +67,7 @@ class CI_Publication {
 
 	/**
 	 * Devuelve la informacion cargada del objeto 
-	 * 	
+	 * 		
 	 * Uso interno
 	 *  
 	 * @return object
@@ -77,7 +77,7 @@ class CI_Publication {
 		$object = new stdClass();
 		$object->publicationId = $this->publicationId;
 		$object->userId = $this->userId;
-		$object->publicationTypeId = $this->publicationTypeId;
+		$object->type =  $this->type;
 		$object->creationDate = $this->creationDate;
 		$object->title = $this->title;
 		$object->description = $this->description;
@@ -100,8 +100,8 @@ class CI_Publication {
 		}	
 		$publication = new self;
 		$publication->publicationId = (isset($row->publication_id)) ? $row->publication_id : 0;
-		$publication->userId = (isset($row->user_id)) ? $row->user_id : '';
-		$publication->publicationTypeId = (isset($row->publication_type_id)) ? $row->publication_type_id : '';
+		$publication->userId = (isset($row->user_id)) ? CI_User::getById($row->user_id) : '';
+		$publication->type = (isset($row->publication_type_id)) ? CI_PublicationType::getById($row->publication_type_id) : '';
 		$publication->creationDate = (isset($row->creation_date)) ? $row->creation_date : '';
 		$publication->title = (isset($row->title)) ? $row->title : '';
 		$publication->description = (isset($row->description)) ? $row->description : '';
