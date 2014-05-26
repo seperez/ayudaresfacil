@@ -1,6 +1,6 @@
 <?php
 
-class PhoneType_model extends CI_Model
+class Phone_type_model extends CI_Model
 {
 	public function getPhoneTypes(){
 		$this->db->select('*');	

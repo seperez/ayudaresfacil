@@ -1,6 +1,6 @@
 <?php
 
-class CommonState_model extends CI_Model
+class Common_state_model extends CI_Model
 {
 	public function getCommonStates(){
 		$this->db->select('*');	

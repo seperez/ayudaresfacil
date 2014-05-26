@@ -1,18 +1,18 @@
 <?php
 
-class ProcessState_model extends CI_Model
+class Publication_type_model extends CI_Model
 {
-	public function getProcessStates(){
+	public function getPublicationTypes(){
 		$this->db->select('*');	
-		$this->db->from('process_state');
+		$this->db->from('publication_type');
 		$query = $this->db->get();
 		return $query->result();
 	}
 	
 	public function getById($id){
 		$this->db->select('*');	
-		$this->db->from('process_state');
-		$this->db->where('process_state_id',$id);
+		$this->db->from('publication_type');
+		$this->db->where('publication_type_id',$id);
 		$query = $this->db->get();
 		return $query->result();
 	}

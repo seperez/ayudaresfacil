@@ -34,8 +34,8 @@ class CI_PhoneType {
 	public static function getPhoneTypes()
 	{
 		$CI = & get_instance();
-		$CI->load->model('phoneType_model');
-		$results = $CI->phoneType_model->getPhoneTypes();
+		$CI->load->model('phone_type_model');
+		$results = $CI->phone_type_model->getPhoneTypes();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -48,8 +48,8 @@ class CI_PhoneType {
 	public static function getById($id)
 	{
 		$CI = & get_instance();
-		$CI->load->model('phoneType_model');
-		$results = $CI->phoneType_model->getById($id);
+		$CI->load->model('phone_type_model');
+		$results = $CI->phone_type_model->getById($id);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {

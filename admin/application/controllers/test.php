@@ -10,8 +10,14 @@ class Test extends CI_Controller{
 	}
 		
 	public function index() {
-
+		// **
+		// CI_PhoneType
+		// **
         $phoneTypes = CI_PhoneType::getPhoneTypes();
         ma($phoneTypes);
+
+		$phoneType = CI_PhoneType::getById(1);
+        ma($phoneType);
+        
     }    
 }
