@@ -9,9 +9,9 @@ class CI_Publication {
 	private $description;
 	private $expirationDate;
 	private $category;
-	private $subcategoryId;
+	private $subcategory;
 	private $views;
-	private $processStateId;
+	private $processState;
 	private $objectId;
 	private $quantity;
 	private $processStateIdOffer;
@@ -47,8 +47,8 @@ class CI_Publication {
 	public function getViews(){return $this->views;}
 	public function setViews($views){$this->views = $views;}
 
-	public function getProcessStateId(){return $this->processStateId;}
-	public function setProcessStateId($processStateId){$this->processStateId = $processStateId;}
+	public function getProcessState(){return $this->processState;}
+	public function setProcessState($processState){$this->processState = CI_ProcessState::getById($processState);}
 
 	public function getObjectId(){return $this->objectId;}
 	public function setObjectId($objectId){$this->objectId = $objectId;}
@@ -85,7 +85,7 @@ class CI_Publication {
 		$object->category = $this->category;
 		$object->subcategory = $this->subcategory;
 		$object->views = $this->views;
-		$object->processStateId = $this->processStateId;
+		$object->processState = $this->processState;
 		$object->objectId = $this->objectId;
 		$object->quantity = $this->quantity;
 		$object->processStateIdOffer = $this->processStateIdOffer;
@@ -109,7 +109,7 @@ class CI_Publication {
 		$publication->category = (isset($row->category_id)) ? CI_Category::getById($row->category_id) : '';
 		$publication->subcategory = (isset($row->subcategory_id)) ? CI_Subcategory::getById($row->subcategory_id) : '';
 		$publication->views = (isset($row->views)) ? $row->views : '';
-		$publication->processStateId = (isset($row->process_state_id)) ? $row->process_state_id : '';
+		$publication->processState = (isset($row->process_state_id)) ? CI_ProcessState::getById($row->process_state_id) : '';
 		$publication->objectId = (isset($row->object_id)) ? $row->object_id : '';
 		$publication->quantity = (isset($row->quantity)) ? $row->quantity : '';
 		$publication->processStateIdOffer = (isset($row->process_state_offer)) ? $row->process_state_offer : '';

@@ -62,7 +62,8 @@ $autoload['libraries'] = array(
 								'CommonState',
 								'Category',
 								'Subcategory',
-								'Message'
+								'Message',
+								'ProcessState'
 								);
 
 /*
