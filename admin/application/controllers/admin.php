@@ -70,4 +70,9 @@ class Admin extends CI_Controller{
 	public function user() {
         redirect(base_url()."user/index");
     }
+
+	public function test() {
+        $phoneTypes = CI_PhoneTypes::getPhoneTypes();
+        ma($phoneTypes);
+    }    
 }

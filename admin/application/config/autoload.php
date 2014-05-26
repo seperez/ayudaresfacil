@@ -64,7 +64,9 @@ $autoload['libraries'] = array(
 								'Subcategory',
 								'Message',
 								'ProcessState',
-								'Object'
+								'Object',
+								'PhoneType',
+								'Phone'
 								);
 
 /*
