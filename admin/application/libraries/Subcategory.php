@@ -1,12 +1,16 @@
 <?php
 
-class CI_Category{
+class CI_Subcategory{
 	private $id;
+	private $category;
 	private $description;
 	private $commonState;
 
 	public function getId() {return $this->id;}
 	
+	public function getCategory(){return $this->category;}
+	public function setCategory($category){$this->category = CI_Category::getById($category);}
+
 	public function getDescription(){return $this->description;}
 	public function setDescription($description){$this->description = $description;}
 
@@ -22,8 +26,9 @@ class CI_Category{
 	private function getData(){
 		$object = new stdClass();
 		$object->id = $this->id;
+		$object->category = $this->category;
 		$object->description = $this->description;
-		$object->commonState = $this->commonState->id;
+		$object->commonState = $this->commonState;
 		return $object;
 	}
 	
@@ -33,17 +38,18 @@ class CI_Category{
 		}	
 		$category = new self;
 		$category->id = (isset($row->category_id)) ? $row->category_id : 0;
+		$category->category = (isset($row->category_id)) ? CI_Category::getById($row->category_id) : '';		
 		$category->description = (isset($row->description)) ? $row->description : '';
 		$category->commonState = (isset($row->common_state_id)) ? CI_CommonState::getById($row->common_state_id) : '';		
 		
 		return $category;
 	}
 	
-	public static function getCategories()
+	public static function getSubcategories()
 	{
 		$CI = & get_instance();
-		$CI->load->model('category_model');
-		$results = $CI->category_model->getCategories();
+		$CI->load->model('subcategory_model');
+		$results = $CI->subcategory_model->getCategories();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -56,8 +62,8 @@ class CI_Category{
 	public static function getById($id)
 	{
 		$CI = & get_instance();
-		$CI->load->model('category_model');
-		$results = $CI->category_model->getById($id);
+		$CI->load->model('subcategory_model');
+		$results = $CI->subcategory_model->getById($id);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {

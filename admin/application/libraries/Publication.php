@@ -41,8 +41,8 @@ class CI_Publication {
 	public function getCategory(){return $this->category;}
 	public function setCategory($category){$this->category = CI_Category::getById($category);}
 
-	public function getSubcategoryId(){return $this->subcategoryId;}
-	public function setSubcategoryId($subcategoryId){$this->subcategoryId = $subcategoryId;}
+	public function getSubcategory(){return $this->subcategory;}
+	public function setSubcategory($subcategory){$this->subcategory = CI_Subcategory::getById($subcategory);}
 
 	public function getViews(){return $this->views;}
 	public function setViews($views){$this->views = $views;}
@@ -83,7 +83,7 @@ class CI_Publication {
 		$object->description = $this->description;
 		$object->expirationDate = $this->expirationDate;
 		$object->category = $this->category;
-		$object->subcategoryId = $this->subcategoryId;
+		$object->subcategory = $this->subcategory;
 		$object->views = $this->views;
 		$object->processStateId = $this->processStateId;
 		$object->objectId = $this->objectId;
@@ -107,7 +107,7 @@ class CI_Publication {
 		$publication->description = (isset($row->description)) ? $row->description : '';
 		$publication->expirationDate = (isset($row->expiration_date)) ? $row->expiration_date : '';
 		$publication->category = (isset($row->category_id)) ? CI_Category::getById($row->category_id) : '';
-		$publication->subcategoryId = (isset($row->subcategory_id)) ? $row->subcategory_id : '';
+		$publication->subcategory = (isset($row->subcategory_id)) ? CI_Subcategory::getById($row->subcategory_id) : '';
 		$publication->views = (isset($row->views)) ? $row->views : '';
 		$publication->processStateId = (isset($row->process_state_id)) ? $row->process_state_id : '';
 		$publication->objectId = (isset($row->object_id)) ? $row->object_id : '';

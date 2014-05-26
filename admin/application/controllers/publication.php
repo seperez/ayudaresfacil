@@ -29,7 +29,7 @@ class Publication extends CI_Controller{
 				$myPublication->description = $publication->getDescription();
 				$myPublication->expirationDate = $publication->getExpirationDate();
 				$myPublication->category = $publication->getCategory();
-				$myPublication->subcategoryId = $publication->getSubcategoryId();
+				$myPublication->subcategory = $publication->getSubcategory();
 				$myPublication->views = $publication->getViews();
 				$myPublication->processStateId = $publication->getProcessStateId();
 				$myPublication->objectId = $publication->getObjectId();
@@ -60,7 +60,7 @@ class Publication extends CI_Controller{
 				$myPublication->description = $publication->getDescription();
 				$myPublication->expirationDate = $publication->getExpirationDate();
 				$myPublication->category = $publication->getCategory();
-				$myPublication->subcategoryId = $publication->getSubcategoryId();
+				$myPublication->subcategory = $publication->getSubcategory();
 				$myPublication->views = $publication->getViews();
 				$myPublication->processStateId = $publication->getProcessStateId();
 				$myPublication->objectId = $publication->getObjectId();
@@ -93,7 +93,7 @@ class Publication extends CI_Controller{
 			$myPublication->description = $publication->getDescription();
 			$myPublication->expirationDate = $publication->getExpirationDate();
 			$myPublication->category = $publication->getCategory();
-			$myPublication->subcategoryId = $publication->getSubcategoryId();
+			$myPublication->subcategory = $publication->getSubcategory();
 			$myPublication->views = $publication->getViews();
 			$myPublication->processStateId = $publication->getProcessStateId();
 			$myPublication->objectId = $publication->getObjectId();
@@ -118,7 +118,7 @@ class Publication extends CI_Controller{
 		$arrOptions['description'] = $this->input->post('description');
 		$arrOptions['expirationDate'] = $this->input->post('expirationDate');
 		$arrOptions['category'] = $this->input->post('categoryId');
-		$arrOptions['subcategoryId'] = $this->input->post('subcategoryId');
+		$arrOptions['subcategory'] = $this->input->post('subcategoryId');
 		$arrOptions['views'] = $this->input->post('views');
 		$arrOptions['processStateId'] = $this->input->post('processStateId');
 		$arrOptions['objectId'] = $this->input->post('objectId');
@@ -134,13 +134,13 @@ class Publication extends CI_Controller{
 		} 
 		
 		$publication->setUserId($arrOptions['userId']);
-		$publication->setPublicationTypeId($arrOptions['type']);
+		$publication->setType($arrOptions['type']);
 		$publication->setCreationDate($arrOptions['creationDate']);
 		$publication->setTitle($arrOptions['title']);
 		$publication->setDescription($arrOptions['description']);
 		$publication->setExpirationDate($arrOptions['expirationDate']);
-		$publication->setCategoryId($arrOptions['category']);
-		$publication->setSubcategoryId($arrOptions['subcategoryId']);
+		$publication->setCategory($arrOptions['category']);
+		$publication->setSubcategory($arrOptions['subcategory']);
 		$publication->setViews($arrOptions['views']);
 		$publication->setProcessStateId($arrOptions['processStateId']);
 		$publication->setObjectId($arrOptions['objectId']);
@@ -166,7 +166,7 @@ class Publication extends CI_Controller{
 			$myPublication->description = $publication->getDescription();
 			$myPublication->expirationDate = $publication->getExpirationDate();
 			$myPublication->category = $publication->getCategory();
-			$myPublication->subcategoryId = $publication->getSubcategoryId();
+			$myPublication->subcategory = $publication->getSubcategory();
 			$myPublication->views = $publication->getViews();
 			$myPublication->processStateId = $publication->getProcessStateId();
 			$myPublication->objectId = $publication->getObjectId();

@@ -61,6 +61,7 @@ $autoload['libraries'] = array(
 								'PublicationType',
 								'CommonState',
 								'Category',
+								'Subcategory',
 								'Message'
 								);
 
