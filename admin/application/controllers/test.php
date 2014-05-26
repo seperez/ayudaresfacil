@@ -19,5 +19,13 @@ class Test extends CI_Controller{
 		$phoneType = CI_PhoneType::getById(1);
         ma($phoneType);
         
+        // **
+		// CI_Phone
+		// **
+        $phones = CI_Phone::getPhonesByUserId(1);
+        ma($phones);
+
+        $phones = CI_Phone::getById(1);
+        ma($phones);
     }    
 }

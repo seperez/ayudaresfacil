@@ -2,7 +2,7 @@
 
 class Phone_model extends CI_Model
 {
-	public function getPhonesByUserId(){
+	public function getPhonesByUserId($id){
 		$this->db->select('*');	
 		$this->db->from('user_phone');
 		$this->db->where('user_id',$id);
