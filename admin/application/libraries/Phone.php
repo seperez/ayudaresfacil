@@ -11,7 +11,7 @@ class CI_Phone {
 	public function setNumber($number){$this->number = $number;}
 	
 	public function getType(){return $this->type;}
-	public function setType($typeId){$this->type = CI_PhoneType::getById($typeId);}
+	public function setType($type){$this->type = CI_PhoneType::getById($type);}
 	
 	/**
 	 * Devuelve la informacion cargada del objeto 

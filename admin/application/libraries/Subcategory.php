@@ -36,20 +36,20 @@ class CI_Subcategory{
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$category = new self;
-		$category->id = (isset($row->category_id)) ? $row->category_id : 0;
-		$category->category = (isset($row->category_id)) ? CI_Category::getById($row->category_id) : '';		
-		$category->description = (isset($row->description)) ? $row->description : '';
-		$category->commonState = (isset($row->common_state_id)) ? CI_CommonState::getById($row->common_state_id) : '';		
+		$subcategory = new self;
+		$subcategory->id = (isset($row->subcategory_id)) ? $row->subcategory_id : 0;
+		$subcategory->category = (isset($row->category_id)) ? CI_Category::getById($row->category_id) : '';		
+		$subcategory->description = (isset($row->description)) ? $row->description : '';
+		$subcategory->commonState = (isset($row->common_state_id)) ? CI_CommonState::getById($row->common_state_id) : '';		
 		
-		return $category;
+		return $subcategory;
 	}
 	
 	public static function getSubcategories()
 	{
 		$CI = & get_instance();
 		$CI->load->model('subcategory_model');
-		$results = $CI->subcategory_model->getCategories();
+		$results = $CI->subcategory_model->getSubcategories();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {

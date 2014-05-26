@@ -32,11 +32,10 @@ class Publication extends CI_Controller{
 				$myPublication->subcategory = $publication->getSubcategory();
 				$myPublication->views = $publication->getViews();
 				$myPublication->processState = $publication->getProcessState();
-				$myPublication->objectId = $publication->getObjectId();
+				$myPublication->object = $publication->getObject();
 				$myPublication->quantity = $publication->getQuantity();
 
 				$return["data"][$key] = $myPublication;
-				ma($myPublication);
 			 } 
 		}
 		echo json_encode($return);
@@ -63,7 +62,7 @@ class Publication extends CI_Controller{
 				$myPublication->subcategory = $publication->getSubcategory();
 				$myPublication->views = $publication->getViews();
 				$myPublication->processState = $publication->getProcessState();
-				$myPublication->objectId = $publication->getObjectId();
+				$myPublication->object = $publication->getObject();
 				$myPublication->quantity = $publication->getQuantity();
 				$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
 				$myPublication->offerTypeId = $publication->getOfferTypeId();
@@ -96,7 +95,7 @@ class Publication extends CI_Controller{
 			$myPublication->subcategory = $publication->getSubcategory();
 			$myPublication->views = $publication->getViews();
 			$myPublication->processState = $publication->getProcessState();
-			$myPublication->objectId = $publication->getObjectId();
+			$myPublication->object = $publication->getObject();
 			$myPublication->quantity = $publication->getQuantity();
 			if($myPublication->type == 1){
 				$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
@@ -121,7 +120,7 @@ class Publication extends CI_Controller{
 		$arrOptions['subcategory'] = $this->input->post('subcategoryId');
 		$arrOptions['views'] = $this->input->post('views');
 		$arrOptions['processState'] = $this->input->post('processStateId');
-		$arrOptions['objectId'] = $this->input->post('objectId');
+		$arrOptions['object'] = $this->input->post('objectId');
 		$arrOptions['quantity'] = $this->input->post('quantity');
 		$arrOptions['processStateIdOffer'] = $this->input->post('processStateIdOffer');
 		$arrOptions['offerTypeId'] = $this->input->post('offerTypeId');
@@ -142,8 +141,8 @@ class Publication extends CI_Controller{
 		$publication->setCategory($arrOptions['category']);
 		$publication->setSubcategory($arrOptions['subcategory']);
 		$publication->setViews($arrOptions['views']);
-		$publication->setProcessStateId($arrOptions['processState']);
-		$publication->setObjectId($arrOptions['objectId']);
+		$publication->setProcessState($arrOptions['processState']);
+		$publication->setObject($arrOptions['object']);
 		$publication->setQuantity($arrOptions['quantity']);
 		$publication->setProcessStateIdOffer($arrOptions['processStateIdOffer']);
 		$publication->setOfferTypeId($arrOptions['offerTypeId']);
@@ -169,7 +168,7 @@ class Publication extends CI_Controller{
 			$myPublication->subcategory = $publication->getSubcategory();
 			$myPublication->views = $publication->getViews();
 			$myPublication->processState = $publication->getProcessState();
-			$myPublication->objectId = $publication->getObjectId();
+			$myPublication->object = $publication->getObject();
 			$myPublication->quantity = $publication->getQuantity();
 			$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
 			$myPublication->offerTypeId = $publication->getOfferTypeId();

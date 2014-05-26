@@ -50,8 +50,8 @@ class CI_Publication {
 	public function getProcessState(){return $this->processState;}
 	public function setProcessState($processState){$this->processState = CI_ProcessState::getById($processState);}
 
-	public function getObjectId(){return $this->objectId;}
-	public function setObjectId($objectId){$this->objectId = $objectId;}
+	public function getObject(){return $this->object;}
+	public function setObject($object){$this->object = $object;}
 
 	public function getQuantity(){return $this->quantity;}
 	public function setQuantity($quantity){$this->quantity = $quantity;}
@@ -86,7 +86,7 @@ class CI_Publication {
 		$object->subcategory = $this->subcategory;
 		$object->views = $this->views;
 		$object->processState = $this->processState;
-		$object->objectId = $this->objectId;
+		$object->object = $this->object;
 		$object->quantity = $this->quantity;
 		$object->processStateIdOffer = $this->processStateIdOffer;
 		$object->offerTypeId = $this->offerTypeId;
@@ -110,7 +110,7 @@ class CI_Publication {
 		$publication->subcategory = (isset($row->subcategory_id)) ? CI_Subcategory::getById($row->subcategory_id) : '';
 		$publication->views = (isset($row->views)) ? $row->views : '';
 		$publication->processState = (isset($row->process_state_id)) ? CI_ProcessState::getById($row->process_state_id) : '';
-		$publication->objectId = (isset($row->object_id)) ? $row->object_id : '';
+		$publication->object = (isset($row->object_id)) ? CI_Object::getById($row->object_id) : '';
 		$publication->quantity = (isset($row->quantity)) ? $row->quantity : '';
 		$publication->processStateIdOffer = (isset($row->process_state_offer)) ? $row->process_state_offer : '';
 		$publication->offerTypeId = (isset($row->offer_type_id)) ? $row->offer_type_id : '';
