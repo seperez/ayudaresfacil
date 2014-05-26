@@ -59,6 +59,7 @@ $autoload['libraries'] = array(
 								'User',
 								'Publication',
 								'PublicationType',
+								'CommonState',
 								'Category',
 								'Message'
 								);

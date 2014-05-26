@@ -39,7 +39,7 @@ class CI_Publication {
 	public function setExpirationDate($expirationDate){$this->expirationDate = $expirationDate;}
 
 	public function getCategory(){return $this->category;}
-	public function setCategory($category){$this->category = $category;}
+	public function setCategory($category){$this->category = CI_Category::getById($category);}
 
 	public function getSubcategoryId(){return $this->subcategoryId;}
 	public function setSubcategoryId($subcategoryId){$this->subcategoryId = $subcategoryId;}

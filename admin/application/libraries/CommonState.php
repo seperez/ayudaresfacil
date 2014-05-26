@@ -1,17 +1,17 @@
 <?php
 
-class CI_Category{
+class CI_CommonState {
 	private $id;
 	private $description;
-	private $commonState;
+	private $comments;
 
 	public function getId() {return $this->id;}
 	
 	public function getDescription(){return $this->description;}
 	public function setDescription($description){$this->description = $description;}
 
-	public function getCommonState(){return $this->commonState;}
-	public function setCommonState($commonState){$this->commonState = CI_CommonState::getById($commonState);}
+	public function getComments(){return $this->comments;}
+	public function setComments($comments){$this->comments = $comments;}
 
 	/**
 	 * Devuelve la informacion cargada del objeto 
@@ -23,7 +23,7 @@ class CI_Category{
 		$object = new stdClass();
 		$object->id = $this->id;
 		$object->description = $this->description;
-		$object->commonState = $this->commonState->id;
+		$object->comments = $this->comments;
 		return $object;
 	}
 	
@@ -31,19 +31,18 @@ class CI_Category{
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$category = new self;
-		$category->id = (isset($row->category_id)) ? $row->category_id : 0;
-		$category->description = (isset($row->description)) ? $row->description : '';
-		$category->commonState = (isset($row->common_state_id)) ? CI_CommonState::getById($row->common_state_id) : '';		
-		
-		return $category;
+		$phoneType = new self;
+		$phoneType->id = (isset($row->category_id)) ? $row->category_id : 0;
+		$phoneType->description = (isset($row->description)) ? $row->description : '';
+		$phoneType->comments = (isset($row->comments)) ? $row->comments : '';
+		return $phoneType;
 	}
 	
-	public static function getPublicationTypes()
+	public static function getCommonStates()
 	{
 		$CI = & get_instance();
-		$CI->load->model('category_model');
-		$results = $CI->category_model->getCategories();
+		$CI->load->model('commonState_model');
+		$results = $CI->commonState_model->getCommonStates();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -56,8 +55,8 @@ class CI_Category{
 	public static function getById($id)
 	{
 		$CI = & get_instance();
-		$CI->load->model('category_model');
-		$results = $CI->category_model->getById($id);
+		$CI->load->model('commonState_model');
+		$results = $CI->commonState_model->getById($id);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
