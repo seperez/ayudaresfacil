@@ -1,0 +1,68 @@
+<?php
+
+class CI_Category{
+	private $id;
+	private $description;
+	private $commonState;
+
+	public function getId() {return $this->id;}
+	
+	public function getDescription(){return $this->description;}
+	public function setDescription($description){$this->description = $description;}
+
+	public function getCommonState(){return $this->commonState;}
+	public function setCommonState($commonState){$this->commonState = CI_CommonState::getById($commonState);}
+
+	/**
+	 * Devuelve la informacion cargada del objeto 
+	 * Uso interno
+	 * @return object
+	 */
+
+	private function getData(){
+		$object = new stdClass();
+		$object->id = $this->id;
+		$object->description = $this->description;
+		$object->commonState = $this->commonState->id;
+		return $object;
+	}
+	
+	public static function getInstance($row){
+		if(!($row instanceof stdClass)){
+			show_error("El row debe ser una instancia de stdClass.");
+		}	
+		$category = new self;
+		$category->id = (isset($row->category_id)) ? $row->category_id : 0;
+		$category->description = (isset($row->description)) ? $row->description : '';
+		$category->commonState = (isset($row->commonState)) ? CI_CommonState::getById($row->commonState) : '';
+		return $publicationType;
+	}
+	
+	public static function getPublicationTypes()
+	{
+		$CI = & get_instance();
+		$CI->load->model('category_model');
+		$results = $CI->category_model->getCategory();
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+	
+	public static function getById($id)
+	{
+		$CI = & get_instance();
+		$CI->load->model('category_model');
+		$results = $CI->category_model->getById($id);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+}

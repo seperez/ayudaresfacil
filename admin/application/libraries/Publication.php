@@ -2,13 +2,13 @@
 
 class CI_Publication {
 	private $publicationId;
-	private $userId;
+	private $user;
 	private $type;
 	private $creationDate;
 	private $title;
 	private $description;
 	private $expirationDate;
-	private $categoryId;
+	private $category;
 	private $subcategoryId;
 	private $views;
 	private $processStateId;
@@ -20,11 +20,11 @@ class CI_Publication {
 
 	public function getPublicationId() {return $this->publicationId;}
 
-	public function getUserId() {return $this->userId;}
-	public function setUserId($userId){$this->userId = CI_User::getById($userId);}
+	public function getUser() {return $this->user;}
+	public function setUser($user){$this->user = CI_User::getById($user);}
 	
 	public function getType(){return $this->type;}
-	public function setType($publicationTypeId){$this->type = CI_PublicationType::getById($publicationTypeId);}
+	public function setType($type){$this->type = CI_PublicationType::getById($type);}
 
 	public function getCreationDate(){return $this->creationDate;}
 	public function setCreationDate($creationDate){$this->creationDate = $creationDate;}
@@ -38,8 +38,8 @@ class CI_Publication {
 	public function getExpirationDate(){return $this->expirationDate;}
 	public function setExpirationDate($expirationDate){$this->expirationDate = $expirationDate;}
 
-	public function getCategoryId(){return $this->categoryId;}
-	public function setCategoryId($categoryId){$this->categoryId = $categoryId;}
+	public function getCategory(){return $this->category;}
+	public function setCategory($category){$this->category = $category;}
 
 	public function getSubcategoryId(){return $this->subcategoryId;}
 	public function setSubcategoryId($subcategoryId){$this->subcategoryId = $subcategoryId;}
@@ -76,13 +76,13 @@ class CI_Publication {
 	private function getData(){
 		$object = new stdClass();
 		$object->publicationId = $this->publicationId;
-		$object->userId = $this->userId;
+		$object->user = $this->user;
 		$object->type =  $this->type;
 		$object->creationDate = $this->creationDate;
 		$object->title = $this->title;
 		$object->description = $this->description;
 		$object->expirationDate = $this->expirationDate;
-		$object->categoryId = $this->categoryId;
+		$object->category = $this->category;
 		$object->subcategoryId = $this->subcategoryId;
 		$object->views = $this->views;
 		$object->processStateId = $this->processStateId;
@@ -100,13 +100,13 @@ class CI_Publication {
 		}	
 		$publication = new self;
 		$publication->publicationId = (isset($row->publication_id)) ? $row->publication_id : 0;
-		$publication->userId = (isset($row->user_id)) ? CI_User::getById($row->user_id) : '';
+		$publication->user = (isset($row->user_id)) ? CI_User::getById($row->user_id) : '';
 		$publication->type = (isset($row->publication_type_id)) ? CI_PublicationType::getById($row->publication_type_id) : '';
 		$publication->creationDate = (isset($row->creation_date)) ? $row->creation_date : '';
 		$publication->title = (isset($row->title)) ? $row->title : '';
 		$publication->description = (isset($row->description)) ? $row->description : '';
 		$publication->expirationDate = (isset($row->expiration_date)) ? $row->expiration_date : '';
-		$publication->categoryId = (isset($row->category_id)) ? $row->category_id : '';
+		$publication->category = (isset($row->category_id)) ? CI_Category::getById($row->category_id) : '';
 		$publication->subcategoryId = (isset($row->subcategory_id)) ? $row->subcategory_id : '';
 		$publication->views = (isset($row->views)) ? $row->views : '';
 		$publication->processStateId = (isset($row->process_state_id)) ? $row->process_state_id : '';
