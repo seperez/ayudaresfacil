@@ -5,6 +5,5 @@
 */cache/!index.html
 
 admin/global_constants.php
-admin/.htaccess
 admin/application/logs/*
 admin/application/config/*
