@@ -18,42 +18,30 @@ class Phone_model extends CI_Model
 		return $query->result();
 	}
 
-	// TODO: ARMAR CORRECTAMENTE ESTE METODO 
-	// public function create($options){
-	// 	$this->db->trans_start();
-	// 	$data = array 	(
-	// 						'email' => $options->email,
-	// 						'password' => sha1($options->password)
-	// 					);
-	// 	$this->db->insert('user', $data);
-	// 	$id = $this->db->insert_id();
-	// 	$data = array 	(
-	// 						'user_id' => $id,
-	// 						'name' => $options->name
-	// 					);
-	// 	$this->db->insert('user_data', $data);
-	// 	$this->db->trans_complete();
-	// 	if ($this->db->trans_status() === FALSE){
-	// 		$id = null;
- //      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
-	// 	}
-	// 	return $id;
-	// }
+	public function create($options){
+		$data = array 	(
+							'user_id' => $options->userId,
+							'number' => $options->number,
+							'type_phone_id' => $options->type
+						);
+		$this->db->insert('user_phone', $data);
+		return $this->db->insert_id();
+	}
 	
 	public function update($post){
 		$data = array 	(
 							'number' => $post->number,
-							'phone_type_id' => $post->type
+							'type_phone_id' => $post->type
 						); 
-		$this->db->where('id', $post->id);
-		return $this->db->update('phone_user', $data);
+		$this->db->where('phone_id', $post->id);
+		return $this->db->update('user_phone', $data);
 	}
 	
 	public function delete($id){
 		$this->db->trans_start();		
 
-		$this->db->where('id', $id);
-		return $this->db->delete('notes');
+		$this->db->where('phone_id', $id);
+		return $this->db->delete('user_phone');
 
 		$this->db->trans_complete();
 		if ($this->db->trans_status() === FALSE){

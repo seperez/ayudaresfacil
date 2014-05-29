@@ -33,7 +33,7 @@ class CI_Phone {
 		$user = new self;
 		$user->id = (isset($row->user_id)) ? $row->user_id : 0;
 		$user->number = (isset($row->number)) ? $row->number : '';
-		$user->type = (isset($row->type_phone_id)) ? CI_PhoneType::getById($row->password) : '';
+		$user->type = (isset($row->type_phone_id)) ? CI_PhoneType::getById($row->type_phone_id) : '';
 		return $user;
 	}
 	
@@ -65,14 +65,16 @@ class CI_Phone {
 		return $return;
 	}
 	
-	public function save(){
+	public function save($userId){
 		$return = TRUE;
 		$CI = & get_instance();
 		$CI->load->model('phone_model');
+		$data = $this->getData();
+		$data['userId'] = $userId;
 		if(isset($this->id) && $this->id > 0)
-			$CI->phone_model->update($this->getData());
+			$CI->phone_model->update($data);
 		else{
-			$this->id = $CI->phone_model->create($this->getData());
+			$this->id = $CI->phone_model->create($data);
 			if($this->id === null)
 				$return = FALSE;
 		}

@@ -71,10 +71,10 @@ class CI_User {
 		$user->name = (isset($row->name)) ? $row->name : '';
 		$user->lastName = (isset($row->last_name)) ? $row->last_name : '';
 		$user->birthdayDate = (isset($row->birthday_date)) ? $row->birthday_date : '';
-		$user->description = (isset($row->description)) ? $row->password : '';
+		$user->description = (isset($row->description)) ? $row->description : '';
 		$user->enabled = (isset($row->enabled)) ? $row->enabled : '';
 		$user->deleted = (isset($row->deleted)) ? $row->deleted : '';
-		$user->phones = CI_Phones::getPhonesByUserId ($user->id);
+		$user->phones = CI_Phone::getPhonesByUserId ($user->id);
 		//$user->addresses = CI_Address::getAddresByUserId($user->id);
 		return $user;
 	}

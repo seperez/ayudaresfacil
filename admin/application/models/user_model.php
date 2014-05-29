@@ -5,8 +5,7 @@ class User_model extends CI_Model
 	public function getUsers(){
 		$this->db->select('*');	
 		$this->db->from('user');
-		$this->db->where('enabled',1);
-		$this->db->where('deleted',0);		
+		$this->db->join('user_data', 'user.user_id = user_data.user_id');	
 		$query = $this->db->get();
 		return $query->result();
 	}
