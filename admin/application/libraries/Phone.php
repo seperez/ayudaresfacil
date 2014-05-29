@@ -22,7 +22,7 @@ class CI_Phone {
 		$object = new stdClass();
 		$object->id = $this->id;
 		$object->number = $this->number;
-		$object->type = $this->type->id;
+		$object->type = $this->type->getId();
 		return $object;
 	}
 	
@@ -70,7 +70,7 @@ class CI_Phone {
 		$CI = & get_instance();
 		$CI->load->model('phone_model');
 		$data = $this->getData();
-		$data['userId'] = $userId;
+		$data->userId = $userId;
 		if(isset($this->id) && $this->id > 0)
 			$CI->phone_model->update($data);
 		else{

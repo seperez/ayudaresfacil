@@ -33,7 +33,7 @@ class CI_User {
 	public function getDescription(){return $this->description;}
 	public function setDescription($description){$this->description = $description;}
 
-	public function getPhones(){return CI_Phones::getPhonesByUserId ($this->id);}
+	public function getPhones(){return CI_Phone::getPhonesByUserId ($this->id);}
 	// public function setPhones($bio){$this->bio = $bio;}
 
 	public function getAddresses(){return CI_Address::getAddresByUserId ($this->id);}
