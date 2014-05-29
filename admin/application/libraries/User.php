@@ -5,6 +5,13 @@ class CI_User {
 	private $email;
 	private $password;
 	private $name;
+	private $lastName;
+	private $birthdayDate;
+	private $description;
+	private $phones;
+	private $addresses;
+	private $enabled;
+	private $deleted;
 
 	public function getId() {return $this->id;}
 	
@@ -17,14 +24,24 @@ class CI_User {
 	public function getName(){return $this->name;}
 	public function setName($name){$this->name = $name;}
 	
-	public function getEnabled(){return $this->enabled;}
-	public function setEnabled($enabled){$this->enabled = $enabled;}
+	public function getLastName(){return $this->lastName;}
+	public function setLastName($lastName){$this->lastName = $lastName;}
+
+	public function getBirthdayDate(){return $this->birthdayDate;}
+	public function setBirthdayDate($birthdayDate){$this->birthdayDate = $birthdayDate;}
+
+	public function getDescription(){return $this->description;}
+	public function setDescription($description){$this->description = $description;}
+
+	public function getPhones(){return CI_Phones::getPhonesByUserId ($this->id);}
+	// public function setPhones($bio){$this->bio = $bio;}
+
+	public function getAddresses(){return CI_Address::getAddresByUserId ($this->id);}
+	// public function setAddresses($bio){$this->bio = $bio;}
 
 	/**
 	 * Devuelve la informacion cargada del objeto 
-	 * 	
 	 * Uso interno
-	 *  
 	 * @return object
 	 */
 	private function getData(){
@@ -33,6 +50,13 @@ class CI_User {
 		$object->email = $this->email;
 		$object->password = $this->password;
 		$object->name = $this->name;
+		$object->lastName = $this->lastName;
+		$object->birthdayDate = $this->birthdayDate;
+		$object->description = $this->description;
+		$object->phones = $this->phones;
+		$object->addresses = $this->addresses;
+		$object->enabled = $this->enabled;
+		$object->deleted = $this->deleted;
 		return $object;
 	}
 	
@@ -44,6 +68,14 @@ class CI_User {
 		$user->id = (isset($row->user_id)) ? $row->user_id : 0;
 		$user->email = (isset($row->email)) ? $row->email : '';
 		$user->password = (isset($row->password)) ? $row->password : '';
+		$user->name = (isset($row->name)) ? $row->name : '';
+		$user->lastName = (isset($row->last_name)) ? $row->last_name : '';
+		$user->birthdayDate = (isset($row->birthday_date)) ? $row->birthday_date : '';
+		$user->description = (isset($row->description)) ? $row->password : '';
+		$user->enabled = (isset($row->enabled)) ? $row->enabled : '';
+		$user->deleted = (isset($row->deleted)) ? $row->deleted : '';
+		$user->phones = CI_Phones::getPhonesByUserId ($user->id);
+		//$user->addresses = CI_Address::getAddresByUserId($user->id);
 		return $user;
 	}
 	
