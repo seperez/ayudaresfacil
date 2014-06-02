@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-05-2014 a las 13:09:24
+-- Tiempo de generación: 02-06-2014 a las 06:23:38
 -- Versión del servidor: 5.5.37-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4
 
@@ -28,6 +28,7 @@ USE `ayudaresfacil`;
 -- Estructura de tabla para la tabla `action`
 --
 
+DROP TABLE IF EXISTS `action`;
 CREATE TABLE IF NOT EXISTS `action` (
   `action_id` decimal(2,0) NOT NULL,
   `description` varchar(50) NOT NULL,
@@ -38,21 +39,10 @@ CREATE TABLE IF NOT EXISTS `action` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `city`
---
-
-CREATE TABLE IF NOT EXISTS `city` (
-  `city_id` int(11) NOT NULL,
-  `description` varchar(100) NOT NULL,
-  PRIMARY KEY (`city_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `common_state`
 --
 
+DROP TABLE IF EXISTS `common_state`;
 CREATE TABLE IF NOT EXISTS `common_state` (
   `common_state_id` char(1) NOT NULL,
   `description` varchar(50) NOT NULL,
@@ -76,6 +66,7 @@ INSERT INTO `common_state` (`common_state_id`, `description`, `comments`) VALUES
 -- Estructura de tabla para la tabla `donated_object`
 --
 
+DROP TABLE IF EXISTS `donated_object`;
 CREATE TABLE IF NOT EXISTS `donated_object` (
   `donation_id` int(11) NOT NULL,
   `object_id` int(11) NOT NULL,
@@ -91,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `donated_object` (
 -- Estructura de tabla para la tabla `donation`
 --
 
+DROP TABLE IF EXISTS `donation`;
 CREATE TABLE IF NOT EXISTS `donation` (
   `donation_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
@@ -109,6 +101,7 @@ CREATE TABLE IF NOT EXISTS `donation` (
 -- Estructura de tabla para la tabla `message`
 --
 
+DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id_from` mediumint(9) NOT NULL,
@@ -145,6 +138,7 @@ INSERT INTO `message` (`message_id`, `user_id_from`, `user_id_to`, `publication_
 -- Estructura de tabla para la tabla `object`
 --
 
+DROP TABLE IF EXISTS `object`;
 CREATE TABLE IF NOT EXISTS `object` (
   `object_id` int(11) NOT NULL,
   `description` varchar(200) DEFAULT NULL,
@@ -158,6 +152,7 @@ CREATE TABLE IF NOT EXISTS `object` (
 -- Estructura de tabla para la tabla `offer_type`
 --
 
+DROP TABLE IF EXISTS `offer_type`;
 CREATE TABLE IF NOT EXISTS `offer_type` (
   `offer_type_id` tinyint(4) NOT NULL,
   `description` varchar(50) DEFAULT NULL,
@@ -180,6 +175,7 @@ INSERT INTO `offer_type` (`offer_type_id`, `description`, `comments`) VALUES
 -- Estructura de tabla para la tabla `process_state`
 --
 
+DROP TABLE IF EXISTS `process_state`;
 CREATE TABLE IF NOT EXISTS `process_state` (
   `process_state_id` char(1) NOT NULL,
   `description` varchar(50) NOT NULL,
@@ -199,21 +195,10 @@ INSERT INTO `process_state` (`process_state_id`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `province`
---
-
-CREATE TABLE IF NOT EXISTS `province` (
-  `province_id` decimal(2,0) NOT NULL,
-  `description` varchar(50) NOT NULL,
-  PRIMARY KEY (`province_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `publication`
 --
 
+DROP TABLE IF EXISTS `publication`;
 CREATE TABLE IF NOT EXISTS `publication` (
   `publication_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(9) NOT NULL,
@@ -246,6 +231,7 @@ INSERT INTO `publication` (`publication_id`, `user_id`, `publication_type_id`, `
 -- Estructura de tabla para la tabla `publication_category`
 --
 
+DROP TABLE IF EXISTS `publication_category`;
 CREATE TABLE IF NOT EXISTS `publication_category` (
   `category_id` tinyint(4) NOT NULL,
   `description` varchar(70) NOT NULL,
@@ -260,6 +246,7 @@ CREATE TABLE IF NOT EXISTS `publication_category` (
 -- Estructura de tabla para la tabla `publication_favourite`
 --
 
+DROP TABLE IF EXISTS `publication_favourite`;
 CREATE TABLE IF NOT EXISTS `publication_favourite` (
   `favourite_id` int(11) NOT NULL AUTO_INCREMENT,
   `publication_id` int(11) NOT NULL,
@@ -276,6 +263,7 @@ CREATE TABLE IF NOT EXISTS `publication_favourite` (
 -- Estructura de tabla para la tabla `publication_object`
 --
 
+DROP TABLE IF EXISTS `publication_object`;
 CREATE TABLE IF NOT EXISTS `publication_object` (
   `publication_id` int(11) NOT NULL,
   `object_id` int(11) NOT NULL,
@@ -291,6 +279,7 @@ CREATE TABLE IF NOT EXISTS `publication_object` (
 -- Estructura de tabla para la tabla `publication_offer`
 --
 
+DROP TABLE IF EXISTS `publication_offer`;
 CREATE TABLE IF NOT EXISTS `publication_offer` (
   `publication_id` int(11) NOT NULL,
   `process_state_offer` char(1) DEFAULT NULL,
@@ -308,6 +297,7 @@ CREATE TABLE IF NOT EXISTS `publication_offer` (
 -- Estructura de tabla para la tabla `publication_socialnetwork_activity`
 --
 
+DROP TABLE IF EXISTS `publication_socialnetwork_activity`;
 CREATE TABLE IF NOT EXISTS `publication_socialnetwork_activity` (
   `publication_id` int(11) NOT NULL,
   `action_id` decimal(2,0) DEFAULT NULL,
@@ -324,6 +314,7 @@ CREATE TABLE IF NOT EXISTS `publication_socialnetwork_activity` (
 -- Estructura de tabla para la tabla `publication_sponsor`
 --
 
+DROP TABLE IF EXISTS `publication_sponsor`;
 CREATE TABLE IF NOT EXISTS `publication_sponsor` (
   `sponsor_id` mediumint(9) NOT NULL,
   `publication_id` int(11) NOT NULL,
@@ -341,6 +332,7 @@ CREATE TABLE IF NOT EXISTS `publication_sponsor` (
 -- Estructura de tabla para la tabla `publication_subcategory`
 --
 
+DROP TABLE IF EXISTS `publication_subcategory`;
 CREATE TABLE IF NOT EXISTS `publication_subcategory` (
   `category_id` tinyint(4) NOT NULL,
   `subcategory_id` tinyint(4) NOT NULL,
@@ -357,6 +349,7 @@ CREATE TABLE IF NOT EXISTS `publication_subcategory` (
 -- Estructura de tabla para la tabla `publication_type`
 --
 
+DROP TABLE IF EXISTS `publication_type`;
 CREATE TABLE IF NOT EXISTS `publication_type` (
   `publication_type_id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
@@ -379,6 +372,7 @@ INSERT INTO `publication_type` (`publication_type_id`, `name`, `description`) VA
 -- Estructura de tabla para la tabla `sponsor`
 --
 
+DROP TABLE IF EXISTS `sponsor`;
 CREATE TABLE IF NOT EXISTS `sponsor` (
   `sponsor_id` mediumint(9) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -396,6 +390,7 @@ CREATE TABLE IF NOT EXISTS `sponsor` (
 -- Estructura de tabla para la tabla `type_phone`
 --
 
+DROP TABLE IF EXISTS `type_phone`;
 CREATE TABLE IF NOT EXISTS `type_phone` (
   `type_phone_id` tinyint(4) NOT NULL,
   `description` varchar(50) DEFAULT NULL,
@@ -417,6 +412,7 @@ INSERT INTO `type_phone` (`type_phone_id`, `description`) VALUES
 -- Estructura de tabla para la tabla `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `user_id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
@@ -443,6 +439,7 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `last_login`, `enabled`, `de
 -- Estructura de tabla para la tabla `user_address`
 --
 
+DROP TABLE IF EXISTS `user_address`;
 CREATE TABLE IF NOT EXISTS `user_address` (
   `address_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
@@ -473,6 +470,7 @@ INSERT INTO `user_address` (`address_id`, `user_id`, `street`, `number`, `postal
 -- Estructura de tabla para la tabla `user_data`
 --
 
+DROP TABLE IF EXISTS `user_data`;
 CREATE TABLE IF NOT EXISTS `user_data` (
   `user_id` mediumint(9) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
@@ -498,6 +496,7 @@ INSERT INTO `user_data` (`user_id`, `name`, `last_name`, `birthday_date`, `descr
 -- Estructura de tabla para la tabla `user_phone`
 --
 
+DROP TABLE IF EXISTS `user_phone`;
 CREATE TABLE IF NOT EXISTS `user_phone` (
   `user_id` mediumint(9) NOT NULL,
   `phone_id` mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -508,14 +507,15 @@ CREATE TABLE IF NOT EXISTS `user_phone` (
   KEY `type_phone_id` (`type_phone_id`),
   KEY `user_id` (`user_id`),
   KEY `phone_id` (`phone_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `user_phone`
 --
 
 INSERT INTO `user_phone` (`user_id`, `phone_id`, `number`, `type_phone_id`) VALUES
-(1, 1, '1135754594', 2);
+(1, 1, '4455556666', 3),
+(1, 2, '0000000000', 3);
 
 -- --------------------------------------------------------
 
@@ -523,6 +523,7 @@ INSERT INTO `user_phone` (`user_id`, `phone_id`, `number`, `type_phone_id`) VALU
 -- Estructura de tabla para la tabla `user_request`
 --
 
+DROP TABLE IF EXISTS `user_request`;
 CREATE TABLE IF NOT EXISTS `user_request` (
   `publication_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
@@ -540,6 +541,7 @@ CREATE TABLE IF NOT EXISTS `user_request` (
 -- Estructura de tabla para la tabla `user_score`
 --
 
+DROP TABLE IF EXISTS `user_score`;
 CREATE TABLE IF NOT EXISTS `user_score` (
   `user_id_from` mediumint(9) NOT NULL,
   `user_id_to` mediumint(9) NOT NULL,

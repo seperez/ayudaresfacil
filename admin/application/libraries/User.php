@@ -34,10 +34,8 @@ class CI_User {
 	public function setDescription($description){$this->description = $description;}
 
 	public function getPhones(){return CI_Phone::getPhonesByUserId ($this->id);}
-	// public function setPhones($bio){$this->bio = $bio;}
 
 	public function getAddresses(){return CI_Address::getAddresByUserId ($this->id);}
-	// public function setAddresses($bio){$this->bio = $bio;}
 
 	/**
 	 * Devuelve la informacion cargada del objeto 
