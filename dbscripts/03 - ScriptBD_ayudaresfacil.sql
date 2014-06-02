@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `ayudaresfacil`
 --
-CREATE DATABASE IF NOT EXISTS `ayudaresfacil` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE `ayudaresfacil`;
 
 -- --------------------------------------------------------
@@ -446,14 +445,12 @@ CREATE TABLE IF NOT EXISTS `user_address` (
   `street` varchar(100) DEFAULT NULL,
   `number` decimal(8,0) DEFAULT NULL,
   `postal_code` varchar(20) DEFAULT NULL,
-  `province_id` decimal(3,0) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
   `floor` varchar(4) DEFAULT NULL,
-  `department` varchar(4) DEFAULT NULL,
+  `apartment` varchar(4) DEFAULT NULL,
   `principal` char(1) DEFAULT NULL,
   PRIMARY KEY (`address_id`,`user_id`),
   KEY `city_id` (`city_id`),
-  KEY `province_id` (`province_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -461,8 +458,8 @@ CREATE TABLE IF NOT EXISTS `user_address` (
 -- Volcado de datos para la tabla `user_address`
 --
 
-INSERT INTO `user_address` (`address_id`, `user_id`, `street`, `number`, `postal_code`, `province_id`, `city_id`, `floor`, `department`, `principal`) VALUES
-(1, 1, 'Santa Juana de Arco', 3767, '1702', NULL, NULL, '0', '1', NULL);
+INSERT INTO `user_address` (`address_id`, `user_id`, `street`, `number`, `postal_code`, `city_id`, `floor`, `apartment`, `principal`) VALUES
+(1, 1, 'Santa Juana de Arco', 3767, '1702', 207, '0', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -652,7 +649,6 @@ ALTER TABLE `sponsor`
 --
 ALTER TABLE `user_address`
   ADD CONSTRAINT `FK_User_Address_City` FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`),
-  ADD CONSTRAINT `FK_User_Address_Province` FOREIGN KEY (`province_id`) REFERENCES `province` (`province_id`),
   ADD CONSTRAINT `FK_User_Address_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
@@ -671,10 +667,10 @@ ALTER TABLE `user_phone`
 --
 -- Filtros para la tabla `user_request`
 --
-ALTER TABLE `user_request`
-  ADD CONSTRAINT `FK_User_Request_Common_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
-  ADD CONSTRAINT `FK_User_Request_Offer` FOREIGN KEY (`publication_id`) REFERENCES `offer` (`publication_id`),
-  ADD CONSTRAINT `FK_User_Request_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+-- ALTER TABLE `user_request`
+--   ADD CONSTRAINT `FK_User_Request_Common_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
+--   ADD CONSTRAINT `FK_User_Request_Offer` FOREIGN KEY (`publication_id`) REFERENCES `offer` (`publication_id`),
+--   ADD CONSTRAINT `FK_User_Request_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
 -- Filtros para la tabla `user_score`
