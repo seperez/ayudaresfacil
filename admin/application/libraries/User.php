@@ -33,9 +33,9 @@ class CI_User {
 	public function getDescription(){return $this->description;}
 	public function setDescription($description){$this->description = $description;}
 
-	public function getPhones(){return CI_Phone::getPhonesByUserId ($this->id);}
+	public function getPhones(){return $this->phones;}
 
-	public function getAddresses(){return CI_Address::getAddresByUserId ($this->id);}
+	public function getAddresses(){return $this->addresses;}
 
 	/**
 	 * Devuelve la informacion cargada del objeto 
@@ -73,7 +73,7 @@ class CI_User {
 		$user->enabled = (isset($row->enabled)) ? $row->enabled : '';
 		$user->deleted = (isset($row->deleted)) ? $row->deleted : '';
 		$user->phones = CI_Phone::getPhonesByUserId ($user->id);
-		//$user->addresses = CI_Address::getAddresByUserId($user->id);
+		$user->addresses = CI_Address::getAddressesByUserId($user->id);
 		return $user;
 	}
 	

@@ -36,8 +36,8 @@ class Test extends CI_Controller{
   //       ma($myPhones);
 		// $myPhones[1]->delete();
 
-		// $users = CI_User::getUsers();
-  //       ma($users);
+		$users = CI_User::getUsers();
+		ma($users);
 
     }    
 }

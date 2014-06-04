@@ -66,7 +66,11 @@ $autoload['libraries'] = array(
 								'ProcessState',
 								'Object',
 								'PhoneType',
-								'Phone'
+								'Phone',
+								'Address',
+								'Province',
+								'Department',
+								'City'
 								);
 
 /*
