@@ -30,7 +30,7 @@ class CI_Province {
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
 		$province = new self;
-		$province->id = (isset($row->type_phone_id)) ? $row->type_phone_id : 0;
+		$province->id = (isset($row->province_id)) ? $row->province_id : 0;
 		$province->description = (isset($row->description)) ? $row->description : '';
 		$province->departments = CI_Department::getDepartmentsByProvinceId($province->id);
 		return $province;
@@ -57,9 +57,7 @@ class CI_Province {
 		$results = $CI->province_model->getProvinceByDepartmentId($id);
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = self::getInstance($result);
-			}
+			$return = self::getInstance($results[0]);
 		}
 		return $return;
 	}
@@ -71,9 +69,7 @@ class CI_Province {
 		$results = $CI->province_model->getById($id);
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
-				$return = self::getInstance($result);
-			}
+			$return = self::getInstance($results[]);
 		}
 		return $return;
 	}

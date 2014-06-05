@@ -4,7 +4,7 @@ class Department_model extends CI_Model
 {
 	public function getDepartmentsByProvinceId($id){
 		$this->db->select('*');	
-		$this->db->from('departments');
+		$this->db->from('department');
 		$this->db->where('province_id',$id);
 		$query = $this->db->get();
 		return $query->result();

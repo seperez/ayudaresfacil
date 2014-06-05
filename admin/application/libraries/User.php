@@ -98,9 +98,7 @@ class CI_User {
 		$results = $CI->user_model->getById($id);
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
-				$return = self::getInstance($result);
-			}
+			$return = self::getInstance($results[0]);
 		}
 		return $return;
 	}

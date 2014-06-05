@@ -57,9 +57,7 @@ class CI_Department {
 		$results = $CI->department_model->getDepartmentByCityId($id);
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = self::getInstance($result);
-			}
+			$return = self::getInstance($results[0]);
 		}
 		return $return;
 	}
@@ -71,9 +69,7 @@ class CI_Department {
 		$results = $CI->department_model->getById($id);
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
-				$return = self::getInstance($result);
-			}
+			$return = self::getInstance($result[0]);
 		}
 		return $return;
 	}

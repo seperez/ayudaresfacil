@@ -72,8 +72,8 @@ class CI_Address {
 		$address->apartment = (isset($row->apartment)) ? $row->apartment : '';
 		$address->postalCode = (isset($row->postal_code)) ? $row->postal_code : '';
 		$address->city = (isset($row->city_id)) ? CI_City::getById($row->city_id) : '';
-		//$address->department = ($address->city != '') ? CI_Department::getDepartmentByCityId($address->city->getId()) : '';
-		//$address->province = ($address->department != '') ? CI_Province::getProvinceByDepartmentId($address->department->getId()) : '';
+		$address->department = ($address->city != '') ? CI_Department::getDepartmentByCityId($address->city->getId()) : '';
+		$address->province = ($address->department != '') ? CI_Province::getProvinceByDepartmentId($address->department->getId()) : '';
 		return $address;
 	}
 	
@@ -98,9 +98,7 @@ class CI_Address {
 		$results = $CI->address_model->getAddressById($id);
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
-				$return = self::getInstance($result);
-			}
+			$return = self::getInstance($results[0]);
 		}
 		return $return;
 	}
