@@ -4,6 +4,4 @@
 */cache/*
 */cache/!index.html
 
-admin/global_constants.php
-admin/application/config/database.php
 admin/application/logs/*
