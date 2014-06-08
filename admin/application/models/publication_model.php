@@ -29,49 +29,39 @@ class Publication_model extends CI_Model
 		return $query->result();
 	}
 
-	public function getById($publicationId){	
+	public function getById($id){	
 		$this->db->select('*');	
 		$this->db->from('publication');	
-		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
-		$this->db->where('publication.publication_id',$publicationId);
+		$this->db->where('publication.publication_id',$id);
 		$this->db->where('process_state_id', 'V');	
 		$query = $this->db->get();
 
-		if($query->result() == null){
-			$this->db->select('*');	
-			$this->db->from('publication');	
-			$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-			$this->db->where('publication.publication_id',$publicationId);
-			$this->db->where('process_state_id', 'V');		
-			$query = $this->db->get();		
-		}
 		return $query->result();
 	}
 
 	public function create($options){
 		$this->db->trans_start();
 		$data = array 	(
-							'user_id' => $options->userId,
-							'publication_type_id' => $options->publicationTypeId,
+							'user_id' => $options->user->getId(),
+							'publication_type_id' => $options->type->getId(),
 							'creation_date' => $options->creationDate,
 							'title' => $options->title,
 							'description' => $options->description,
 							'expiration_date' => $options->expirationDate,
-							'category_id' => $options->categoryId,
-							'subcategory_id' => $options->subcategoryId,
+							'category_id' => $options->category->getId(),
+							'subcategory_id' => $options->subcategory->getId(),
 							'views' => $options->views,
-							'process_state_id' => $options->processStateId,
+							'process_state_id' => $options->processState->getId(),
 						);
 		$this->db->insert('publication', $data);
 		$id = $this->db->insert_id();
 		$data = array 	(
 							'publication_id' => $id,
-							'object_id' => $options->objectId,
+							'object_id' => $options->object->getId(),
 							'quantity' => $options->quantity,
 						);
 		$this->db->insert('publication_object', $data);
-		if ($options->publicationTypeId == 1) {
+		if ($options->type->getId() == 1) {
 			$data = array 	(
 								'publication_id' => $id,
 								'process_state_offer' => $options->processStateIdOffer,

@@ -41,8 +41,8 @@ class CI_PublicationType {
 	public static function getPublicationTypes()
 	{
 		$CI = & get_instance();
-		$CI->load->model('publicationType_model');
-		$results = $CI->publicationType_model->getPublicationTypes();
+		$CI->load->model('publication_type_model');
+		$results = $CI->publication_type_model->getPublicationTypes();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -55,8 +55,8 @@ class CI_PublicationType {
 	public static function getById($id)
 	{
 		$CI = & get_instance();
-		$CI->load->model('publicationType_model');
-		$results = $CI->publicationType_model->getById($id);
+		$CI->load->model('publication_type_model');
+		$results = $CI->publication_type_model->getById($id);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {

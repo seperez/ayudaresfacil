@@ -54,10 +54,10 @@ $autoload['packages'] = array();
 
 $autoload['libraries'] = array(
 								'Native_session',
+								'Publication',
 								'session',
 								'database',
 								'User',
-								'Publication',
 								'PublicationType',
 								'CommonState',
 								'Category',
@@ -70,9 +70,10 @@ $autoload['libraries'] = array(
 								'Address',
 								'Province',
 								'Department',
-								'City'
+								'City',
+								'Offer',
+								'OfferType'
 								);
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Helper Files
