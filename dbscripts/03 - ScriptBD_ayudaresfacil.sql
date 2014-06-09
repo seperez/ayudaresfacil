@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 02-06-2014 a las 06:23:38
--- Versión del servidor: 5.5.37-0ubuntu0.14.04.1
--- Versión de PHP: 5.5.9-1ubuntu4
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 09-06-2014 a las 20:53:29
+-- Versión del servidor: 5.6.16
+-- Versión de PHP: 5.5.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,7 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `ayudaresfacil`
 --
-USE `ayudaresfacil`;
 
 -- --------------------------------------------------------
 
@@ -202,10 +201,10 @@ CREATE TABLE IF NOT EXISTS `publication` (
   `publication_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` mediumint(9) NOT NULL,
   `publication_type_id` tinyint(4) DEFAULT NULL,
-  `creation_date` datetime NOT NULL,
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `title` varchar(50) NOT NULL,
   `description` text NOT NULL,
-  `expiration_date` datetime DEFAULT NULL,
+  `expiration_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `category_id` tinyint(4) DEFAULT NULL,
   `subcategory_id` tinyint(4) DEFAULT NULL,
   `views` int(11) DEFAULT NULL,
@@ -215,14 +214,15 @@ CREATE TABLE IF NOT EXISTS `publication` (
   KEY `process_state_id` (`process_state_id`),
   KEY `category_id_2` (`category_id`,`subcategory_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `publication`
 --
 
 INSERT INTO `publication` (`publication_id`, `user_id`, `publication_type_id`, `creation_date`, `title`, `description`, `expiration_date`, `category_id`, `subcategory_id`, `views`, `process_state_id`) VALUES
-(0, 4, NULL, '0000-00-00 00:00:00', '', '', NULL, NULL, NULL, NULL, NULL);
+(0, 4, NULL, '0000-00-00 00:00:00', '', '', NULL, NULL, NULL, NULL, NULL),
+(1, 1, 1, '2014-06-09 00:00:00', 'Prueba de Ofrecimiento', 'Este es un registro de prueba para ver si se puede obtener un ofrecimiento', '2014-12-30 00:00:00', 1, 1, 100, 'V');
 
 -- --------------------------------------------------------
 
@@ -236,25 +236,41 @@ CREATE TABLE IF NOT EXISTS `publication_category` (
   `description` varchar(70) NOT NULL,
   `common_state_id` char(1) NOT NULL,
   PRIMARY KEY (`category_id`),
+  UNIQUE KEY `category_id` (`category_id`),
   KEY `common_state_id` (`common_state_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `publication_category`
+--
+
+INSERT INTO `publication_category` (`category_id`, `description`, `common_state_id`) VALUES
+(1, 'Muebles', 'A'),
+(2, 'Salud', 'A');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `publication_favourite`
+-- Estructura de tabla para la tabla `publication_favorite`
 --
 
-DROP TABLE IF EXISTS `publication_favourite`;
-CREATE TABLE IF NOT EXISTS `publication_favourite` (
-  `favourite_id` int(11) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `publication_favorite`;
+CREATE TABLE IF NOT EXISTS `publication_favorite` (
+  `favorite_id` int(11) NOT NULL AUTO_INCREMENT,
   `publication_id` int(11) NOT NULL,
   `user_id` mediumint(9) NOT NULL,
   `start_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`favourite_id`,`publication_id`,`user_id`),
+  PRIMARY KEY (`favorite_id`,`publication_id`,`user_id`),
   KEY `publication_id` (`publication_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `publication_favorite`
+--
+
+INSERT INTO `publication_favorite` (`favorite_id`, `publication_id`, `user_id`, `start_date`) VALUES
+(2, 1, 1, '2014-06-09 18:03:30');
 
 -- --------------------------------------------------------
 
@@ -289,6 +305,13 @@ CREATE TABLE IF NOT EXISTS `publication_offer` (
   KEY `process_state_offer` (`process_state_offer`),
   KEY `publication_id` (`publication_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `publication_offer`
+--
+
+INSERT INTO `publication_offer` (`publication_id`, `process_state_offer`, `offer_type_id`, `quantity_users_to_paused`) VALUES
+(1, 'V', 1, 20);
 
 -- --------------------------------------------------------
 
@@ -341,6 +364,14 @@ CREATE TABLE IF NOT EXISTS `publication_subcategory` (
   KEY `category_id` (`category_id`),
   KEY `common_state_id` (`common_state_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `publication_subcategory`
+--
+
+INSERT INTO `publication_subcategory` (`category_id`, `subcategory_id`, `description`, `common_state_id`) VALUES
+(1, 1, 'Habitacion', 'A'),
+(2, 2, 'Utilitarios', 'A');
 
 -- --------------------------------------------------------
 
@@ -459,7 +490,7 @@ CREATE TABLE IF NOT EXISTS `user_address` (
 --
 
 INSERT INTO `user_address` (`address_id`, `user_id`, `street`, `number`, `postal_code`, `city_id`, `floor`, `apartment`, `principal`) VALUES
-(1, 1, 'Santa Juana de Arco', 3767, '1702', 207, '0', '1', '1');
+(1, 1, 'Santa Juana de Arco', '3767', '1702', 207, '0', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -594,9 +625,9 @@ ALTER TABLE `publication_category`
   ADD CONSTRAINT `FK_Category_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`);
 
 --
--- Filtros para la tabla `publication_favourite`
+-- Filtros para la tabla `publication_favorite`
 --
-ALTER TABLE `publication_favourite`
+ALTER TABLE `publication_favorite`
   ADD CONSTRAINT `FK_Publication_Favourite_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
   ADD CONSTRAINT `FK_Publication_Favourite_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
@@ -663,14 +694,6 @@ ALTER TABLE `user_data`
 ALTER TABLE `user_phone`
   ADD CONSTRAINT `FK_User_Phone_Type_Phone` FOREIGN KEY (`type_phone_id`) REFERENCES `type_phone` (`type_phone_id`),
   ADD CONSTRAINT `FK_User_Phone_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
-
---
--- Filtros para la tabla `user_request`
---
--- ALTER TABLE `user_request`
---   ADD CONSTRAINT `FK_User_Request_Common_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
---   ADD CONSTRAINT `FK_User_Request_Offer` FOREIGN KEY (`publication_id`) REFERENCES `offer` (`publication_id`),
---   ADD CONSTRAINT `FK_User_Request_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
 
 --
 -- Filtros para la tabla `user_score`
