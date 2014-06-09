@@ -43,7 +43,7 @@ class Test extends CI_Controller{
 		// CI_Publication
 		// **
 
-		$requests = CI_Request::getMonetaryRequestsByUserId(2);
+		$requests = CI_Request::getObjectRequestsByUserId(1);
 		ma($requests);
     }    
 }

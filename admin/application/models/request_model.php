@@ -40,4 +40,13 @@ class Request_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function getObjectRequestsByUserId($id){	
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->where('publication.user_id', $id);	
+		$this->db->where('publication.publication_type_id', 3);
+		$query = $this->db->get();
+		return $query->result();
+	}
 }
