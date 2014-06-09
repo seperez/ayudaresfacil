@@ -2,40 +2,12 @@
 
 class Publication_model extends CI_Model
 {
-	public function getOffers($userId){
-		$this->db->select('*');	
-		$this->db->from('publication');	
-		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
-		if ($userId > 0) {
-			$this->db->where('user_id', $userId);	
-		}
-		$this->db->where('publication_type_id', 1);		
-		$this->db->where('process_state_id', 'V');		
-		$query = $this->db->get();
-		return $query->result();
-	}
-
-	public function getRequests($userId){
-		$this->db->select('*');	
-		$this->db->from('publication');	
-		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-		if ($userId > 0) {
-			$this->db->where('user_id', $userId);	
-		}
-		$this->db->where('publication_type_id', 2);	
-		$this->db->where('process_state_id', 'V');			
-		$query = $this->db->get();
-		return $query->result();
-	}
-
 	public function getById($id){	
 		$this->db->select('*');	
 		$this->db->from('publication');	
 		$this->db->where('publication.publication_id',$id);
 		$this->db->where('process_state_id', 'V');	
 		$query = $this->db->get();
-
 		return $query->result();
 	}
 
@@ -134,22 +106,6 @@ class Publication_model extends CI_Model
 		return $publicationId;
 	}
 
-	public function pauseOffer($publicationId){
-
-		$this->db->trans_start();
-		$data = array ('process_state_offer' => 'P');
-		$this->db->where('publication_id', $publicationId);
-		$this->db->update('publication_offer',$data);
-		$this->db->trans_complete();
-
-		if ($this->db->trans_status() === FALSE){
-			$publicationId = null;
-      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
-		}
-
-		return $publicationId;
-	}
-
 	public function addFavourite($options){
 		$data = array 	(
 							'publication_id' => $options['publicationId'],
@@ -161,28 +117,73 @@ class Publication_model extends CI_Model
 		return $id;
 	}
 
-	public function getOffersFavourites($userId){		
-		$this->db->select('*');	
-		$this->db->from('publication');	
-		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
-		$this->db->join('publication_favourite', "publication.publication_id = publication_favourite.publication_id");
-		$this->db->where('publication_favourite.user_id', $userId);	
-		$this->db->where('publication.publication_type_id', 1);	
-		$this->db->where('publication.process_state_id', 'V');	
-		$query = $this->db->get();
-		return $query->result();
-	}
+	// TODO: PASAR A OFFER_MODEL
+	// public function getOffers($userId){
+	// 	$this->db->select('*');	
+	// 	$this->db->from('publication');	
+	// 	$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+	// 	$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+	// 	if ($userId > 0) {
+	// 		$this->db->where('user_id', $userId);	
+	// 	}
+	// 	$this->db->where('publication_type_id', 1);		
+	// 	$this->db->where('process_state_id', 'V');		
+	// 	$query = $this->db->get();
+	// 	return $query->result();
+	// }
 
-	public function getRequestsFavourites($userId){		
-		$this->db->select('*');	
-		$this->db->from('publication');	
-		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-		$this->db->join('publication_favourite', "publication.publication_id = publication_favourite.publication_id");
-		$this->db->where('publication_favourite.user_id', $userId);	
-		$this->db->where('publication.publication_type_id', 2);	
-		$this->db->where('publication.process_state_id', 'V');	
-		$query = $this->db->get();
-		return $query->result();
-	}
+	// public function getOffersFavourites($userId){		
+	// 	$this->db->select('*');	
+	// 	$this->db->from('publication');	
+	// 	$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+	// 	$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+	// 	$this->db->join('publication_favourite', "publication.publication_id = publication_favourite.publication_id");
+	// 	$this->db->where('publication_favourite.user_id', $userId);	
+	// 	$this->db->where('publication.publication_type_id', 1);	
+	// 	$this->db->where('publication.process_state_id', 'V');	
+	// 	$query = $this->db->get();
+	// 	return $query->result();
+	// }
+
+	// public function pauseOffer($publicationId){
+
+	// 	$this->db->trans_start();
+	// 	$data = array ('process_state_offer' => 'P');
+	// 	$this->db->where('publication_id', $publicationId);
+	// 	$this->db->update('publication_offer',$data);
+	// 	$this->db->trans_complete();
+
+	// 	if ($this->db->trans_status() === FALSE){
+	// 		$publicationId = null;
+ 	//    	log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+	// 	}
+
+	// 	return $publicationId;
+	// }
+	
+	// TODO: PASAR A REQUEST_MODEL
+	// public function getRequests($userId){
+	// 	$this->db->select('*');	
+	// 	$this->db->from('publication');	
+	// 	$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+	// 	if ($userId > 0) {
+	// 		$this->db->where('user_id', $userId);	
+	// 	}
+	// 	$this->db->where('publication_type_id', 2);	
+	// 	$this->db->where('process_state_id', 'V');			
+	// 	$query = $this->db->get();
+	// 	return $query->result();
+	// }
+
+	// public function getRequestsFavourites($userId){		
+	// 	$this->db->select('*');	
+	// 	$this->db->from('publication');	
+	// 	$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+	// 	$this->db->join('publication_favourite', "publication.publication_id = publication_favourite.publication_id");
+	// 	$this->db->where('publication_favourite.user_id', $userId);	
+	// 	$this->db->where('publication.publication_type_id', 2);	
+	// 	$this->db->where('publication.process_state_id', 'V');	
+	// 	$query = $this->db->get();
+	// 	return $query->result();
+	// }
 }

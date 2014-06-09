@@ -44,14 +44,12 @@ class CI_Publication {
 	
 	public function getExpirationDate(){return $this->expirationDate;}
 	public function setExpirationDate($expirationDate){$this->expirationDate = $expirationDate;}
+	
 	/**
 	 * Devuelve la informacion cargada del objeto 
-	 * 		
 	 * Uso interno
-	 *  
 	 * @return object
 	 */
-
 	protected function getData(){
 		$object = new stdClass();
 		$object->id = $this->publicationId;
@@ -85,18 +83,5 @@ class CI_Publication {
 		$publication->creationDate = (isset($row->creation_date)) ? $row->creation_date : '';
 		$publication->expirationDate = (isset($row->expiration_date)) ? $row->expiration_date : '';
 		return $publication;
-	}
-
-	public static function getById($id){
-		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getById($id);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return = self::getInstance($result);
-			}
-		}
-		return $return;
 	}
 }

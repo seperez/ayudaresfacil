@@ -31,13 +31,19 @@ class Test extends CI_Controller{
 		// **
 		// CI_User
 		// **
-  //       $users = CI_User::getUsers();
-  //       $myPhones = $users[0]->getPhones();
-  //       ma($myPhones);
+  		//$users = CI_User::getUsers();
+		//$myPhones = $users[0]->getPhones();
+  		//ma($myPhones);
 		// $myPhones[1]->delete();
 
-		$users = CI_User::getUsers();
-		ma($users);
+		//$users = CI_User::getUsers();
+		//ma($users);
 
+		// **
+		// CI_Publication
+		// **
+
+		$offers = CI_Offer::getById(1);
+		ma($offers);
     }    
 }

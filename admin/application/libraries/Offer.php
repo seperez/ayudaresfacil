@@ -21,7 +21,7 @@ class CI_Offer extends CI_Publication {
 	 */
 
 	protected function getData(){
-		$object = super::getData($row);
+		$object = parent::getData($row);
 		$object->processStateOffer = $this->processStateOffer;
 		$object->type = $this->type;
 		$object->quantityUsersToPaused = $this->quantityUsersToPaused;
@@ -45,9 +45,7 @@ class CI_Offer extends CI_Publication {
 		$results = $CI->offer_model->getById($id);
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
-				$return = self::getInstance($result);
-			}
+			$return = self::getInstance($results[0]);
 		}
 		return $return;
 	}
