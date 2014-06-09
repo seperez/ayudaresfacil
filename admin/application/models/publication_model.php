@@ -118,19 +118,6 @@ class Publication_model extends CI_Model
 	}
 
 	// TODO: PASAR A OFFER_MODEL
-	// public function getOffers($userId){
-	// 	$this->db->select('*');	
-	// 	$this->db->from('publication');	
-	// 	$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-	// 	$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
-	// 	if ($userId > 0) {
-	// 		$this->db->where('user_id', $userId);	
-	// 	}
-	// 	$this->db->where('publication_type_id', 1);		
-	// 	$this->db->where('process_state_id', 'V');		
-	// 	$query = $this->db->get();
-	// 	return $query->result();
-	// }
 
 	// public function getOffersFavourites($userId){		
 	// 	$this->db->select('*');	

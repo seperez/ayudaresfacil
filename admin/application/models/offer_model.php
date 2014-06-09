@@ -6,6 +6,7 @@ class Offer_model extends CI_Model
 		$this->db->select('*');	
 		$this->db->from('publication');
 		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+		$this->db->where('publication.publication_type_id', 1);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -15,6 +16,7 @@ class Offer_model extends CI_Model
 		$this->db->from('publication');
 		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
 		$this->db->where('publication.publication_id', $id);	
+		$this->db->where('publication.publication_type_id', 1);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -24,6 +26,7 @@ class Offer_model extends CI_Model
 		$this->db->from('publication');
 		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
 		$this->db->where('publication.user_id', $id);	
+		$this->db->where('publication.publication_type_id', 1);
 		$query = $this->db->get();
 		return $query->result();
 	}	
