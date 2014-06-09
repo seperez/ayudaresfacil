@@ -49,4 +49,17 @@ class Request_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function getFavoritesByUserId($userId){		
+		$this->db->select('*');	
+		$this->db->from('publication');	
+		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		$this->db->join('publication_favourite', "publication.publication_id = publication_favourite.publication_id");
+		$this->db->where('publication_favourite.user_id', $userId);	
+		$this->db->where('publication.publication_type_id', 2);
+		$this->db->or_where('publication.publication_type_id', 3);	
+		$query = $this->db->get();
+		return $query->result();
+	}
 }

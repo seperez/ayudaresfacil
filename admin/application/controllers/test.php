@@ -43,7 +43,9 @@ class Test extends CI_Controller{
 		// CI_Publication
 		// **
 
-		$requests = CI_Request::getObjectRequestsByUserId(1);
-		ma($requests);
+
+		$myOffer = CI_Offer::getById(1);
+		ma($myOffer);
+		$myOffer->getFavoritesByUserId(1);
     }    
 }

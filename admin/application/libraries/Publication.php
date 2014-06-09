@@ -84,4 +84,29 @@ class CI_Publication {
 		$publication->expirationDate = (isset($row->expiration_date)) ? $row->expiration_date : '';
 		return $publication;
 	}
+
+	public function setAsFavorite($userId){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');
+
+		//**
+		//TODO: CHEQUEAR QUE EL FAVORITO PARA ESTE USUARIO Y ESTA PUBLICACION YA NO EXISTA.
+		//**
+
+		$data = array (
+			"userId"=>$userId, 
+			"publicationId" => $this->getId()
+		);
+		return $CI->publication_model->setAsFavorite($data);
+	}
+
+	public function deleteFromFavorites($userId){
+		$CI =& get_instance();
+		$CI->load->model('publication_model');	
+		$data = array (
+			"userId"=>$userId, 
+			"publicationId" => $this->getId()
+		);
+		return $CI->publication_model->deleteFromFavorites($data);
+	}
 }

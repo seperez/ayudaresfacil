@@ -48,7 +48,7 @@ class CI_Offer extends CI_Publication {
 		}
 		return $return;
 	}
-	
+
 	public static function getById($id){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
@@ -60,11 +60,23 @@ class CI_Offer extends CI_Publication {
 		return $return;
 	}
 
-
 	public static function getOffersByUserId($userId){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
 		$results = $CI->offer_model->getOffersByUserId($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public static function getFavoritesByUserId($userId){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+		$results = $CI->offer_model->getFavoritesByUserId($userId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {

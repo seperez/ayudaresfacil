@@ -2,15 +2,6 @@
 
 class Publication_model extends CI_Model
 {
-	public function getById($id){	
-		$this->db->select('*');	
-		$this->db->from('publication');	
-		$this->db->where('publication.publication_id',$id);
-		$this->db->where('process_state_id', 'V');	
-		$query = $this->db->get();
-		return $query->result();
-	}
-
 	public function create($options){
 		$this->db->trans_start();
 		$data = array 	(
@@ -106,15 +97,34 @@ class Publication_model extends CI_Model
 		return $publicationId;
 	}
 
-	public function addFavourite($options){
+
+	public function getRequests(){	
+		$this->db->select('*');	
+		$this->db->from('publication');		
+		$this->db->where('publication_type_id', 2);
+		$this->db->or_where('publication_type_id', 3);
+		$query = $this->db->get();
+		ma($this->db->queries);
+		return $query->result();
+	}
+
+	public function setAsFavorite($options){
 		$data = array 	(
 							'publication_id' => $options['publicationId'],
 							'user_id' => $options['userId']
 						);
-		$this->db->insert('publication_favourite', $data);
+		$this->db->insert('publication_favorite', $data);
 		$id = $this->db->insert_id();
 
 		return $id;
+	}
+
+	public function deleteFromFavorites($options){
+		$data = array 	(
+							'publication_id' => $options['publicationId'],
+							'user_id' => $options['userId']
+						);
+		return $this->db->delete('publication_favorite', $data);
 	}
 
 	// TODO: PASAR A OFFER_MODEL
