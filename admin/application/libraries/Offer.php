@@ -60,11 +60,10 @@ class CI_Offer extends CI_Publication {
 		return $return;
 	}
 
-	/*
-	public static function getRequests($userId){
+	public static function getOffersByUserId($userId){
 		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getRequests($userId);
+		$CI->load->model('offer_model');
+		$results = $CI->offer_model->getOffersByUserId($userId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -73,11 +72,12 @@ class CI_Offer extends CI_Publication {
 		}
 		return $return;
 	}
-
-	public static function getOffers($userId){
+	
+	/*
+	public static function getRequests($userId){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getOffers($userId);
+		$results = $CI->publication_model->getRequests($userId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -95,19 +95,6 @@ class CI_Offer extends CI_Publication {
 		if(!empty($results)){
 			foreach($results as $result) {
 				$return[] = self::getInstance($result);
-			}
-		}
-		return $return;
-	}
-
-	public static function getById($publicationId){
-		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getById($publicationId);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return = self::getInstance($result);
 			}
 		}
 		return $return;
