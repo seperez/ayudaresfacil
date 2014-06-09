@@ -43,7 +43,7 @@ class Test extends CI_Controller{
 		// CI_Publication
 		// **
 
-		$offers = CI_Offer::getById(1);
+		$offers = CI_Offer::getOffers();
 		ma($offers);
     }    
 }

@@ -4,7 +4,8 @@ class Offer_model extends CI_Model
 {
 	public function getOffers(){	
 		$this->db->select('*');	
-		$this->db->from('publication_offer');	
+		$this->db->from('publication');
+		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
 		$query = $this->db->get();
 		return $query->result();
 	}

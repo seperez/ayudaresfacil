@@ -14,12 +14,9 @@ class CI_Offer extends CI_Publication {
 
 	/**
 	 * Devuelve la informacion cargada del objeto 
-	 * 		
 	 * Uso interno
-	 *  
 	 * @return object
 	 */
-
 	protected function getData(){
 		$object = parent::getData($row);
 		$object->processStateOffer = $this->processStateOffer;
@@ -49,7 +46,7 @@ class CI_Offer extends CI_Publication {
 		}
 		return $return;
 	}
-/*
+
 	public static function getOffers(){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
@@ -62,6 +59,8 @@ class CI_Offer extends CI_Publication {
 		}
 		return $return;
 	}
+
+	/*
 	public static function getRequests($userId){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
