@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'bellotaitalic';
+    src: url('../fonts/bellota/bellota-italic-webfont.eot');
+    src: url('../fonts/bellota/bellota-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/bellota/bellota-italic-webfont.woff') format('woff'),
+         url('../fonts/bellota/bellota-italic-webfont.ttf') format('truetype'),
+         url('../fonts/bellota/bellota-italic-webfont.svg#bellotaitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 /*----------------------
 ---Main Layout Styles---
 ------------------------*/
@@ -338,6 +350,11 @@ header.jumbotron{
     background:rgba(0,0,0,0.4);
     padding:20px 0;
     border-radius: 4px;
+}
+
+.message-box h1{
+    font-family: "bellotaitalic";
+    text-transform:none;
 }
 
 .jumbotron .left-col{
