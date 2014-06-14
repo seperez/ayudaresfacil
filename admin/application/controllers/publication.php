@@ -11,69 +11,6 @@ class Publication extends CI_Controller{
 
 	public function index(){}
 
-	public function getRequests(){	
-		$return["result"] = "NOOK";
-		$userId = ($this->input->post('userId') > 0) ? $this->input->post('userId') : 0;
-		$publications = CI_Publication::getRequests($userId);
-		if($publications){
-			$return["result"] = "OK";
-			$return["data"] = "";
-
-			foreach ($publications as $key => $publication) {
-				$myPublication = new stdClass();
-				$myPublication->publicationId = $publication->getPublicationId();
-				$myPublication->user = $publication->getUser();
-				$myPublication->type = $publication->getType();
-				$myPublication->creationDate = $publication->getCreationDate();
-				$myPublication->title = $publication->getTitle();
-				$myPublication->description = $publication->getDescription();
-				$myPublication->expirationDate = $publication->getExpirationDate();
-				$myPublication->category = $publication->getCategory();
-				$myPublication->subcategory = $publication->getSubcategory();
-				$myPublication->views = $publication->getViews();
-				$myPublication->processState = $publication->getProcessState();
-				$myPublication->object = $publication->getObject();
-				$myPublication->quantity = $publication->getQuantity();
-
-				$return["data"][$key] = $myPublication;
-			 } 
-		}
-		echo json_encode($return);
-	}
-
-	public function getOffers(){
-		$return["result"] = "NOOK";
-		$userId = ($this->input->post('userId') > 0) ? $this->input->post('userId') : 0;
-		$publications = CI_Publication::getOffers($userId);
-		if($publications){
-			$return["result"] = "OK";
-			$return["data"] = "";
-
-			foreach ($publications as $key => $publication) {
-				$myPublication = new stdClass();
-				$myPublication->publicationId = $publication->getPublicationId();
-				$myPublication->user = $publication->getUser();
-				$myPublication->type = $publication->getType();
-				$myPublication->creationDate = $publication->getCreationDate();
-				$myPublication->title = $publication->getTitle();
-				$myPublication->description = $publication->getDescription();
-				$myPublication->expirationDate = $publication->getExpirationDate();
-				$myPublication->category = $publication->getCategory();
-				$myPublication->subcategory = $publication->getSubcategory();
-				$myPublication->views = $publication->getViews();
-				$myPublication->processState = $publication->getProcessState();
-				$myPublication->object = $publication->getObject();
-				$myPublication->quantity = $publication->getQuantity();
-				$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
-				$myPublication->offerTypeId = $publication->getOfferTypeId();
-				$myPublication->quantityUsersToPaused = $publication->getQuantityUsersToPaused();
-
-				$return["data"][$key] = $myPublication;
-			 } 
-		}
-		echo json_encode($return);
-	}
-
 	public function getById(){
 		$publicationId = $this->input->post('publicationId');
 		$return["result"] = "NOOK";
@@ -97,11 +34,7 @@ class Publication extends CI_Controller{
 			$myPublication->processState = $publication->getProcessState();
 			$myPublication->object = $publication->getObject();
 			$myPublication->quantity = $publication->getQuantity();
-			if($myPublication->type == 1){
-				$myPublication->processStateIdOffer = $publication->getProcessStateIdOffer();
-				$myPublication->offerTypeId = $publication->getOfferTypeId();
-				$myPublication->quantityUsersToPaused = $publication->getQuantityUsersToPaused();				
-			}
+			
 			$return["data"] = $myPublication;
 		}
 		echo json_encode($return);
@@ -132,7 +65,7 @@ class Publication extends CI_Controller{
 			$publication = new CI_Publication();
 		} 
 		
-		$publication->setUserId($arrOptions['userId']);
+		$publication->setUser($arrOptions['user']);
 		$publication->setType($arrOptions['type']);
 		$publication->setCreationDate($arrOptions['creationDate']);
 		$publication->setTitle($arrOptions['title']);

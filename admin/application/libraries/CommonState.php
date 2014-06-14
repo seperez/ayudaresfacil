@@ -41,8 +41,8 @@ class CI_CommonState {
 	public static function getCommonStates()
 	{
 		$CI = & get_instance();
-		$CI->load->model('commonState_model');
-		$results = $CI->commonState_model->getCommonStates();
+		$CI->load->model('common_state_model');
+		$results = $CI->common_state_model->getCommonStates();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
@@ -55,8 +55,8 @@ class CI_CommonState {
 	public static function getById($id)
 	{
 		$CI = & get_instance();
-		$CI->load->model('commonState_model');
-		$results = $CI->commonState_model->getById($id);
+		$CI->load->model('common_state_model');
+		$results = $CI->common_state_model->getById($id);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
