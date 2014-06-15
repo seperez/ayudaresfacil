@@ -19,11 +19,11 @@ class CI_Category{
 	 * @return object
 	 */
 
-	private function getData(){
+	public function getData($options){
 		$object = new stdClass();
-		$object->id = $this->id;
-		$object->description = $this->description;
-		$object->commonState = $this->commonState->id;
+		$object->id = $options->id;
+		$object->description = $options->description;
+		$object->commonState = CI_CommonState::getData($options->commonState);
 		return $object;
 	}
 	

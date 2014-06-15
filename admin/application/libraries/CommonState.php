@@ -19,11 +19,11 @@ class CI_CommonState {
 	 * @return object
 	 */
 
-	private function getData(){
+	public function getData($options){
 		$object = new stdClass();
-		$object->id = $this->id;
-		$object->description = $this->description;
-		$object->comments = $this->comments;
+		$object->id = $options->id;
+		$object->description = $options->description;
+		$object->comments = $options->comments;
 		return $object;
 	}
 	

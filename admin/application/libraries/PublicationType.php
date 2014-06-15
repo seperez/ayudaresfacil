@@ -19,7 +19,7 @@ class CI_PublicationType {
 	 * @return object
 	 */
 
-	private function getData(){
+	public function getData(){
 		$object = new stdClass();
 		$object->id = $this->id;
 		$object->name = $this->name;

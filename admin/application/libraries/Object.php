@@ -19,11 +19,11 @@ class CI_Object {
 	 * @return object
 	 */
 
-	private function getData(){
+	public function getData($options){
 		$object = new stdClass();
-		$object->id = $this->id;
-		$object->description = $this->description;
-		$object->createdDate = $this->createdDate;
+		$object->id = $options->id;
+		$object->description = $options->description;
+		$object->createdDate = $options->createdDate;
 		return $object;
 	}
 	
@@ -31,11 +31,11 @@ class CI_Object {
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$user = new self;
-		$user->id = (isset($row->object_id)) ? $row->object_id : 0;
-		$user->description = (isset($row->description)) ? $row->description : '';
-		$user->createdDate = (isset($row->created_date)) ? $row->created_date : '';
-		return $user;
+		$object = new self;
+		$object->id = (isset($row->object_id)) ? $row->object_id : 0;
+		$object->description = (isset($row->description)) ? $row->description : '';
+		$object->createdDate = (isset($row->created_date)) ? $row->created_date : '';
+		return $object;
 	}
 	
 	public static function getObjects()

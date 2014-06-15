@@ -21,11 +21,11 @@ class CI_OfferType {
 	 * @return object
 	 */
 
-	private function getData(){
+	public function getData($options){
 		$object = new stdClass();
-		$object->id = $this->id;
-		$object->description = $this->description;
-		$object->comment = $this->comment;
+		$object->id = $options->id;
+		$object->description = $options->description;
+		$object->comment = $options->comment;
 		return $object;
 	}
 

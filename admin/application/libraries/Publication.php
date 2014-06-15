@@ -49,21 +49,22 @@ class CI_Publication {
 	 * Devuelve la informacion cargada del objeto 
 	 * Uso interno
 	 * @return object
-	 */
-	protected function getData(){
-		$object = new stdClass();
-		$object->id = $this->publicationId;
-		$object->title = $this->title;
-		$object->description = $this->description;
-		$object->category = $this->category;
-		$object->subcategory = $this->subcategory;
-		$object->object = $this->object;
-		$object->quantity = $this->quantity;
-		$object->views = $this->views;
-		$object->processState = $this->processState;
-		$object->creationDate = $this->creationDate;
-		$object->expirationDate = $this->expirationDate;
-		return $object;
+	*/	
+
+	protected function getData($object){
+		$publication = new stdClass();
+		$publication->id = $object->id;
+		$publication->title = $object->title;
+		$publication->description = $object->description;
+		$publication->category = CI_Category::getData($object->category);
+		$publication->subcategory = CI_Subcategory::getData($object->subcategory);
+		$publication->object = CI_Object::getData($object->object);
+		$publication->quantity = $object->quantity;
+		$publication->views = $object->views;
+		$publication->processState = CI_ProcessState::getData($object->processState);
+		$publication->creationDate = $object->creationDate;
+		$publication->expirationDate = $object->expirationDate;
+		return $publication;
 	}
 
 	protected static function getInstance($row){
@@ -82,6 +83,7 @@ class CI_Publication {
 		$publication->processState = (isset($row->process_state_id)) ? CI_ProcessState::getById($row->process_state_id) : '';
 		$publication->creationDate = (isset($row->creation_date)) ? $row->creation_date : '';
 		$publication->expirationDate = (isset($row->expiration_date)) ? $row->expiration_date : '';
+		
 		return $publication;
 	}
 

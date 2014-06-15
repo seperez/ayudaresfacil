@@ -23,12 +23,12 @@ class CI_Subcategory{
 	 * @return object
 	 */
 
-	private function getData(){
+	public function getData($options){
 		$object = new stdClass();
-		$object->id = $this->id;
-		$object->category = $this->category;
-		$object->description = $this->description;
-		$object->commonState = $this->commonState;
+		$object->id = $options->id;
+		$object->category = CI_Category::getData($options->category);
+		$object->description = $options->description;
+		$object->commonState = CI_CommonState::getData($options->commonState);
 		return $object;
 	}
 	

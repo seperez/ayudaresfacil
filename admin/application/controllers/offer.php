@@ -2,7 +2,7 @@
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Offer extends MY_controller {
+class Offer extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct(); 	
@@ -19,13 +19,8 @@ class Offer extends MY_controller {
 		if($offer){
 			$return["result"] = "OK";
 			$return["data"] = "";
-			
-			$myOffer = CI_Offer::getInstance($id);	
-			$myOffer->processStateOffer = $offer->getProcessStateOffer();
-			$myOffer->offerTypeId = $offer->getOfferTypeId();
-			$myOffer->quantityUsersToPaused = $offer->getQuantityUsersToPaused();				
-			
-			ma($myOffer);
+
+			$myOffer = CI_Offer::getData($offer);		
 			$return["data"] = $myOffer;
 		}
 		echo json_encode($return);

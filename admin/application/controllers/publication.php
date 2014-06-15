@@ -21,9 +21,7 @@ class Publication extends CI_Controller{
 			$return["data"] = "";
 			
 			$myPublication = new stdClass();
-			$myPublication->publicationId = $publication->getPublicationId();
-			$myPublication->user = $publication->getUser();
-			$myPublication->type = $publication->getType();
+			$myPublication->id = $publication->getId();	
 			$myPublication->creationDate = $publication->getCreationDate();
 			$myPublication->title = $publication->getTitle();
 			$myPublication->description = $publication->getDescription();
@@ -37,7 +35,8 @@ class Publication extends CI_Controller{
 			
 			$return["data"] = $myPublication;
 		}
-		echo json_encode($return);
+		return $return;
+		//echo json_encode($return);
 	}
 
 	public function save(){

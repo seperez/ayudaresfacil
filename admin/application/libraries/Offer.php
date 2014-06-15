@@ -17,12 +17,13 @@ class CI_Offer extends CI_Publication {
 	 * Uso interno
 	 * @return object
 	 */
-	protected function getData(){
-		$object = parent::getData($row);
-		$object->processStateOffer = $this->processStateOffer;
-		$object->type = $this->type;
-		$object->quantityUsersToPaused = $this->quantityUsersToPaused;
-		return $object;
+
+	public function getData($object){
+		$offer = parent::getData($object);
+		$offer->processStateOffer = CI_ProcessState::getData($object->processStateOffer);
+		$offer->type = CI_OfferType::getData($object->type);
+		$offer->quantityUsersToPaused = $object->quantityUsersToPaused;
+		return $offer;
 	}
 
 	public static function getInstance($row){
