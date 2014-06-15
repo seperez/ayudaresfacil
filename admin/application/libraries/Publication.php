@@ -87,6 +87,20 @@ class CI_Publication {
 		return $publication;
 	}
 
+	public function save($user, $type){
+		$return = TRUE;
+		$CI = & get_instance();
+		$CI->load->model('publication_model');
+		if(isset($this->id) && $this->id > 0)
+			$CI->publication_model->update($this->getData($this));
+		else{
+			$this->id = $CI->publication_model->create($this->getData($this));
+			if($this->id === null)
+				$return = FALSE;
+		}
+		return $return;
+	}
+
 	public function setAsFavorite($userId){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');

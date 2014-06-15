@@ -6,8 +6,10 @@ class CI_Offer extends CI_Publication {
 	private $quantityUsersToPaused;
 
 	public function getProcessStateOffer(){return $this->processStateOffer;}
+	public function setProcessStateOffer($processStateOffer){$this->processStateOffer = CI_ProcessState::getById($processStateOffer);}
 
 	public function getType(){return $this->type;}
+	public function setType($type){$this->type = CI_OfferType::getById($type);}
 
 	public function getQuantityUsersToPaused(){return $this->quantityUsersToPaused;}
 	public function setQuantityUsersToPaused($quantityUsersToPaused){$this->quantityUsersToPaused = $quantityUsersToPaused;}
@@ -37,6 +39,17 @@ class CI_Offer extends CI_Publication {
 		return $offer;
 	}
 
+	public static function getById($id){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+		$results = $CI->offer_model->getById($id);
+		$return = array();
+		if(!empty($results)){
+			$return = self::getInstance($results[0]);
+		}
+		return $return;
+	}
+
 	public static function getOffers(){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
@@ -46,17 +59,6 @@ class CI_Offer extends CI_Publication {
 			foreach($results as $result) {
 				$return[] = self::getInstance($result);
 			}
-		}
-		return $return;
-	}
-
-	public static function getById($id){
-		$CI =& get_instance();
-		$CI->load->model('offer_model');
-		$results = $CI->offer_model->getById($id);
-		$return = array();
-		if(!empty($results)){
-			$return = self::getInstance($results[0]);
 		}
 		return $return;
 	}
@@ -86,22 +88,21 @@ class CI_Offer extends CI_Publication {
 		}
 		return $return;
 	}
-
-	/*
-	public function save(){
+	
+	public function save($user, $type){
 		$return = TRUE;
 		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		if(isset($this->publicationId) && $this->publicationId > 0)
-			$CI->publication_model->update($this->getData());
+		$CI->load->model('offer_model');
+		if(isset($this->id) && $this->id > 0)
+			$CI->offer_model->update($this->getData($this));
 		else{
-			$this->id = $CI->publication_model->create($this->getData());
+			$this->id = $CI->offer_model->create($this->getData($this), $user, $type);
 			if($this->id === null)
 				$return = FALSE;
 		}
 		return $return;
 	}
-
+/*
 	public function delete(){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');
