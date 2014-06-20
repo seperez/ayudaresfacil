@@ -15,7 +15,7 @@ You need to install Node.js and then the development tools. Node.js comes with a
 * Install Grunt-CLI and Karma as global npm modules:
 
     ```
-    npm install -g grunt-cli karma
+    npm install -g grunt-cli karma bower
     ```
 
 (Note that you may need to uninstall grunt 0.3 globally before installing grunt-cli)
@@ -46,17 +46,18 @@ Our backend application server is developed with PHP Codeigniter.
 ### Client App
 
 Our client application is a Angular application but our development process uses a Node.js build tool
-[Grunt.js](gruntjs.com). Grunt relies upon some 3rd party libraries that we need to install as local dependencies using npm.
+[Grunt.js](gruntjs.com). Grunt relies upon some 3rd party libraries that we need to install as local dependencies using bower and npm.
 
 * Install local dependencies (from the project root folder):
 
     ```
     cd client
+    bower install
     npm install
     cd ..
     ```
 
-  (This will install the dependencies declared in the client/package.json file)
+  (This will install the dependencies declared in the client/bower.json and client/package.json files)
 
 ## Building
 
