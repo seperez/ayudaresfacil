@@ -15,13 +15,12 @@ You need to install Node.js and then the development tools. Node.js comes with a
 * Install Grunt-CLI and Karma as global npm modules:
 
     ```
-    [npm install -g grunt-cli karma]
+    npm install -g grunt-cli karma
     ```
 
 (Note that you may need to uninstall grunt 0.3 globally before installing grunt-cli)
 
 ### Get the Code
-
 
 Either clone this repository or fork it on GitHub and clone your fork. You must download it to the **htdocs** folder of apache:
 
@@ -33,12 +32,6 @@ cd ayudaresfacil
 ### Data Base
 
 You have to run the sql scripts to create the database and initialize. Do this in the order listed below:
-
-	```
-    /dbscripts/01 - ScriptBD_ayudaresfacil_createdb.sql
-    /dbscripts/02 - ScriptBD_ayudaresfacil_georeferences.sql
-    /dbscripts/03 - ScriptBD_ayudaresfacil.sql
-    ```
 
 ### App Server
 
@@ -104,3 +97,4 @@ The app made up of a number of javascript, css and html files that need to be me
     grunt test
     cd ..
     ```
+
