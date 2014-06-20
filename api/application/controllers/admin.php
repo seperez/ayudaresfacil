@@ -61,13 +61,4 @@ class Admin extends CI_Controller{
 		logout();
 		redirect(base_url()."admin/index");
 	}
-	
-	public function welcome() {
-		$data['user'] = getLoggedinUser();
-        $this->load->view('admin/welcome',$data);
-   	}
-	
-	public function user() {
-        redirect(base_url()."user/index");
-    }   
 }

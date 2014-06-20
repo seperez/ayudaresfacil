@@ -2,4 +2,4 @@ RewriteEngine on
 
 RewriteCond $1 !^(index\.php|source|\.txt)
 
-RewriteRule ^(.*)$ /ayudaresfacil\/admin\/index.php/$1 [L]
+RewriteRule ^(.*)$ /ayudaresfacil\/api\/index.php/$1 [L]

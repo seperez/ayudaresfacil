@@ -8,23 +8,6 @@ function ma($array, $die = 0){
 	if($die == 1) die(); 
 }
 
-function renderSelectOptions($arrOptions, $selectedId = 0){
-	foreach ($arrOptions as $option){
-		if($selectedId == $option->id) $selected="selected";
-		else $selected="";
-		echo '<option value="'.$option->id.'" '.$selected.'>'.$option->descripcion.'</option>';
-		//echo '<option value="'.$option->id.'" '.set_select($selectName, $category->id).'>'.$category->name.'</option>';
-	}
-}
-
-function renderSelectOptionsByName($arrOptions, $selectedId = 0){
-	foreach ($arrOptions as $option){
-		if($selectedId == $option->id) $selected="selected";
-		else $selected="";
-		echo '<option value="'.$option->id.'" '.$selected.'>'.$option->nombre.'</option>';
-	}
-}
-
 function getImgSrc($img,$path,$thumb = FALSE){
 	$error = FALSE;	
 	if(isset($img) && strlen($img)>0){
