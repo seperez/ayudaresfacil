@@ -1,4 +1,81 @@
-ayudaresfacil
-=============
 
-ayudaresfacil.org es una plataforma que permite a la comunidad hacer donaciones y ofrecimientos de una manera facil e intuitiva. 
+# AyudarEsFacil 
+
+> ayudaresfacil.org it's a platform that enables the community to make donations and offerings in an easy and intuitive way.
+
+
+## Installation
+
+### Platform & tools
+
+You need to install apache ang mySql server. Xampp allows you to easily install.
+
+You need to install Node.js and then the development tools. Node.js comes with a package manager called [npm](http://npmjs.org) for installing NodeJS applications and libraries.
+* [Install node.js](http://nodejs.org/download/) (requires node.js version >= 0.8.4)
+* Install Grunt-CLI and Karma as global npm modules:
+
+    ```
+    npm install -g grunt-cli karma
+    ```
+
+(Note that you may need to uninstall grunt 0.3 globally before installing grunt-cli)
+
+### Get the Code
+
+
+Either clone this repository or fork it on GitHub and clone your fork. You must download it to the **htdocs** folder of apache:
+5
+```
+git clone https://github.com/seperez/ayudaresfacil.git
+cd ayudaresfacil
+```
+
+### App Server
+
+Our backend application server is a PHP Codeigniter application.
+
+After you got to run the sql scripts to create the database and initialize. Do this in the order listed below:
+
+	```
+    /dbscripts/01 - ScriptBD_ayudaresfacil_createdb.sql
+    /dbscripts/02 - ScriptBD_ayudaresfacil_georeferences.sql
+    /dbscripts/03 - ScriptBD_ayudaresfacil.sql
+    ```
+
+### Client App
+
+Our client application is a Angular application but our development process uses a Node.js build tool
+[Grunt.js](gruntjs.com). Grunt relies upon some 3rd party libraries that we need to install as local dependencies using npm.
+
+* Install local dependencies (from the project root folder):
+
+    ```
+    cd client
+    npm install
+    cd ..
+    ```
+
+  (This will install the dependencies declared in the client/package.json file)
+
+## Building
+
+### Configure Server
+
+
+
+
+## Running
+### Start the Server
+* Run the server
+	
+	Just start apache server and browse the application at [http://localhost/ayudaresfacil/api]
+    
+### Start the Client
+* Run the client
+	
+	For run the client application you just got to do the following: 
+
+    ```
+    cd client
+    grunt serve
+    ```
