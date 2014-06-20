@@ -1,17 +1,17 @@
 <?php
 
 class CI_Publication {
-	private $id;
-	private $title;
-	private $description;
-	private $category;
-	private $subcategory;
-	private $object;
-	private $quantity;
-	private $views;
-	private $processState;
-	private $creationDate;
-	private $expirationDate;
+	protected $id;
+	protected $title;
+	protected $description;
+	protected $category;
+	protected $subcategory;
+	protected $object;
+	protected $quantity;
+	protected $views;
+	protected $processState;
+	protected $creationDate;
+	protected $expirationDate;
 
 	public function getId() {return $this->id;}
 	
@@ -51,19 +51,35 @@ class CI_Publication {
 	 * @return object
 	*/	
 
-	protected function getData($object){
-		$publication = new stdClass();
-		$publication->id = $object->id;
-		$publication->title = $object->title;
-		$publication->description = $object->description;
-		$publication->category = CI_Category::getData($object->category);
-		$publication->subcategory = CI_Subcategory::getData($object->subcategory);
-		$publication->object = CI_Object::getData($object->object);
-		$publication->quantity = $object->quantity;
-		$publication->views = $object->views;
-		$publication->processState = CI_ProcessState::getData($object->processState);
-		$publication->creationDate = $object->creationDate;
-		$publication->expirationDate = $object->expirationDate;
+	protected function getDataFromArray($options){
+		$publication = new CI_Offer();
+		$publication->id = $options["publicationId"];
+		$publication->title = $options["title"];
+		$publication->description = $options["description"];
+		$publication->category = CI_Category::getData($options["category"]);
+		$publication->subcategory = CI_Subcategory::getData($options["subcategory"]);
+		$publication->object = CI_Object::getData($options["object"]);
+		$publication->quantity = $options["quantity"];
+		$publication->views = $options["views"];
+		$publication->processState = CI_ProcessState::getData($options["processState"]);
+		$publication->creationDate = $options["creationDate"];
+		$publication->expirationDate = $options["expirationDate"];
+		return $publication;
+	}
+
+	protected function getData($options){
+		$publication = new CI_Offer();
+		$publication->id = $options->id;
+		$publication->title = $options->title;
+		$publication->description = $options->description;
+		$publication->category = CI_Category::getData($options->category);
+		$publication->subcategory = CI_Subcategory::getData($options->subcategory);
+		$publication->object = CI_Object::getData($options->object);
+		$publication->quantity = $options->quantity;
+		$publication->views = $options->views;
+		$publication->processState = CI_ProcessState::getData($options->processState);
+		$publication->creationDate = $options->creationDate;
+		$publication->expirationDate = $options->expirationDate;
 		return $publication;
 	}
 
@@ -71,7 +87,7 @@ class CI_Publication {
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$publication = new self;
+		$publication = new CI_Offer();
 		$publication->id = (isset($row->publication_id)) ? $row->publication_id : 0;
 		$publication->title = (isset($row->title)) ? $row->title : '';
 		$publication->description = (isset($row->description)) ? $row->description : '';
@@ -83,7 +99,6 @@ class CI_Publication {
 		$publication->processState = (isset($row->process_state_id)) ? CI_ProcessState::getById($row->process_state_id) : '';
 		$publication->creationDate = (isset($row->creation_date)) ? $row->creation_date : '';
 		$publication->expirationDate = (isset($row->expiration_date)) ? $row->expiration_date : '';
-		
 		return $publication;
 	}
 

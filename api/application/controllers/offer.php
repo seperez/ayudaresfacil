@@ -20,7 +20,7 @@ class Offer extends CI_Controller {
 			$return["result"] = "OK";
 			$return["data"] = "";
 
-			$myOffer = CI_Offer::getData($offer);		
+			$myOffer = CI_Offer::getData($offer);			
 			$return["data"] = $myOffer;
 		}
 		echo json_encode($return);
@@ -47,28 +47,47 @@ class Offer extends CI_Controller {
 
 		if($arrOptions['publicationId'] > 0){
 			$offer = CI_Offer::getById($arrOptions['publicationId']);
-		}else{
-			$offer = new CI_Offer();
-		} 
-		
-		$offer->setCreationDate($arrOptions['creationDate']);
-		$offer->setTitle($arrOptions['title']);
-		$offer->setDescription($arrOptions['description']);
-		$offer->setExpirationDate($arrOptions['expirationDate']);
-		$offer->setCategory($arrOptions['category']);
-		$offer->setSubcategory($arrOptions['subcategory']);
-		$offer->setViews($arrOptions['views']);
-		$offer->setProcessState($arrOptions['processState']);
-		$offer->setObject($arrOptions['object']);
-		$offer->setQuantity($arrOptions['quantity']);
-		$offer->setProcessStateOffer($arrOptions['processStateIdOffer']);
-		$offer->setType($arrOptions['offerTypeId']);
-		$offer->setQuantityUsersToPaused($arrOptions['quantityUsersToPaused']);
 
-		if($offer->save($arrOptions['user'], $arrOptions['type'])){
+			$offer->setTitle($arrOptions['title']);
+			$offer->setDescription($arrOptions['description']);
+			$offer->setCategory($arrOptions['category']);
+			$offer->setSubcategory($arrOptions['subcategory']);
+			$offer->setObject($arrOptions['object']);
+			$offer->setQuantity($arrOptions['quantity']);
+			$offer->setViews($arrOptions['views']);
+			$offer->setProcessState($arrOptions['processState']);
+			$offer->setCreationDate($arrOptions['creationDate']);
+			$offer->setExpirationDate($arrOptions['expirationDate']);
+			$offer->setProcessStateOffer($arrOptions['processStateIdOffer']);
+			$offer->setType($arrOptions['offerTypeId']);
+			$offer->setQuantityUsersToPaused($arrOptions['quantityUsersToPaused']);
+		}else{
+			$offer = CI_Offer::getDataFromArray($arrOptions);
+		}
+
+		$arrInfo['user'] = $arrOptions['user'];
+		$arrInfo['type'] = $arrOptions['type'];
+
+		if($offer->save($arrInfo)){
+			$category = $offer->getCategory();
 			$return["result"] = "OK";
 
-			$myOffer = CI_Offer::getData($offer);	
+			$myOffer = new stdClass();
+			$myOffer->id = $offer->getId();
+			$myOffer->title = $offer->getTitle();
+			$myOffer->description = $offer->getDescription();
+			$myOffer->category = CI_Category::getData($category);
+			$myOffer->subcategory = $offer->getSubcategory();
+			$myOffer->object = $offer->getObject();
+			$myOffer->quantity = $offer->getQuantity();
+			$myOffer->views = $offer->getViews();
+			$myOffer->processState = $offer->getProcessState();
+			$myOffer->creationDate = $offer->getCreationDate();
+			$myOffer->expirationDate = $offer->getExpirationDate();
+			$myOffer->processStateOffer = $offer->getProcessStateOffer();
+			$myOffer->type = $offer->getType();
+			$myOffer->quantityUsersToPaused = $offer->getQuantityUsersToPaused();
+
 			$return["data"] = $myOffer;
 		}else{
 			$return["result"] = "NOOK";

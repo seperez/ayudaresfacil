@@ -20,7 +20,7 @@ class CI_Object {
 	 */
 
 	public function getData($options){
-		$object = new stdClass();
+		$object = new CI_Object();
 		$object->id = $options->id;
 		$object->description = $options->description;
 		$object->createdDate = $options->createdDate;
@@ -31,7 +31,7 @@ class CI_Object {
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$object = new self;
+		$object = new CI_Object();
 		$object->id = (isset($row->object_id)) ? $row->object_id : 0;
 		$object->description = (isset($row->description)) ? $row->description : '';
 		$object->createdDate = (isset($row->created_date)) ? $row->created_date : '';
@@ -46,12 +46,12 @@ class CI_Object {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return[] = self::getInstance($result);
+				$return[] = CI_Object::getInstance($result);
 			}
 		}
 		return $return;
 	}
-	
+
 	public static function getById($id)
 	{
 		$CI = & get_instance();
@@ -60,7 +60,7 @@ class CI_Object {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return = self::getInstance($result);
+				$return = CI_Object::getInstance($result);
 			}
 		}
 		return $return;

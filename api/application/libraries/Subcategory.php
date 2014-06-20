@@ -24,7 +24,7 @@ class CI_Subcategory{
 	 */
 
 	public function getData($options){
-		$object = new stdClass();
+		$object = new CI_Subcategory();
 		$object->id = $options->id;
 		$object->category = CI_Category::getData($options->category);
 		$object->description = $options->description;
@@ -36,7 +36,7 @@ class CI_Subcategory{
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$subcategory = new self;
+		$subcategory = new CI_Subcategory;
 		$subcategory->id = (isset($row->subcategory_id)) ? $row->subcategory_id : 0;
 		$subcategory->category = (isset($row->category_id)) ? CI_Category::getById($row->category_id) : '';		
 		$subcategory->description = (isset($row->description)) ? $row->description : '';
@@ -53,7 +53,7 @@ class CI_Subcategory{
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return[] = self::getInstance($result);
+				$return[] = CI_Subcategory::getInstance($result);
 			}
 		}
 		return $return;
@@ -67,7 +67,7 @@ class CI_Subcategory{
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return = self::getInstance($result);
+				$return = CI_Subcategory::getInstance($result);
 			}
 		}
 		return $return;
