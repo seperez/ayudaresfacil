@@ -16,17 +16,17 @@ class CI_ProcessState {
 	 */
 
 	public function getData($options){
-		$object = new stdClass();
-		$object->id = $options->id;
-		$object->description = $options->description;
-		return $object;
+		$processState = new CI_ProcessState();
+		$processState->id = $options->id;
+		$processState->description = $options->description;
+		return $processState;
 	}
 	
 	public static function getInstance($row){
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$processState = new self;
+		$processState = new CI_ProcessState;
 		$processState->id = (isset($row->process_state_id)) ? $row->process_state_id : 0;
 		$processState->description = (isset($row->description)) ? $row->description : '';
 		return $processState;
@@ -40,7 +40,7 @@ class CI_ProcessState {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return[] = self::getInstance($result);
+				$return[] = CI_ProcessState::getInstance($result);
 			}
 		}
 		return $return;
@@ -54,7 +54,7 @@ class CI_ProcessState {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return = self::getInstance($result);
+				$return = CI_ProcessState::getInstance($result);
 			}
 		}
 		return $return;

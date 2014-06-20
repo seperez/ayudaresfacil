@@ -45,32 +45,30 @@ class Publication_model extends CI_Model
 	public function update($options){
 		$this->db->trans_start();
 		$data = array 	(
-							'user_id' => $options->userId,
-							'publication_type_id' => $options->publicationTypeId,
 							'creation_date' => $options->creationDate,
 							'title' => $options->title,
 							'description' => $options->description,
 							'expiration_date' => $options->expirationDate,
-							'category_id' => $options->categoryId,
-							'subcategory_id' => $options->subcategoryId,
+							'category_id' => $options->category,
+							'subcategory_id' => $options->subcategory,
 							'views' => $options->views,
-							'process_state_id' => $options->processStateId,
+							'process_state_id' => $options->processState,
 						);
 		$this->db->where('publication_id', $options->publicationId);
 		$this->db->update('publication', $data);
 		$data = array 	(
-							'object_id' => $options->objectId,
+							'object_id' => $options->object,
 							'quantity' => $options->quantity,
 						);
-		$this->db->where('publication_id', $options->publicationId);
+		$this->db->where('publication_id', $options->id);
 		$this->db->update('publication_object', $data);
 		if ($options->publicationTypeId == 1) {
 			$data = array 	(
-								'process_state_offer' => $options->processStateIdOffer,
-								'offer_type_id' => $options->offerTypeId,
+								'process_state_offer' => $options->processStateOffer,
+								'offer_type_id' => $options->offerType,
 								'quantity_users_to_paused' => $options->quantityUsersToPaused,
 							);
-			$this->db->where('publication_id', $options->publicationId);
+			$this->db->where('publication_id', $options->id);
 			$this->db->update('publication_offer', $data);
 		}
 		$this->db->trans_complete();

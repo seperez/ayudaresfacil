@@ -20,7 +20,7 @@ class CI_CommonState {
 	 */
 
 	public function getData($options){
-		$object = new stdClass();
+		$object = new CI_CommonState();
 		$object->id = $options->id;
 		$object->description = $options->description;
 		$object->comments = $options->comments;
@@ -31,7 +31,7 @@ class CI_CommonState {
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$phoneType = new self;
+		$phoneType = new CI_CommonState;
 		$phoneType->id = (isset($row->category_id)) ? $row->category_id : 0;
 		$phoneType->description = (isset($row->description)) ? $row->description : '';
 		$phoneType->comments = (isset($row->comments)) ? $row->comments : '';
@@ -46,7 +46,7 @@ class CI_CommonState {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return[] = self::getInstance($result);
+				$return[] = CI_CommonState::getInstance($result);
 			}
 		}
 		return $return;
@@ -60,7 +60,7 @@ class CI_CommonState {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return = self::getInstance($result);
+				$return = CI_CommonState::getInstance($result);
 			}
 		}
 		return $return;

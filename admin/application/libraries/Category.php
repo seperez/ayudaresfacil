@@ -5,7 +5,7 @@ class CI_Category{
 	private $description;
 	private $commonState;
 
-	public function getId() {return $this->id;}
+	public function getId(){return $this->id;}
 	
 	public function getDescription(){return $this->description;}
 	public function setDescription($description){$this->description = $description;}
@@ -20,7 +20,7 @@ class CI_Category{
 	 */
 
 	public function getData($options){
-		$object = new stdClass();
+		$object = new CI_Category();
 		$object->id = $options->id;
 		$object->description = $options->description;
 		$object->commonState = CI_CommonState::getData($options->commonState);
@@ -31,7 +31,7 @@ class CI_Category{
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$category = new self;
+		$category = new CI_Category();
 		$category->id = (isset($row->category_id)) ? $row->category_id : 0;
 		$category->description = (isset($row->description)) ? $row->description : '';
 		$category->commonState = (isset($row->common_state_id)) ? CI_CommonState::getById($row->common_state_id) : '';		
@@ -47,7 +47,7 @@ class CI_Category{
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return[] = self::getInstance($result);
+				$return[] = CI_Category::getInstance($result);
 			}
 		}
 		return $return;
@@ -61,7 +61,7 @@ class CI_Category{
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return = self::getInstance($result);
+				$return = CI_Category::getInstance($result);
 			}
 		}
 		return $return;

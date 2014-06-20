@@ -1,10 +1,10 @@
 <?php
 
 class CI_Offer extends CI_Publication {
-	private $processStateOffer;
-	private $type;
-	private $quantityUsersToPaused;
-
+	protected $processStateOffer;
+	protected $type;
+	protected $quantityUsersToPaused;
+	
 	public function getProcessStateOffer(){return $this->processStateOffer;}
 	public function setProcessStateOffer($processStateOffer){$this->processStateOffer = CI_ProcessState::getById($processStateOffer);}
 
@@ -13,18 +13,26 @@ class CI_Offer extends CI_Publication {
 
 	public function getQuantityUsersToPaused(){return $this->quantityUsersToPaused;}
 	public function setQuantityUsersToPaused($quantityUsersToPaused){$this->quantityUsersToPaused = $quantityUsersToPaused;}
-
+	
 	/**
 	 * Devuelve la informacion cargada del objeto 
 	 * Uso interno
 	 * @return object
 	 */
 
-	public function getData($object){
-		$offer = parent::getData($object);
-		$offer->processStateOffer = CI_ProcessState::getData($object->processStateOffer);
-		$offer->type = CI_OfferType::getData($object->type);
-		$offer->quantityUsersToPaused = $object->quantityUsersToPaused;
+	public function getDataFromArray($options){
+		$offer = parent::getDataFromArray($options);
+		$offer->processStateOffer = CI_ProcessState::getData($options["processStateIdOffer"]);
+		$offer->type = CI_OfferType::getData($options["offerTypeId"]);
+		$offer->quantityUsersToPaused = $options["quantityUsersToPaused"];
+		return $offer;
+	}
+
+	public function getData(){
+		$offer = parent::getData($this);
+		$offer->processStateOffer = CI_ProcessState::getData($this->processStateOffer);
+		$offer->type = CI_OfferType::getData($this->type);
+		$offer->quantityUsersToPaused = $this->quantityUsersToPaused;
 		return $offer;
 	}
 
@@ -36,6 +44,7 @@ class CI_Offer extends CI_Publication {
 		$offer->processStateOffer = CI_ProcessState::getById($row->process_state_offer);
 		$offer->type = CI_OfferType::getById($row->offer_type_id);
 		$offer->quantityUsersToPaused = (isset($row->quantity_users_to_paused)) ? $row->quantity_users_to_paused : '';
+		
 		return $offer;
 	}
 
@@ -45,7 +54,7 @@ class CI_Offer extends CI_Publication {
 		$results = $CI->offer_model->getById($id);
 		$return = array();
 		if(!empty($results)){
-			$return = self::getInstance($results[0]);
+			$return = CI_Offer::getInstance($results[0]);
 		}
 		return $return;
 	}
@@ -89,15 +98,16 @@ class CI_Offer extends CI_Publication {
 		return $return;
 	}
 	
-	public function save($user, $type){
+	public function save($arrInfo){
 		$return = TRUE;
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
-		if(isset($this->id) && $this->id > 0)
-			$CI->offer_model->update($this->getData($this));
-		else{
-			$this->id = $CI->offer_model->create($this->getData($this), $user, $type);
-			if($this->id === null)
+		$id = $this->getId();
+		if(isset($id) && $id > 0){
+			$CI->offer_model->update($this->getData());
+		}else{
+			$id = $CI->offer_model->create($this->getData(), $arrInfo);
+			if($id === null)
 				$return = FALSE;
 		}
 		return $return;

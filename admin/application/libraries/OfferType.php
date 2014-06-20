@@ -22,7 +22,7 @@ class CI_OfferType {
 	 */
 
 	public function getData($options){
-		$object = new stdClass();
+		$object = new CI_OfferType();
 		$object->id = $options->id;
 		$object->description = $options->description;
 		$object->comment = $options->comment;
@@ -33,7 +33,7 @@ class CI_OfferType {
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$offer = new self;
+		$offer = new CI_OfferType;
 		$offer->id = (isset($row->offer_type_id)) ? $row->offer_type_id : 0;
 		$offer->description = (isset($row->description)) ? $row->description : '';
 		$offer->comment = (isset($row->comments)) ? $row->comments : '';
@@ -47,7 +47,7 @@ class CI_OfferType {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return = self::getInstance($result);
+				$return = CI_OfferType::getInstance($result);
 			}
 		}
 		return $return;
