@@ -33,6 +33,12 @@ cd ayudaresfacil
 
 You have to run the sql scripts to create the database and initialize. Do this in the order listed below:
 
+	```
+    /dbscripts/01 - ScriptBD_ayudaresfacil_createdb.sql
+    /dbscripts/02 - ScriptBD_ayudaresfacil_georeferences.sql
+    /dbscripts/03 - ScriptBD_ayudaresfacil.sql
+    ```
+
 ### App Server
 
 Our backend application server is developed with PHP Codeigniter.
@@ -91,6 +97,8 @@ The app made up of a number of javascript, css and html files that need to be me
 
 ## Running Client Test
 ### Unit Test
+
+
 
     ```
     cd client
