@@ -5,3 +5,9 @@
 */cache/!index.html
 
 admin/application/logs/*
+
+client/node_modules
+client/dist
+client/.tmp
+client/.sass-cache
+client/bower_components
