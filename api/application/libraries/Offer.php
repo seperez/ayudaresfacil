@@ -54,7 +54,9 @@ class CI_Offer extends CI_Publication {
 		$results = $CI->offer_model->getById($id);
 		$return = array();
 		if(!empty($results)){
-			$return = CI_Offer::getInstance($results[0]);
+			foreach($results as $result){
+				$return = CI_Offer::getInstance($result);
+			}
 		}
 		return $return;
 	}
@@ -65,7 +67,7 @@ class CI_Offer extends CI_Publication {
 		$results = $CI->offer_model->getOffers();
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
+			foreach($results as $result){
 				$return[] = self::getInstance($result);
 			}
 		}

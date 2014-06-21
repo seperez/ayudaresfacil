@@ -36,16 +36,16 @@ class Test extends CI_Controller{
   		//ma($myPhones);
 		// $myPhones[1]->delete();
 
-		//$users = CI_User::getUsers();
-		//ma($users);
+		$users = CI_User::getUsers();
+		ma($users);
 
 		// **
 		// CI_Publication
 		// **
 
 
-		$myOffer = CI_Offer::getById(1);
-		ma($myOffer);
-		$myOffer->getFavoritesByUserId(1);
+		//$myOffer = CI_Offer::getById(1);
+		//ma($myOffer);
+		//$myOffer->getFavoritesByUserId(1);
     }    
 }

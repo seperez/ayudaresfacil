@@ -26,24 +26,25 @@ class Offer extends CI_Controller {
 		echo json_encode($return);
 	}
 
+	//http://localhost/ayudaresfacil/api/offer/save?publicationId=15&userId=2&publicationTypeId=1&creationDate=2014-06-01&title=Un%20mJOJOJOif&description=alala&expirationDate=2014-09-09&categoryId=1&subcategoryId=1&views=12&processStateId=V&objectId=1&quantity=1&processStateIdOffer=V&offerTypeId=1&quantityUsersToPaused=2
 	public function save(){
 
-		$arrOptions['publicationId'] = ($this->input->post('publicationId') > 0) ? $this->input->post('publicationId') : 0;
-		$arrOptions['user'] = $this->input->post('userId');
-		$arrOptions['type'] = $this->input->post('publicationTypeId');
-		$arrOptions['creationDate'] = $this->input->post('creationDate');
-		$arrOptions['title'] = $this->input->post('title');
-		$arrOptions['description'] = $this->input->post('description');
-		$arrOptions['expirationDate'] = $this->input->post('expirationDate');
-		$arrOptions['category'] = $this->input->post('categoryId');
-		$arrOptions['subcategory'] = $this->input->post('subcategoryId');
-		$arrOptions['views'] = $this->input->post('views');
-		$arrOptions['processState'] = $this->input->post('processStateId');
-		$arrOptions['object'] = $this->input->post('objectId');
-		$arrOptions['quantity'] = $this->input->post('quantity');
-		$arrOptions['processStateIdOffer'] = $this->input->post('processStateIdOffer');
-		$arrOptions['offerTypeId'] = $this->input->post('offerTypeId');
-		$arrOptions['quantityUsersToPaused'] = $this->input->post('quantityUsersToPaused');
+		$arrOptions['publicationId'] = ($this->input->get('publicationId') > 0) ? $this->input->get('publicationId') : 0;
+		$arrOptions['user'] = $this->input->get('userId');
+		$arrOptions['type'] = $this->input->get('publicationTypeId');
+		$arrOptions['creationDate'] = $this->input->get('creationDate');
+		$arrOptions['title'] = $this->input->get('title');
+		$arrOptions['description'] = $this->input->get('description');
+		$arrOptions['expirationDate'] = $this->input->get('expirationDate');
+		$arrOptions['category'] = $this->input->get('categoryId');
+		$arrOptions['subcategory'] = $this->input->get('subcategoryId');
+		$arrOptions['views'] = $this->input->get('views');
+		$arrOptions['processState'] = $this->input->get('processStateId');
+		$arrOptions['object'] = $this->input->get('objectId');
+		$arrOptions['quantity'] = $this->input->get('quantity');
+		$arrOptions['processStateIdOffer'] = $this->input->get('processStateIdOffer');
+		$arrOptions['offerTypeId'] = $this->input->get('offerTypeId');
+		$arrOptions['quantityUsersToPaused'] = $this->input->get('quantityUsersToPaused');
 
 		if($arrOptions['publicationId'] > 0){
 			$offer = CI_Offer::getById($arrOptions['publicationId']);
@@ -61,22 +62,21 @@ class Offer extends CI_Controller {
 			$offer->setProcessStateOffer($arrOptions['processStateIdOffer']);
 			$offer->setType($arrOptions['offerTypeId']);
 			$offer->setQuantityUsersToPaused($arrOptions['quantityUsersToPaused']);
+
 		}else{
 			$offer = CI_Offer::getDataFromArray($arrOptions);
 		}
 
 		$arrInfo['user'] = $arrOptions['user'];
 		$arrInfo['type'] = $arrOptions['type'];
-
 		if($offer->save($arrInfo)){
-			$category = $offer->getCategory();
 			$return["result"] = "OK";
-
+			
 			$myOffer = new stdClass();
 			$myOffer->id = $offer->getId();
 			$myOffer->title = $offer->getTitle();
 			$myOffer->description = $offer->getDescription();
-			$myOffer->category = CI_Category::getData($category);
+			$myOffer->category = $offer->getCategory();
 			$myOffer->subcategory = $offer->getSubcategory();
 			$myOffer->object = $offer->getObject();
 			$myOffer->quantity = $offer->getQuantity();
@@ -87,6 +87,8 @@ class Offer extends CI_Controller {
 			$myOffer->processStateOffer = $offer->getProcessStateOffer();
 			$myOffer->type = $offer->getType();
 			$myOffer->quantityUsersToPaused = $offer->getQuantityUsersToPaused();
+
+			//$my = CI_Offer::getData($myOffer);
 
 			$return["data"] = $myOffer;
 		}else{
