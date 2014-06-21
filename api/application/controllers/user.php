@@ -1,20 +1,15 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+require APPPATH.'/libraries/REST_Controller.php';
 
-class User extends CI_Controller{
-	public function __construct()
-	{
-		parent::__construct(); 	
-		//checkLogin();
-	}
+class User extends REST_Controller{
 
-	public function index(){}
-	
-	public function getUsers()
-	{
+	public function index_get(){
+
+		$id = $this->get("id"); 
+		$users =  $id ? CI_User::getById($id) : CI_User::getUsers();
+
 		$return["result"] = "NOOK";
-		$users = CI_User::getUsers();
 		if($users){
 			$return["result"] = "OK";
 			$return["data"] = "";
@@ -27,7 +22,10 @@ class User extends CI_Controller{
 			 } 
 		}
 
-		echo json_encode($return);
+		if($return)
+            $this->response($return, 200);
+        else
+            $this->response(array('error' => 'Couldn\'t find any users!'), 404);
 	}
 
 	public function login()

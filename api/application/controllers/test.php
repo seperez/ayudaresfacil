@@ -44,8 +44,16 @@ class Test extends CI_Controller{
 		// **
 
 
+<<<<<<< HEAD
 		//$myOffer = CI_Offer::getById(1);
 		//ma($myOffer);
 		//$myOffer->getFavoritesByUserId(1);
+=======
+		// $myOffer = CI_Offer::getById(1);
+		// ma($myOffer);
+		// $myOffer->getFavoritesByUserId(1);
+
+		echo CI_VERSION;
+>>>>>>> 53806dc83f5d279d6822f7f71d1fd211c28a24cb
     }    
 }
