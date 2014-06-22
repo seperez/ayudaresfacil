@@ -69,11 +69,14 @@ class Offer extends CI_Controller {
 
 		$arrInfo['user'] = $arrOptions['user'];
 		$arrInfo['type'] = $arrOptions['type'];
-		if($offer->save($arrInfo)){
+		$id = $offer->save($arrInfo);
+		if($id === NULL){
+			$return["result"] = "NOOK";
+		}else{
 			$return["result"] = "OK";
 			
 			$myOffer = new stdClass();
-			$myOffer->id = $offer->getId();
+			$myOffer->id = $id;
 			$myOffer->title = $offer->getTitle();
 			$myOffer->description = $offer->getDescription();
 			$myOffer->category = $offer->getCategory();
@@ -91,8 +94,6 @@ class Offer extends CI_Controller {
 			//$my = CI_Offer::getData($myOffer);
 
 			$return["data"] = $myOffer;
-		}else{
-			$return["result"] = "NOOK";
 		}
 		echo json_encode($return);
 	}

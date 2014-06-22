@@ -22,8 +22,8 @@ class CI_Offer extends CI_Publication {
 
 	public function getDataFromArray($options){
 		$offer = parent::getDataFromArray($options);
-		$offer->processStateOffer = CI_ProcessState::getData($options["processStateIdOffer"]);
-		$offer->type = CI_OfferType::getData($options["offerTypeId"]);
+		$offer->processStateOffer = CI_ProcessState::getById($options["processStateIdOffer"]);
+		$offer->type = CI_OfferType::getById($options["offerTypeId"]);
 		$offer->quantityUsersToPaused = $options["quantityUsersToPaused"];
 		return $offer;
 	}
@@ -101,7 +101,6 @@ class CI_Offer extends CI_Publication {
 	}
 	
 	public function save($arrInfo){
-		$return = TRUE;
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
 		$id = $this->getId();
@@ -109,10 +108,8 @@ class CI_Offer extends CI_Publication {
 			$CI->offer_model->update($this->getData());
 		}else{
 			$id = $CI->offer_model->create($this->getData(), $arrInfo);
-			if($id === null)
-				$return = FALSE;
 		}
-		return $return;
+		return $id;
 	}
 /*
 	public function delete(){

@@ -53,15 +53,17 @@ class CI_Publication {
 
 	protected function getDataFromArray($options){
 		$publication = new CI_Offer();
-		$publication->id = $options["publicationId"];
+		if ($options["publicationId"] > 0) {
+			$publication->id = $options["publicationId"];
+		}
 		$publication->title = $options["title"];
 		$publication->description = $options["description"];
-		$publication->category = CI_Category::getData($options["category"]);
-		$publication->subcategory = CI_Subcategory::getData($options["subcategory"]);
-		$publication->object = CI_Object::getData($options["object"]);
+		$publication->category = CI_Category::getById($options["category"]);
+		$publication->subcategory = CI_Subcategory::getById($options["subcategory"]);
+		$publication->object = CI_Object::getById($options["object"]);
 		$publication->quantity = $options["quantity"];
 		$publication->views = $options["views"];
-		$publication->processState = CI_ProcessState::getData($options["processState"]);
+		$publication->processState = CI_ProcessState::getById($options["processState"]);
 		$publication->creationDate = $options["creationDate"];
 		$publication->expirationDate = $options["expirationDate"];
 		return $publication;

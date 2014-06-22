@@ -6,6 +6,8 @@
 
 api/application/logs/*
 
+api/application/controllers/test.php
+
 client/node_modules
 client/dist
 client/.tmp
