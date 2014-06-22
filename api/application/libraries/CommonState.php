@@ -20,7 +20,7 @@ class CI_CommonState {
 	 */
 
 	public function getData($options){
-		$object = new CI_CommonState();
+		$object = new stdClass();
 		$object->id = $options->id;
 		$object->description = $options->description;
 		$object->comments = $options->comments;

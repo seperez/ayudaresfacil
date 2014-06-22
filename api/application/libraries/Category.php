@@ -20,7 +20,7 @@ class CI_Category{
 	 */
 
 	public function getData($options){
-		$object = new CI_Category();
+		$object = new stdClass();
 		$object->id = $options->id;
 		$object->description = $options->description;
 		$object->commonState = CI_CommonState::getData($options->commonState);

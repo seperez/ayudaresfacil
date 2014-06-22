@@ -24,7 +24,7 @@ class CI_Subcategory{
 	 */
 
 	public function getData($options){
-		$object = new CI_Subcategory();
+		$object = new stdClass();
 		$object->id = $options->id;
 		$object->category = CI_Category::getData($options->category);
 		$object->description = $options->description;

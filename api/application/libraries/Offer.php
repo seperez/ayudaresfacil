@@ -28,11 +28,11 @@ class CI_Offer extends CI_Publication {
 		return $offer;
 	}
 
-	public function getData(){
-		$offer = parent::getData($this);
-		$offer->processStateOffer = CI_ProcessState::getData($this->processStateOffer);
-		$offer->type = CI_OfferType::getData($this->type);
-		$offer->quantityUsersToPaused = $this->quantityUsersToPaused;
+	public function getData($options){
+		$offer = parent::getData($options);
+		$offer->processStateOffer = CI_ProcessState::getData($options->processStateOffer);
+		$offer->type = CI_OfferType::getData($options->type);
+		$offer->quantityUsersToPaused = $options->quantityUsersToPaused;
 		return $offer;
 	}
 
@@ -105,19 +105,20 @@ class CI_Offer extends CI_Publication {
 		$CI->load->model('offer_model');
 		$id = $this->getId();
 		if(isset($id) && $id > 0){
-			$CI->offer_model->update($this->getData());
+			$CI->offer_model->update(CI_Offer::getData($this));
 		}else{
-			$id = $CI->offer_model->create($this->getData(), $arrInfo);
+			$id = $CI->offer_model->create(CI_Offer::getData($this), $arrInfo);
 		}
 		return $id;
 	}
-/*
+
 	public function delete(){
 		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		return $CI->publication_model->delete($this->publicationId);
+		$CI->load->model('offer_model');
+		return $CI->offer_model->delete($this->id);
 	}
 
+	/*
 	public function pauseOffer(){
 		$CI =& get_instance();
 		$CI->load->model('publication_model');

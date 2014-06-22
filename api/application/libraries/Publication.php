@@ -70,7 +70,7 @@ class CI_Publication {
 	}
 
 	protected function getData($options){
-		$publication = new CI_Offer();
+		$publication = new stdClass();
 		$publication->id = $options->id;
 		$publication->title = $options->title;
 		$publication->description = $options->description;

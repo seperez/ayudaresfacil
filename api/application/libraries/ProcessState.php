@@ -16,7 +16,7 @@ class CI_ProcessState {
 	 */
 
 	public function getData($options){
-		$processState = new CI_ProcessState();
+		$processState = new stdClass();
 		$processState->id = $options->id;
 		$processState->description = $options->description;
 		return $processState;

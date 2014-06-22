@@ -12,23 +12,19 @@ class Offer extends CI_Controller {
 	public function index(){}
 
 	public function getById(){
-		$id = $this->input->post('publicationId');
+		$id = $this->input->get('publicationId');
 		$return["result"] = "NOOK";
 		$offer = CI_Offer::getById($id);	
 
 		if($offer){
 			$return["result"] = "OK";
-			$return["data"] = "";
-
-			$myOffer = CI_Offer::getData($offer);			
+			$myOffer = CI_Offer::getData($offer);	
 			$return["data"] = $myOffer;
 		}
 		echo json_encode($return);
 	}
 
-	//http://localhost/ayudaresfacil/api/offer/save?publicationId=15&userId=2&publicationTypeId=1&creationDate=2014-06-01&title=Un%20mJOJOJOif&description=alala&expirationDate=2014-09-09&categoryId=1&subcategoryId=1&views=12&processStateId=V&objectId=1&quantity=1&processStateIdOffer=V&offerTypeId=1&quantityUsersToPaused=2
 	public function save(){
-
 		$arrOptions['publicationId'] = ($this->input->get('publicationId') > 0) ? $this->input->get('publicationId') : 0;
 		$arrOptions['user'] = $this->input->get('userId');
 		$arrOptions['type'] = $this->input->get('publicationTypeId');
@@ -70,32 +66,30 @@ class Offer extends CI_Controller {
 		$arrInfo['user'] = $arrOptions['user'];
 		$arrInfo['type'] = $arrOptions['type'];
 		$id = $offer->save($arrInfo);
+
 		if($id === NULL){
 			$return["result"] = "NOOK";
 		}else{
-			$return["result"] = "OK";
-			
-			$myOffer = new stdClass();
-			$myOffer->id = $id;
-			$myOffer->title = $offer->getTitle();
-			$myOffer->description = $offer->getDescription();
-			$myOffer->category = $offer->getCategory();
-			$myOffer->subcategory = $offer->getSubcategory();
-			$myOffer->object = $offer->getObject();
-			$myOffer->quantity = $offer->getQuantity();
-			$myOffer->views = $offer->getViews();
-			$myOffer->processState = $offer->getProcessState();
-			$myOffer->creationDate = $offer->getCreationDate();
-			$myOffer->expirationDate = $offer->getExpirationDate();
-			$myOffer->processStateOffer = $offer->getProcessStateOffer();
-			$myOffer->type = $offer->getType();
-			$myOffer->quantityUsersToPaused = $offer->getQuantityUsersToPaused();
-
-			//$my = CI_Offer::getData($myOffer);
-
+			$return["result"] = "OK";			
+			$return["publicationId"] = $id;
+			$myOffer = CI_Offer::getData($offer);	
 			$return["data"] = $myOffer;
 		}
 		echo json_encode($return);
+	}
+
+	public function delete(){
+		$error = $info = $success = "";
+		$return["result"] = "NOOK";
+		$publicationId = $this->input->get('publicationId');
+
+		if($publicationId > 0){
+			$publication = CI_Publication::getById($publicationId);
+			if($publication->delete($publicationId)){
+				$return["result"] = "OK";
+			}
+		}
+		echo json_encode($return);	
 	}
 
 }

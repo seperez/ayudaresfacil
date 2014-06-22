@@ -22,7 +22,7 @@ class CI_OfferType {
 	 */
 
 	public function getData($options){
-		$object = new CI_OfferType();
+		$object = new stdClass();
 		$object->id = $options->id;
 		$object->description = $options->description;
 		$object->comment = $options->comment;

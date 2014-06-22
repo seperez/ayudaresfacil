@@ -20,7 +20,7 @@ class CI_Object {
 	 */
 
 	public function getData($options){
-		$object = new CI_Object();
+		$object = new stdClass();
 		$object->id = $options->id;
 		$object->description = $options->description;
 		$object->createdDate = $options->createdDate;
