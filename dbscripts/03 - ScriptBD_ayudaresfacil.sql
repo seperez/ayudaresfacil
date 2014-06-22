@@ -126,7 +126,7 @@ CREATE TABLE `object` (
 
 /*Data for the table `object` */
 
-insert  into `object`(`object_id`,`description`,`created_date`) values (1,'DINERO','2014-06-09 00:00:00');
+insert  into `object`(`object_id`,`description`,`created_date`) values (1,'DINERO','2014-06-09 00:00:00'), (2,'MESA','2014-06-09 00:00:00'), (3,'LIBROS','2014-06-09 00:00:00');
 
 /*Table structure for table `offer_type` */
 
@@ -156,7 +156,7 @@ CREATE TABLE `process_state` (
 
 /*Data for the table `process_state` */
 
-insert  into `process_state`(`process_state_id`,`description`) values ('C','CERRADO'),('P','PAUSADO'),('V','VIGENTE');
+insert  into `process_state`(`process_state_id`,`description`) values ('C','CERRADO'),('P','PAUSADO'),('V','VIGENTE'),('B','BORRADO');
 
 /*Table structure for table `publication` */
 

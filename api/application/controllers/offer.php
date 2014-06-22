@@ -84,12 +84,11 @@ class Offer extends CI_Controller {
 		$publicationId = $this->input->get('publicationId');
 
 		if($publicationId > 0){
-			$publication = CI_Publication::getById($publicationId);
-			if($publication->delete($publicationId)){
+			$offer = CI_Offer::getById($publicationId);
+			if($offer->delete()){
 				$return["result"] = "OK";
 			}
 		}
 		echo json_encode($return);	
 	}
-
 }
