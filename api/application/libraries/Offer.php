@@ -61,14 +61,14 @@ class CI_Offer extends CI_Publication {
 		return $return;
 	}
 
-	public static function getOffers(){
+	public static function getCurrentOffers(){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
-		$results = $CI->offer_model->getOffers();
+		$results = $CI->offer_model->getCurrentOffers();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result){
-				$return[] = self::getInstance($result);
+				$return[] = CI_Offer::getInstance($result);
 			}
 		}
 		return $return;

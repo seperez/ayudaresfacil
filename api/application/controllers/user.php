@@ -103,8 +103,7 @@ class User extends REST_Controller{
 			$user = CI_User::getById($id);
 			if ($user && $user->confirmation())
 				$return["result"] = "OK";
-		}
-		
+		}		
 		echo json_encode($return);	
 	}
 }

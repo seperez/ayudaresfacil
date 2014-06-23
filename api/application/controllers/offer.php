@@ -91,4 +91,22 @@ class Offer extends CI_Controller {
 		}
 		echo json_encode($return);	
 	}
+
+	public function getCurrentOffers()
+	{
+		$return["result"] = "NOOK";
+		$offers = CI_Offer::getCurrentOffers();
+		$offerArray = array();
+
+		if($offers){
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($offers as $offer) {
+				$offerArray[] = CI_Offer::getData($offer);
+			 } 
+		}
+		$return["data"] = $offerArray;
+		echo json_encode($return);
+	}
 }
