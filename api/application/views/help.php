@@ -36,17 +36,69 @@
 					<a href="#" class="list-group-item">
 						<h4 class="list-group-item-heading">Login</h4>
 						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>authentication?username=foo&password=bar <br>
+							<strong>Url:</strong> <?php echo $SERVER_URL?>authentication <br>
 							<strong>Method:</strong> <code>GET</code>
 						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							username: 'foo',
+							password: 'bar'
+						}
+						</code>
 					</a>
 
 					<a href="#" class="list-group-item">
 						<h4 class="list-group-item-heading">IsLoggedIn</h4>
 						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>authentication?token=Aadsjk34hjksad <br>
+							<strong>Url:</strong> <?php echo $SERVER_URL?>authentication <br>
 							<strong>Method:</strong> <code>GET</code>
 						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							token:'Aadsjk34hjksad'
+						}
+						</code>
+					</a>
+				</div>
+				<!--End of Service Group-->
+
+				<!--Service Group-->
+				<div class="list-group">
+					<a href="#" class="list-group-item active">
+						<h4 class="list-group-item-heading">Account</h4>
+					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Create</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>account <br>
+							<strong>Method:</strong> <code>PUT</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 1,
+							email: 'bar',
+							password: 'baz'
+							name: 'foobar'
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Confirm</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>account/confirm <br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							token: 'Aadsjk34hjksad'
+						}
+						</code>
 					</a>
 				</div>
 				<!--End of Service Group-->
@@ -68,34 +120,16 @@
 					<a href="#" class="list-group-item">
 						<h4 class="list-group-item-heading">GetById</h4>
 						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>user?id=1 <br>
-							<strong>Method:</strong> <code>GET</code>
-						</p>
-					</a>
-
-					<a href="#" class="list-group-item">
-						<h4 class="list-group-item-heading">GetByUsername</h4>
-						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>user?username=foo <br>
-							<strong>Method:</strong> <code>GET</code>
-						</p>
-					</a>
-
-					<a href="#" class="list-group-item">
-						<h4 class="list-group-item-heading">Add</h4>
-						<p class="list-group-item-text">
 							<strong>Url:</strong> <?php echo $SERVER_URL?>user <br>
-							<strong>Method:</strong> <code>PUT</code> <br>
-							<strong>Params:</strong> 
-							<code>
-							{
-								name:'foo',
-								username:'bar',
-								lastname: 'baz'
-							}
-							</code>
+							<strong>Method:</strong> <code>GET</code>
 						</p>
-					</a>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 1
+						}
+						</code>
+					</a>		
 
 					<a href="#" class="list-group-item">
 						<h4 class="list-group-item-heading">Update</h4>
@@ -105,9 +139,10 @@
 							<strong>Params:</strong> 
 							<code>
 							{
-								name:'foo',
-								username:'bar',
-								lastname: 'baz'
+								name: 'foo',
+								username: 'bar',
+								lastname: 'baz',
+								token: 'Aadsjk34hjksad'
 							}
 							</code>
 						</p>
@@ -116,15 +151,22 @@
 					<a href="#" class="list-group-item">
 						<h4 class="list-group-item-heading">DeleteById</h4>
 						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>user?id=1 <br>
+							<strong>Url:</strong> <?php echo $SERVER_URL?>user <br>
 							<strong>Method:</strong> DELETE
 						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 1,
+							token: 'Aadsjk34hjksad'
+						}
+						</code>
 					</a>
 				</div>
 				<!--End of Service Group-->
 
 				<!--Service Group-->
-				<div class="list-group">
+				<!-- <div class="list-group">
 					<a href="#" class="list-group-item active">
 						<h4 class="list-group-item-heading">Publication</h4>
 					</a>
@@ -167,7 +209,7 @@
 							<strong>Params:</strong> 
 							<code>
 							{
-								name:'foo'
+								name: 'foo'
 							}
 							</code>
 						</p>
@@ -180,7 +222,7 @@
 							<strong>Method:</strong> DELETE
 						</p>
 					</a>
-				</div>
+				</div> -->
 				<!--End of Service Group-->
 
 			</div>
