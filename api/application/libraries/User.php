@@ -125,12 +125,4 @@ class CI_User {
 		$CI->load->model('user_model');
 		return $CI->user_model->delete($this->id);
 	}
-
-	public function confirmAccount()
-	{
-		$CI =& get_instance();
-		$CI->load->model('user_model');
-		return $CI->user_model->confirmAccount($this->id);
-	}
-
 }

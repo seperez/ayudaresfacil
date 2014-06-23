@@ -54,6 +54,7 @@ $autoload['packages'] = array();
 
 $autoload['libraries'] = array(
 								'Authentication',
+								'Account',
 								'database',
 								'Publication',
 								'User',
@@ -83,7 +84,7 @@ $autoload['libraries'] = array(
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url','general','user','email');
+$autoload['helper'] = array('url','general','email','authentication');
 
 
 /*

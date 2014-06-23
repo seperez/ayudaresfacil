@@ -2,17 +2,6 @@
 
 class CI_Authentication {
 
-	private static function generateToken($userId){
-		$CI = & get_instance();
-		$CI->load->library("JWT");
-
-	    return $CI->jwt->encode(array(
-	      'userId' => $userId,
-	      'issuedAt' => time(),
-	      'ttl' => time() + TOKEN_TTL
-	    ), SECRET);
-	}
-
 	public static function login($options){
 		$CI = & get_instance();
 		$CI->load->library("JWT");
@@ -21,7 +10,13 @@ class CI_Authentication {
 		$return = array();
 		if(!empty($results)){
 			$user = CI_User::getInstance($results[0]);			
-			$token = CI_Authentication::generateToken($user->getId());
+
+			$token = $CI->jwt->encode(array(
+		      'userId' => $user->getId(),
+		      'issuedAt' => time(),
+		      'ttl' => time() + TOKEN_TTL
+		    ), SECRET);
+
 			$return = array(
 				'user' => $user,
 				'token' => $token
@@ -37,7 +32,7 @@ class CI_Authentication {
 		$return = false;
 		try{
 			$payload = $CI->jwt->decode($token, SECRET);
-			$return = true;
+			$return = $payload;
 		}
 		catch (Exception $e){
 			log_message('error', "Authentication Error: " . $e);	
