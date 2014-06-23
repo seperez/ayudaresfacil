@@ -125,24 +125,12 @@ class CI_User {
 		$CI->load->model('user_model');
 		return $CI->user_model->delete($this->id);
 	}
-	
-	public static function login($options)
-	{
-		$CI = & get_instance();
-		$CI->load->model('user_model');
-		$results = $CI->user_model->login($options);
-		$return = array();
-		if(!empty($results)){
-			$return = self::getInstance($results[0]);			
-		}
-		return $return;
-	}
 
-	public function confirmation()
+	public function confirmAccount()
 	{
 		$CI =& get_instance();
 		$CI->load->model('user_model');
-		return $CI->user_model->confirmation($this->id);
+		return $CI->user_model->confirmAccount($this->id);
 	}
 
 }

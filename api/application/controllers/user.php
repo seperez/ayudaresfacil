@@ -27,24 +27,6 @@ class User extends REST_Controller{
         else
             $this->response(array('error' => 'Couldn\'t find any users!'), 404);
 	}
-
-	public function login()
-	{
-		$arrOptions['email'] = $this->input->post('email');
-		$arrOptions['password'] = $this->input->post('password');
-		$user = CI_User::login($arrOptions);
-		if($user){
-			$return["result"] = "OK";
-			$myUser = new stdClass();
-			$myUser->id = $user->getId();
-			$myUser->email = $user->getEmail();
-
-			$return["data"] = $myUser;
-		}else{
-			$return["result"] = "NOOK";
-		}
-		echo json_encode($return);
-	}
 	
 	public function save()
 	{
@@ -94,14 +76,14 @@ class User extends REST_Controller{
 		echo json_encode($return);	
 	}
 
-	public function registrationConfirm() 
+	public function confirmAccount() 
 	{
 		$error = $info = $success = "";
 		$return["result"] = "NOOK";
 		$id = ($this->input->get_post('id') > 0) ? $this->input->get_post('id') :0;
 		if($id > 0){
 			$user = CI_User::getById($id);
-			if ($user && $user->confirmation())
+			if ($user && $user->confirmAccount())
 				$return["result"] = "OK";
 		}		
 		echo json_encode($return);	

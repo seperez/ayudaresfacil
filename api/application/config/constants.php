@@ -36,6 +36,14 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+/*
+|--------------------------------------------------------------------------
+| Authentication
+|--------------------------------------------------------------------------
+*/
+define('TOKEN_TTL', 3600);
+define('SECRET', 'ayudaresfacil-unlam');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
+

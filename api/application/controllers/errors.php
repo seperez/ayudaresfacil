@@ -6,6 +6,6 @@ class Errors extends CI_Controller{
 
 	public function index()
 	{
-		$this->load->view('admin/error_404');
+		echo "Internal Server Error";
 	}
 }

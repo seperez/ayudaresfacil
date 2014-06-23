@@ -18,17 +18,6 @@ class User_model extends CI_Model
 		return $query->result();
 	}
 	
-	public function login($options){
-		$this->db->select('*');	
-		$this->db->from('user');
-		$this->db->where('email',$options['email']);
-		$this->db->where('password',sha1($options['password']));
-		$this->db->where('enabled',1);
-		$this->db->where('deleted',0);
-		$query = $this->db->get();
-		return $query->result();
-	}
-	
 	public function create($options){
 		$this->db->trans_start();
 		$data = array 	(
@@ -78,7 +67,18 @@ class User_model extends CI_Model
 		return $id;
 	}
 
-	public function confirmation($id){
+	public function getByUsernameAndPassword($options){
+		$this->db->select('*');	
+		$this->db->from('user');
+		$this->db->where('email',$options['email']);
+		$this->db->where('password',sha1($options['password']));
+		$this->db->where('enabled',1);
+		$this->db->where('deleted',0);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	public function confirmAccount($id){
 		$this->db->trans_start();
 		
 		$data = array ('enabled' => 1);

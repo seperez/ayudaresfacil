@@ -53,10 +53,9 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array(
-								'Native_session',
-								'Publication',
-								'session',
+								'Authentication',
 								'database',
+								'Publication',
 								'User',
 								'PublicationType',
 								'CommonState',

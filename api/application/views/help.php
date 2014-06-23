@@ -30,6 +30,30 @@
 				<!--Service Group-->
 				<div class="list-group">
 					<a href="#" class="list-group-item active">
+						<h4 class="list-group-item-heading">Authentication</h4>
+					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Login</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>authentication?username=foo&password=bar <br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">IsLoggedIn</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>authentication?token=Aadsjk34hjksad <br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+					</a>
+				</div>
+				<!--End of Service Group-->
+				
+				<!--Service Group-->
+				<div class="list-group">
+					<a href="#" class="list-group-item active">
 						<h4 class="list-group-item-heading">User</h4>
 					</a>
 					
