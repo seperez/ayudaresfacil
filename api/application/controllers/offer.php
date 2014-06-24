@@ -122,4 +122,20 @@ class Offer extends CI_Controller {
 		}
 		echo json_encode($return);	
 	}
+
+	public function setAsFavorite(){
+		$error = $info = $success = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->input->get('publicationId');
+		$arrOptions['userId'] = $this->input->get('userId');
+
+		if($arrOptions['publicationId'] > 0){
+			$offer = CI_Offer::getById($arrOptions['publicationId']);
+			if($offer->setAsFavorite($arrOptions['userId'])){
+				$return["result"] = "OK";
+			}
+		}
+		echo json_encode($return);	
+	}
 }

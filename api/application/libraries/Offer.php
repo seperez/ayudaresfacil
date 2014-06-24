@@ -98,6 +98,27 @@ class CI_Offer extends CI_Publication {
 		return $CI->offer_model->pause($this->id);
 	}
 
+	public function checkExistingFavorite($data){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+		
+		return $CI->offer_model->checkExistingFavorite($data);
+	}
+
+	public function setAsFavorite($userId){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+
+		$data = array (
+			"publication_id" => $this->getId(), 
+			"user_id" => $userId
+		);
+
+		if ($this->checkExistingFavorite($data)){
+			return $CI->offer_model->setAsFavorite($data);					
+		}
+	}
+
 	/*
 
 	public static function getOffersByUserId($userId){
