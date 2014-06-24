@@ -96,17 +96,30 @@ class Offer extends CI_Controller {
 	{
 		$return["result"] = "NOOK";
 		$offers = CI_Offer::getCurrentOffers();
-		$offerArray = array();
 
 		if($offers){
 			$return["result"] = "OK";
 			$return["data"] = "";
 
-			foreach ($offers as $offer) {
-				$offerArray[] = CI_Offer::getData($offer);
+			foreach ($offers as $key => $offer) {
+				$myOffer = CI_Offer::getData($offer);
+				$return["data"][$key] = $myOffer;
 			 } 
 		}
-		$return["data"] = $offerArray;
 		echo json_encode($return);
+	}
+
+	public function pause(){
+		$error = $info = $success = "";
+		$return["result"] = "NOOK";
+		$publicationId = $this->input->get('publicationId');
+
+		if($publicationId > 0){
+			$offer = CI_Offer::getById($publicationId);
+			if($offer->pause()){
+				$return["result"] = "OK";
+			}
+		}
+		echo json_encode($return);	
 	}
 }

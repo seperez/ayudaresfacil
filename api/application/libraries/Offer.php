@@ -68,11 +68,37 @@ class CI_Offer extends CI_Publication {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result){
-				$return[] = CI_Offer::getInstance($result);
+				$return[] = self::getInstance($result);
 			}
 		}
 		return $return;
 	}
+	
+	public function save($arrInfo){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+		$id = $this->getId();
+		if(isset($id) && $id > 0){
+			$CI->offer_model->update(CI_Offer::getData($this));
+		}else{
+			$id = $CI->offer_model->create(CI_Offer::getData($this), $arrInfo);
+		}
+		return $id;
+	}
+
+	public function delete(){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+		return $CI->offer_model->delete($this->id);
+	}
+
+	public function pause(){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+		return $CI->offer_model->pause($this->id);
+	}
+
+	/*
 
 	public static function getOffersByUserId($userId){
 		$CI =& get_instance();
@@ -98,31 +124,6 @@ class CI_Offer extends CI_Publication {
 			}
 		}
 		return $return;
-	}
-	
-	public function save($arrInfo){
-		$CI =& get_instance();
-		$CI->load->model('offer_model');
-		$id = $this->getId();
-		if(isset($id) && $id > 0){
-			$CI->offer_model->update(CI_Offer::getData($this));
-		}else{
-			$id = $CI->offer_model->create(CI_Offer::getData($this), $arrInfo);
-		}
-		return $id;
-	}
-
-	public function delete(){
-		$CI =& get_instance();
-		$CI->load->model('offer_model');
-		return $CI->offer_model->delete($this->id);
-	}
-
-	/*
-	public function pauseOffer(){
-		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		return $CI->publication_model->pauseOffer($this->publicationId);
 	}
 
 	public function addFavourite($options){
