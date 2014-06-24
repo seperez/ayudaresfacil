@@ -3,32 +3,44 @@
 /**
  * @ngdoc overview
  * @name ayudarEsFacilApp
- * @description
+ * @description ayudaresfacil.org es una plataforma que permite a la comunidad hacer donaciones y ofrecimientos de una manera fácil e intuitiva.
  * # ayudarEsFacilApp
  *
  * Main module of the application.
  */
-angular
-  .module('ayudarEsFacilApp', [
+var ayudarEsFacilApp = angular.module('ayudarEsFacilApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch'
-  ])
-  .config(function ($routeProvider) {
+]);
+
+ayudarEsFacilApp.config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+    .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
+    })
+    .when('/por-que-ayudar', {
+        templateUrl: 'views/whyHelp.html',
+        controller: 'WhyHelpCtrl'
+    })
+    .when('/casos-de-exito', {
+        templateUrl: 'views/successStories.html',
+        controller: 'SuccessStoriesCtrl'
+    })
+    .when('/conoce-el-proyecto', {
+        templateUrl: 'views/meetTheProject.html',
+        controller: 'MeetTheProjectCtrl'
+    })
+    .when('/ayudanos-a-ayudar', {
+        templateUrl: 'views/helpUsToHelp.html',
+        controller: 'HelpUsToHelpCtrl'
+    })
+    .otherwise({
         redirectTo: '/'
-      });
-  });
+    });
+});
 

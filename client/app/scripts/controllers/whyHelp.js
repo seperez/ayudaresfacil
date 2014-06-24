@@ -2,12 +2,13 @@
 
 /**
  * @ngdoc function
- * @name ayudarEsFacilApp.controller:AboutCtrl
+ * @name ayudarEsFacilApp.controller:WhyhelpCtrl
  * @description
- * # AboutCtrl
+ * # WhyhelpCtrl
  * Controller of the ayudarEsFacilApp
  */
-ayudarEsFacilApp.controller('WhyHelpCtrl', function ($scope) {
+angular.module('ayudarEsFacilApp')
+  .controller('WhyHelpCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
