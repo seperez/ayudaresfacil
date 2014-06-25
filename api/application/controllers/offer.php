@@ -24,6 +24,23 @@ class Offer extends CI_Controller {
 		echo json_encode($return);
 	}
 
+	public function getByUser(){
+		$userId = $this->input->get('userId');
+		$return["result"] = "NOOK";
+		$offers = CI_Offer::getByUser($userId);	
+
+		if($offers){
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($offers as $key => $offer) {
+				$myOffer = CI_Offer::getData($offer);
+				$return["data"][$key] = $myOffer;
+			 } 
+		}
+		echo json_encode($return);
+	}
+
 	public function save(){
 		$arrOptions['publicationId'] = ($this->input->get('publicationId') > 0) ? $this->input->get('publicationId') : 0;
 		$arrOptions['user'] = $this->input->get('userId');
@@ -92,8 +109,7 @@ class Offer extends CI_Controller {
 		echo json_encode($return);	
 	}
 
-	public function getCurrentOffers()
-	{
+	public function getCurrentOffers(){
 		$return["result"] = "NOOK";
 		$offers = CI_Offer::getCurrentOffers();
 
@@ -139,8 +155,23 @@ class Offer extends CI_Controller {
 		echo json_encode($return);	
 	}
 
-	public function getFavoritesByUser()
-	{
+	public function deleteFromFavorites(){
+		$error = $info = $success = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->input->get('publicationId');
+		$arrOptions['userId'] = $this->input->get('userId');
+
+		if($arrOptions['publicationId'] > 0){
+			$offer = CI_Offer::getById($arrOptions['publicationId']);
+			if($offer->deleteFromFavorites($arrOptions['userId'])){
+				$return["result"] = "OK";
+			}
+		}
+		echo json_encode($return);	
+	}
+
+	public function getFavoritesByUser(){
 		$userId = $this->input->get('userId');
 		$return["result"] = "NOOK";
 		$offers = CI_Offer::getFavoritesByUser($userId);
