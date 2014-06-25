@@ -142,7 +142,7 @@ class Offer_model extends CI_Model
 
 	public function checkExistingFavorite($data){
 		$this->db->select('*');	
-		$this->db->from('publication_favourite');
+		$this->db->from('publication_favorite');
 		$this->db->where('publication_id', $data["publication_id"]);	
 		$this->db->where('user_id', $data["user_id"]);	
 		$query = $this->db->get();
@@ -156,7 +156,7 @@ class Offer_model extends CI_Model
 
 	public function setAsFavorite($data){
 		$this->db->trans_start();
-		$this->db->insert('publication_favourite', $data);
+		$this->db->insert('publication_favorite', $data);
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === FALSE){
@@ -165,6 +165,18 @@ class Offer_model extends CI_Model
 		}
 		return TRUE;
 	}
+
+	public function getFavoritesByUser($userId){
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		$this->db->join('publication_favorite', "publication.publication_id = publication_object.publication_id");
+		$this->db->where('publication_favorite.user_id', $userId);	
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	/*
 	public function getOffersByUserId($id){	
 		$this->db->select('*');	

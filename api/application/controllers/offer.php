@@ -138,4 +138,22 @@ class Offer extends CI_Controller {
 		}
 		echo json_encode($return);	
 	}
+
+	public function getFavoritesByUser()
+	{
+		$userId = $this->input->get('userId');
+		$return["result"] = "NOOK";
+		$offers = CI_Offer::getFavoritesByUser($userId);
+
+		if($offers){
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($offers as $key => $offer) {
+				$myOffer = CI_Offer::getData($offer);
+				$return["data"][$key] = $myOffer;
+			 } 
+		}
+		echo json_encode($return);
+	}
 }
