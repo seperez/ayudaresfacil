@@ -33,7 +33,19 @@ class CI_Request extends CI_Publication {
 		return $return;
 	}
 
-
+	public static function getByUser($userId){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$results = $CI->request_model->getByUser($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result){
+				$return[] = CI_Request::getInstance($result);
+			}
+		}
+		return $return;
+	}
+	
 	/*
 	public static function getRequests(){
 		$CI =& get_instance();

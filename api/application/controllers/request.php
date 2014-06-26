@@ -22,4 +22,21 @@ class Request extends CI_Controller{
 		}
 		echo json_encode($return);
 	}
+	
+	public function getByUser(){
+		$userId = $this->input->get('userId');
+		$return["result"] = "NOOK";
+		$requests = CI_Request::getByUser($userId);	
+
+		if($requests){
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($requests as $key => $request) {
+				$myRequest = CI_Request::getData($request);
+				$return["data"][$key] = $myRequest;
+			 } 
+		}
+		echo json_encode($return);
+	}
 }

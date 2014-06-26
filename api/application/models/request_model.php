@@ -12,6 +12,16 @@ class Request_model extends CI_Model
 		return $query->result();
 	}
 
+	public function getByUser($userId){	
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		$this->db->where('publication.user_id', $userId);	
+		$this->db->where('publication.publication_type_id', 2);
+		$query = $this->db->get();
+		return $query->result();
+	}	
+
 	/*
 	public function getRequests(){	
 		$this->db->select('*');	
