@@ -2,6 +2,17 @@
 
 class Request_model extends CI_Model
 {
+	public function getById($id){	
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		$this->db->where('publication.publication_id', $id);	
+		$this->db->where('publication.publication_type_id', 2);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	/*
 	public function getRequests(){	
 		$this->db->select('*');	
 		$this->db->from('publication');		
@@ -62,4 +73,5 @@ class Request_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+	*/
 }

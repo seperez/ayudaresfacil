@@ -9,4 +9,17 @@ class Request extends CI_Controller{
 	}
 
 	public function index(){}
+
+	public function getById(){
+		$id = $this->input->get('publicationId');
+		$return["result"] = "NOOK";
+		$request = CI_Request::getById($id);	
+
+		if($request){
+			$return["result"] = "OK";
+			$myRequest = CI_Request::getData($request);	
+			$return["data"] = $myRequest;
+		}
+		echo json_encode($return);
+	}
 }
