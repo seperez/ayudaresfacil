@@ -88,17 +88,17 @@ api/application/config/database.php
 
  	```
     cd client
-    grunt test
+    grunt watch
     cd ..
     ```
 
 ### Build the client app
-The app made up of a number of javascript, css and html files that need to be merged into a final distribution for running.  We use the Grunt build tool to do this.
+The app made up of a number of javascript, css and html files that need to be merged into a final distribution for running (/build).  We use the Grunt default tool to do this.
 * Build client application:
 
     ```
     cd client
-    grunt build
+    grunt 
     cd ..
     ```
 
