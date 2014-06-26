@@ -2,7 +2,8 @@
 SQLyog Enterprise - MySQL GUI v8.05 
 MySQL - 5.6.16 : Database - ayudaresfacil
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 

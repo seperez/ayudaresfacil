@@ -2,16 +2,6 @@
 
 class Offer_model extends CI_Model
 {
-	public function getCurrentOffers(){	
-		$this->db->select('*');	
-		$this->db->from('publication');
-		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
-		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-		$this->db->where('publication.process_state_id <>', 'B');
-		$query = $this->db->get();
-		return $query->result();
-	}
-
 	public function getById($id){	
 		$this->db->select('*');	
 		$this->db->from('publication');
@@ -21,6 +11,16 @@ class Offer_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function getByUser($userId){	
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		$this->db->where('publication.user_id', $userId);	
+		$query = $this->db->get();
+		return $query->result();
+	}	
 
 	public function create($options, $arrInfo){
 		$category = $options->category;
@@ -126,6 +126,16 @@ class Offer_model extends CI_Model
 		return TRUE;
 	}
 
+	public function getCurrentOffers(){	
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
+		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
+		$this->db->where('publication.process_state_id <>', 'B');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function pause($publicationId){
 		$this->db->trans_start();
 		$data = array ('process_state_offer' => 'P');
@@ -142,7 +152,7 @@ class Offer_model extends CI_Model
 
 	public function checkExistingFavorite($data){
 		$this->db->select('*');	
-		$this->db->from('publication_favourite');
+		$this->db->from('publication_favorite');
 		$this->db->where('publication_id', $data["publication_id"]);	
 		$this->db->where('user_id', $data["user_id"]);	
 		$query = $this->db->get();
@@ -156,7 +166,7 @@ class Offer_model extends CI_Model
 
 	public function setAsFavorite($data){
 		$this->db->trans_start();
-		$this->db->insert('publication_favourite', $data);
+		$this->db->insert('publication_favorite', $data);
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === FALSE){
@@ -165,27 +175,29 @@ class Offer_model extends CI_Model
 		}
 		return TRUE;
 	}
-	/*
-	public function getOffersByUserId($id){	
+
+	public function deleteFromFavorites($data){
+		$this->db->trans_start();
+		$this->db->where('publication_id', $data["publication_id"]);
+		$this->db->where('user_id', $data["user_id"]);
+		$this->db->delete('publication_favorite');
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return TRUE;
+	}
+
+	public function getFavoritesByUser($userId){
 		$this->db->select('*');	
 		$this->db->from('publication');
 		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
-		$this->db->where('publication.user_id', $id);	
-		$this->db->where('publication.publication_type_id', 1);
-		$query = $this->db->get();
-		return $query->result();
-	}	
-
-	public function getFavoritesByUserId($userId){		
-		$this->db->select('*');	
-		$this->db->from('publication');	
-		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
 		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-		$this->db->join('publication_favourite', "publication.publication_id = publication_favourite.publication_id");
-		$this->db->where('publication_favourite.user_id', $userId);	
-		$this->db->where('publication.publication_type_id', 1);	
+		$this->db->join('publication_favorite', "publication.publication_id = publication_object.publication_id");
+		$this->db->where('publication_favorite.user_id', $userId);	
 		$query = $this->db->get();
 		return $query->result();
 	}
-	*/
 }

@@ -103,43 +103,4 @@ class CI_Publication {
 		$publication->expirationDate = (isset($row->expiration_date)) ? $row->expiration_date : '';
 		return $publication;
 	}
-
-	public function save($user, $type){
-		$return = TRUE;
-		$CI = & get_instance();
-		$CI->load->model('publication_model');
-		if(isset($this->id) && $this->id > 0)
-			$CI->publication_model->update($this->getData($this));
-		else{
-			$this->id = $CI->publication_model->create($this->getData($this));
-			if($this->id === null)
-				$return = FALSE;
-		}
-		return $return;
-	}
-
-	public function setAsFavorite($userId){
-		$CI =& get_instance();
-		$CI->load->model('publication_model');
-
-		//**
-		//TODO: CHEQUEAR QUE EL FAVORITO PARA ESTE USUARIO Y ESTA PUBLICACION YA NO EXISTA.
-		//**
-
-		$data = array (
-			"userId"=>$userId, 
-			"publicationId" => $this->getId()
-		);
-		return $CI->publication_model->setAsFavorite($data);
-	}
-
-	public function deleteFromFavorites($userId){
-		$CI =& get_instance();
-		$CI->load->model('publication_model');	
-		$data = array (
-			"userId"=>$userId, 
-			"publicationId" => $this->getId()
-		);
-		return $CI->publication_model->deleteFromFavorites($data);
-	}
 }

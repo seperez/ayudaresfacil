@@ -60,11 +60,11 @@ class CI_Offer extends CI_Publication {
 		}
 		return $return;
 	}
-
-	public static function getCurrentOffers(){
+	
+	public static function getByUser($userId){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
-		$results = $CI->offer_model->getCurrentOffers();
+		$results = $CI->offer_model->getByUser($userId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result){
@@ -73,7 +73,7 @@ class CI_Offer extends CI_Publication {
 		}
 		return $return;
 	}
-	
+
 	public function save($arrInfo){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
@@ -90,6 +90,19 @@ class CI_Offer extends CI_Publication {
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
 		return $CI->offer_model->delete($this->id);
+	}
+
+	public static function getCurrentOffers(){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+		$results = $CI->offer_model->getCurrentOffers();
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result){
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
 	}
 
 	public function pause(){
@@ -119,63 +132,30 @@ class CI_Offer extends CI_Publication {
 		}
 	}
 
-	/*
-
-	public static function getOffersByUserId($userId){
+	public function deleteFromFavorites($userId){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
-		$results = $CI->offer_model->getOffersByUserId($userId);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = self::getInstance($result);
-			}
+
+		$data = array (
+			"publication_id" => $this->getId(), 
+			"user_id" => $userId
+		);
+
+		if(!($this->checkExistingFavorite($data))){
+			return $CI->offer_model->deleteFromFavorites($data);					
 		}
-		return $return;
 	}
 
-	public static function getFavoritesByUserId($userId){
+	public static function getFavoritesByUser($userId){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
-		$results = $CI->offer_model->getFavoritesByUserId($userId);
+		$results = $CI->offer_model->getFavoritesByUser($userId);
 		$return = array();
 		if(!empty($results)){
-			foreach($results as $result) {
+			foreach($results as $result){
 				$return[] = self::getInstance($result);
 			}
 		}
 		return $return;
 	}
-
-	public function addFavourite($options){
-		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		return $CI->publication_model->addFavourite($options);
-	}
-
-	public static function getOffersFavourites($userId){
-		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getOffersFavourites($userId);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = self::getInstance($result);
-			}
-		}
-		return $return;
-	}
-	
-	public static function getRequestsFavourites($userId){
-		$CI =& get_instance();
-		$CI->load->model('publication_model');
-		$results = $CI->publication_model->getRequestsFavourites($userId);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = self::getInstance($result);
-			}
-		}
-		return $return;
-	}*/
 }
