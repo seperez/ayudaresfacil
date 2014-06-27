@@ -40,7 +40,6 @@ module.exports = function ( grunt ) {
 
     open: {
       all: {
-        // Gets the port from the connect configuration
         path: 'http://<%= express.all.options.hostname%>:<%= express.all.options.port%>'
       }
     },
@@ -162,6 +161,28 @@ module.exports = function ( grunt ) {
           }
         ]
       },
+      build_vendorcss: {
+        files: [
+          {
+            src: [ '<%= vendor_files.css %>' ],
+            dest: '<%= build_dir %>/',
+            cwd: '.',
+            expand: true
+          },
+          {
+            expand: true,
+            cwd: 'vendor/bootstrap/dist/',
+            src: 'fonts/*',
+            dest: '<%= build_dir %>'
+          },
+          {
+            expand: true,
+            cwd: 'vendor/fontawesome/',
+            src: 'fonts/*',
+            dest: '<%= build_dir %>/vendor/fontawesome/'
+          }
+        ]
+      },
       compile_assets: {
         files: [
           {
@@ -184,7 +205,7 @@ module.exports = function ( grunt ) {
        */
       build_css: {
         src: [
-          '<%= vendor_files.css %>',
+          '<%= build_dir %>/assets/css/*.css',
           '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
         ],
         dest: '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
@@ -396,7 +417,7 @@ module.exports = function ( grunt ) {
           '<%= html2js.common.dest %>',
           '<%= html2js.app.dest %>',
           '<%= vendor_files.css %>',
-          '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'
+          '<%= build_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.css'          
         ]
       },
 
@@ -576,7 +597,7 @@ module.exports = function ( grunt ) {
    * The default task is to run server.
    */
   grunt.registerTask('serve',[
-    'build',
+    'default',    
     'express',
     'open',
     'delta'
@@ -585,10 +606,11 @@ module.exports = function ( grunt ) {
   /**
    * The `build` task gets your app ready to run for development and testing.
    */
+   //'less:build',
   grunt.registerTask( 'build', [
-    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'less:build',
-    'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
-    'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
+    'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 
+    'copy:build_app_assets', 'copy:build_vendor_assets', 'concat:build_css',
+    'copy:build_appjs', 'copy:build_vendorjs', 'copy:build_vendorcss', 'index:build', 'karmaconfig',
     'karma:continuous' 
   ]);
 
