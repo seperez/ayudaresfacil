@@ -22,25 +22,26 @@ class Offer_model extends CI_Model
 		return $query->result();
 	}	
 
-	public function create($options, $arrInfo){
-		$category = $options->category;
-		$subcategory = $options->subcategory;
-		$processState = $options->processState;
-		$object = $options->object;
-		$processStateOffer = $options->processStateOffer;
-		$type = $options->type;
+	public function create($arrInfo){
+		$offer = $arrInfo['offer'];
+		$category = $offer->category;
+		$subcategory = $offer->subcategory;
+		$processState = $offer->processState;
+		$object = $offer->object;
+		$processStateOffer = $offer->processStateOffer;
+		$type = $offer->type;
 
 		$this->db->trans_start();
 		$data = array 	(
 							'user_id' => $arrInfo['user'],
 							'publication_type_id' => $arrInfo['type'],
-							'creation_date' => $options->creationDate,
-							'title' => $options->title,
-							'description' => $options->description,
-							'expiration_date' => $options->expirationDate,
+							'creation_date' => $offer->creationDate,
+							'title' => $offer->title,
+							'description' => $offer->description,
+							'expiration_date' => $offer->expirationDate,
 							'category_id' => $category->id,
 							'subcategory_id' => $subcategory->id,
-							'views' => $options->views,
+							'views' => $offer->views,
 							'process_state_id' => $processState->id,
 						);
 		$this->db->insert('publication', $data);
@@ -48,14 +49,14 @@ class Offer_model extends CI_Model
 		$data = array 	(
 							'publication_id' => $id,
 							'object_id' => $object->id,
-							'quantity' => $options->quantity,
+							'quantity' => $offer->quantity,
 						);
 		$this->db->insert('publication_object', $data);
 		$data = array 	(
 							'publication_id' => $id,
 							'process_state_offer' => $processStateOffer->id,
 							'offer_type_id' => $type->id,
-							'quantity_users_to_paused' => $options->quantityUsersToPaused,
+							'quantity_users_to_paused' => $offer->quantityUsersToPaused,
 						);
 		$this->db->insert('publication_offer', $data);
 		

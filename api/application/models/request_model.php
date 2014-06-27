@@ -23,6 +23,43 @@ class Request_model extends CI_Model
 	}	
 
 	/*
+
+	public function create($options, $userId){
+		$category = $options->category;
+		$subcategory = $options->subcategory;
+		$processState = $options->processState;
+		$object = $options->object;
+
+		$this->db->trans_start();
+		$data = array 	(
+							'user_id' => $userId,
+							'publication_type_id' => 2,
+							'creation_date' => $options->creationDate,
+							'title' => $options->title,
+							'description' => $options->description,
+							'expiration_date' => $options->expirationDate,
+							'category_id' => $category->id,
+							'subcategory_id' => $subcategory->id,
+							'views' => $options->views,
+							'process_state_id' => $processState->id,
+						);
+		$this->db->insert('publication', $data);
+		$id = $this->db->insert_id();
+		$data = array 	(
+							'publication_id' => $id,
+							'object_id' => $object->id,
+							'quantity' => $options->quantity,
+						);
+		$this->db->insert('publication_object', $data);		
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$id = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return $id;
+	}
+	
 	public function getRequests(){	
 		$this->db->select('*');	
 		$this->db->from('publication');		
