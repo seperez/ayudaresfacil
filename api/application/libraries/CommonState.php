@@ -31,11 +31,11 @@ class CI_CommonState {
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$phoneType = new CI_CommonState();
-		$phoneType->id = (isset($row->category_id)) ? $row->category_id : 0;
-		$phoneType->description = (isset($row->description)) ? $row->description : '';
-		$phoneType->comments = (isset($row->comments)) ? $row->comments : '';
-		return $phoneType;
+		$commonState = new CI_CommonState;
+		$commonState->id = (isset($row->common_state_id)) ? $row->common_state_id : 0;
+		$commonState->description = (isset($row->description)) ? $row->description : '';
+		$commonState->comments = (isset($row->comments)) ? $row->comments : '';
+		return $commonState;
 	}
 	
 	public static function getCommonStates()

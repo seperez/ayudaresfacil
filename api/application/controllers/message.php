@@ -1,32 +1,44 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+require APPPATH.'/libraries/REST_Controller.php';
 
+class Message extends REST_Controller{
 
-class Message extends CI_Controller{
+	public function index_get(){
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
+		$id = $this->get("id"); 
+		$userIdFrom = $this->get("userIdFrom"); 
+		$userIdTo = $this->get("userIdTo"); 
+		$publicationId = $this->get("publicationId"); 
 
-	public function getByUserIdTo()
-	{
+		if(isset($id)){
+			$messages = CI_Message::getById($id);	
+		}elseif (isset($userIdFrom)) {
+			$messages = CI_Message::getByUserIdFrom($userIdFrom);
+		}elseif (isset($userIdTo)) {
+			$messages = CI_Message::getByUserIdTo($userIdTo);
+		}elseif (isset($publicationId)) {
+			$messages = CI_Message::getByPublicationId($publicationId);
+		}else{
+			$messages = CI_Message::getAll();
+		}
+
+		$status = 404;
 		$return["result"] = "NOOK";
-		$userId = $this->input->post('userId');
-		$messages = CI_Message::getByUserIdTo($userId);
 		if($messages){
+			$status = 200;
 			$return["result"] = "OK";
 			$return["data"] = "";
+			
 			foreach ($messages as $key => $message) {
 				$myMessage = new  stdClass();
 				$myMessage->id = $message->getId();
-				$myMessage->userIdTo = $message->getUserIdTo();
-				$myMessage->userIdFrom = $message->getUserIdFrom();
-				$myMessage->publicationId = $message->getPublicationId();
+				$myMessage->userTo = $message->getUserTo();
+				$myMessage->userFrom = $message->getUserFrom();
+				$myMessage->publication = $message->getPublication();
 				$myMessage->firstMessageId = $message->getFirstMessageId();
 				$myMessage->FAQ = $message->getFAQ();
-				$myMessage->commonStateId = $message->getCommonStateId();
+				$myMessage->commonState = $message->getCommonState();
 				$myMessage->subject = $message->getSubject();
 				$myMessage->text = $message->getText();
 				$myMessage->createDate = $message->getCreateDate();
@@ -35,135 +47,81 @@ class Message extends CI_Controller{
 			 } 
 		}
 
-		echo json_encode($return);
+
+        $this->response($return, $status);
 	}
 
-	public function getByUserIdFrom()
-	{
+	public function index_post(){
+		$this->load->helper('date');
+		$datestring = "%Y/%m/%d %H:%i:%s";
+		$currDate = mdate($datestring, now());
+		$arrOptions['id'] = ($this->post('id') > 0) ? $this->post('id') : 0;
+		$id = $arrOptions['id'];
+		$arrOptions['userIdFrom'] = $this->post('userIdFrom');
+		$arrOptions['userIdTo'] = $this->post('userIdTo');
+		$arrOptions['publicationId'] = $this->post('publicationId');
+		$arrOptions['firstMessageId'] = $this->post('firstMessageId');
+		$arrOptions['FAQ'] = $this->post('FAQ');
+		$arrOptions['commonStateId'] = $this->post('commonStateId');
+		$arrOptions['subject'] = $this->post('subject');
+		$arrOptions['text'] = $this->post('text');
+		$arrOptions['createDate'] = $currDate;//$this->post('createDate');
+		$arrOptions['updateDate'] = $currDate;//$this->post('updateDate');
+
+		$message = $id > 0 ? CI_Message::getById($id) : new CI_Message();
+		$message->setUpdateDate($arrOptions['updateDate']);
+		$message->setCreateDate($arrOptions['createDate']);
+		$message ->setUserFrom(CI_User::getById($arrOptions['userIdFrom']));
+		$message ->setUserTo(CI_User::getById($arrOptions['userIdTo']));
+		//$message ->setPublication(CI_Publication::getById($arrOptions['publicationId']));
+		$message ->setPublication($arrOptions['publicationId']);
+		$message ->setFirstMessageId($arrOptions['firstMessageId']);
+		$message ->setFAQ($arrOptions['FAQ']);
+		$message ->setCommonState(CI_CommonState::getById($arrOptions['commonStateId']));
+		$message ->setSubject($arrOptions['subject']);
+		$message ->setText($arrOptions['text']);
+	
+		$status = 404;
+		$return["data"] = "";
 		$return["result"] = "NOOK";
-		$userId = $this->input->post('userId');
-		$messages = CI_Message::getByUserIdFrom($userId);
-		if($messages){
-			$return["result"] = "OK";
-			$return["data"] = "";
 
-			foreach ($messages as $key => $message) {
-				$myMessage = new stdClass();
-				$myMessage->id = $message->getId();
-				$myMessage->userIdTo = $message->getUserIdTo();
-				$myMessage->userIdFrom = $message->getUserIdFrom();
-				$myMessage->publicationId = $message->getPublicationId();
-				$myMessage->firstMessageId = $message->getFirstMessageId();
-				$myMessage->FAQ = $message->getFAQ();			
-				$myMessage->commonStateId = $message->getCommonStateId();			
-				$myMessage->text = $message->getText();
-				$myMessage->createDate = $message->getCreateDate();
-				$myMessage->updateDate = $message->getUpdateDate();
-				$return["data"][$key] = $myMessage;
-			 } 
-		}
-
-		echo json_encode($return);
-	}
-
-	public function getByPublicationId()
-	{
-		$return["result"] = "NOOK";
-		$publicationId = $this->input->post('publicationId');
-		$messages = CI_Message::getByPublicationId($publicationId);
-		if($messages){
-			$return["result"] = "OK";
-			$return["data"] = "";
-
-			foreach ($messages as $key => $message) {
-				$myMessage = new stdClass();
-				$myMessage->id = $message->getId();
-				$myMessage->userIdTo = $message->getUserIdTo();
-				$myMessage->userIdFrom = $message->getUserIdFrom();
-				$myMessage->publicationId = $message->getPublicationId();
-				$myMessage->firstMessageId = $message->getFirstMessageId();
-				$myMessage->FAQ = $message->getFAQ();			
-				$myMessage->commonStateId = $message->getCommonStateId();			
-				$myMessage->text = $message->getText();
-				$myMessage->createDate = $message->getCreateDate();
-				$myMessage->updateDate = $message->getUpdateDate();
-				$return["data"][$key] = $myMessage;
-			 } 
-		}
-
-		echo json_encode($return);
-	}
-
-	public function save()
-	{
-		$arrOptions['id'] = ($this->input->post('id') > 0) ? $this->input->post('id') : 0;
-		$arrOptions['userIdFrom'] = $this->input->post('userIdFrom');
-		$arrOptions['userIdTo'] = $this->input->post('userIdTo');
-		$arrOptions['publicationId'] = $this->input->post('publicationId');
-		$arrOptions['firstMessageId'] = $this->input->post('firstMessageId');
-		$arrOptions['FAQ'] = $this->input->post('FAQ');
-		$arrOptions['commonStateId'] = $this->input->post('commonStateId');
-		$arrOptions['subject'] = $this->input->post('subject');
-		$arrOptions['text'] = $this->input->post('text');
-		$arrOptions['createDate'] = $arrOptions['updateDate'] = date('Y/m/d H:i:s');
-		
-		if($arrOptions['id'] > 0){
-			$message = CI_Message::getById($arrOptions['id']);
-			$message->setUpdateDate($arrOptions['updateDate']);}
-		else{
-			$message = new CI_Message();		
-			$message->setCreateDate($arrOptions['createDate']);
-		}
-			$message->setUserIdFrom($arrOptions['userIdFrom']);
-			$message->setUserIdTo($arrOptions['userIdTo']);
-			$message->setPublicationId($arrOptions['publicationId']);
-			$message->setFirstMessageId($arrOptions['firstMessageId']);
-			$message->setFAQ($arrOptions['FAQ']);
-			$message->setCommonStateId($arrOptions['commonStateId']);
-			$message->setSubject($arrOptions['subject']);
-			$message->setText($arrOptions['text']);
-		
 		if($message->save()){
-			$return["result"] = "OK";
-
 			$myMessage = new stdClass();
 			$myMessage->id = $message->getId();
-			$myMessage->userIdTo = $message->getUserIdTo();
-			$myMessage->userIdFrom = $message->getUserIdFrom();
-			$myMessage->publicationId = $message->getPublicationId();
+			$myMessage->userTo = $message->getUserTo();
+			$myMessage->userFrom = $message->getUserFrom();
+			$myMessage->publication = $message->getPublication();
 			$myMessage->firstMessageId = $message->getFirstMessageId();
 			$myMessage->FAQ = $message->getFAQ();			
-			$myMessage->commonStateId = $message->getCommonStateId();			
+			$myMessage->commonState = $message->getCommonState();			
 			$myMessage->subject = $message->getSubject();
 			$myMessage->text = $message->getText();
 			$myMessage->createDate = $message->getCreateDate();
 			$myMessage->updateDate = $message->getUpdateDate();
 			
+			$status = 200;
+			$return["result"] = "OK";
 			$return["data"] = $myMessage;
-		}
-		else
-			$return["result"] = "NOOK";
-		
-		echo json_encode($return);
+		} 
+
+		$this->response($return, $status);
 	}
 
-	public function delete() {
-		$error = $info = $success = "";
+	public function index_delete(){
+		$status = 404;
+		$return["data"] = "";
 		$return["result"] = "NOOK";
-		
-		$id = ($this->input->post('id') > 0) ? $this->input->post('id') :0;
-		
-		if($id > 0){
 
+		$id = ($this->delete('id') > 0) ? $this->delete('id') :0;
+		if($id > 0){
 			$message = CI_Message::getById($id);
+			$message = $message[0];
 			if($message->delete()){
+				$status = 200;
 				$return["result"] = "OK";
 			}
 		}
-		
-		echo json_encode($return);	
+		$this->response($return, $status);
 	}
-
-	//public function 
 
 }

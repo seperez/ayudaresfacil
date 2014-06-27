@@ -38,21 +38,27 @@ class Message_model extends CI_Model
 		return $query->result();
 	}
 
+	public function getAll(){
+		$this->db->select('*');
+		$this->db->from('message');
+		$this->db->where('delete_date',null);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function create($options){
 		$this->db->trans_start();
-		
 		$data = array 	(
-							'user_Id_From' => $options->userIdFrom,
-							'user_Id_To' => $options->userIdTo,
-							'publication_Id' => $options->publicationId,
+							'user_Id_From' => $options->userFrom[0]->getId(),
+							'user_Id_To' => $options->userTo[0]->getId(),
+							'publication_Id' => $options->publication,
 							'first_Message_Id' => $options->firstMessageId,
 							'FAQ' => $options->FAQ,
-							'common_State_Id' => $options->commonStateId,
+							'common_State_Id' => $options->commonState->getId(),
 							'subject' => $options->subject,
 							'text' => $options->text,
 							'create_Date' => $options->createDate
 						);
-
 		$this->db->insert('message', $data);
 		$this->db->trans_complete();
 
@@ -70,12 +76,12 @@ class Message_model extends CI_Model
 		$this->db->trans_start();
 		
 		$data = array 	(
-							'user_Id_From' => $options->userIdFrom,
-							'user_Id_To' => $options->userIdTo,
-							'publication_Id' => $options->publicationId,
+							'user_Id_From' => $options->userFrom->getId(),
+							'user_Id_To' => $options->userTo->getId(),
+							'publication_Id' => $options->publication->getId(),
 							'first_Message_Id' => $options->firstMessageId,
 							'FAQ' => $options->FAQ,
-							'common_State_Id' => $options->commonStateId,
+							'common_State_Id' => $options->commonState->getId(),
 							'subject' => $options->subject,
 							'text' => $options->text,
 							'update_Date' => $options->updateDate
