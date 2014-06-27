@@ -45,8 +45,22 @@ class CI_Request extends CI_Publication {
 		}
 		return $return;
 	}
-	
+
+
 	/*
+
+	public function save($userId){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$id = $this->getId();
+		if(isset($id) && $id > 0){
+			$CI->request_model->update(CI_Request::getData($this));
+		}else{
+			//$id = $CI->request_model->create(CI_Request::getData($this), $userId);
+		}
+		return $id;
+	}
+	
 	public static function getRequests(){
 		$CI =& get_instance();
 		$CI->load->model('request_model');

@@ -52,7 +52,7 @@ class CI_Publication {
 	*/	
 
 	protected function getDataFromArray($options){
-		$publication = new CI_Offer();
+		$publication = new stdClass();
 		if ($options["publicationId"] > 0) {
 			$publication->id = $options["publicationId"];
 		}
@@ -71,7 +71,9 @@ class CI_Publication {
 
 	protected function getData($options){
 		$publication = new stdClass();
-		$publication->id = $options->id;
+		if(isset($options->id)){
+			$publication->id = $options->id;
+		}
 		$publication->title = $options->title;
 		$publication->description = $options->description;
 		$publication->category = CI_Category::getData($options->category);
@@ -89,7 +91,7 @@ class CI_Publication {
 		if(!($row instanceof stdClass)){
 			show_error("El row debe ser una instancia de stdClass.");
 		}	
-		$publication = new CI_Offer();
+		$publication = new stdClass();
 		$publication->id = (isset($row->publication_id)) ? $row->publication_id : 0;
 		$publication->title = (isset($row->title)) ? $row->title : '';
 		$publication->description = (isset($row->description)) ? $row->description : '';

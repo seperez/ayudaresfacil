@@ -75,21 +75,23 @@ class CI_Offer extends CI_Publication {
 	}
 
 	public function save($arrInfo){
+		$offer = $arrInfo["offer"];
+		$arrInfo["offer"] = CI_Offer::getData($offer);
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
-		$id = $this->getId();
-		if(isset($id) && $id > 0){
-			$CI->offer_model->update(CI_Offer::getData($this));
+		$id = ' ';
+		if(isset($offer->id) && $offer->id > 0){
+			$CI->offer_model->update($arrInfo["offer"]);
 		}else{
-			$id = $CI->offer_model->create(CI_Offer::getData($this), $arrInfo);
+			$id = $CI->offer_model->create($arrInfo);
 		}
 		return $id;
 	}
 
-	public function delete(){
+	public function delete($offer){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
-		return $CI->offer_model->delete($this->id);
+		return $CI->offer_model->delete($offer->id);
 	}
 
 	public static function getCurrentOffers(){
@@ -99,16 +101,16 @@ class CI_Offer extends CI_Publication {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result){
-				$return[] = self::getInstance($result);
+				$return[] = CI_Offer::getInstance($result);
 			}
 		}
 		return $return;
 	}
 
-	public function pause(){
+	public function pause($offer){
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
-		return $CI->offer_model->pause($this->id);
+		return $CI->offer_model->pause($offer->id);
 	}
 
 	public function checkExistingFavorite($data){
@@ -118,30 +120,40 @@ class CI_Offer extends CI_Publication {
 		return $CI->offer_model->checkExistingFavorite($data);
 	}
 
-	public function setAsFavorite($userId){
+	public function setAsFavorite($options){
+		$userId = $options['userId'];
+		$offer = $options['offer'];
+
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
 
 		$data = array (
-			"publication_id" => $this->getId(), 
-			"user_id" => $userId
+			"publication_id" => $offer->id, 
+			"user_id" => $userId,
+			"offer" => $offer
 		);
 
-		if ($this->checkExistingFavorite($data)){
+		if (CI_Offer::checkExistingFavorite($data)){
+			unset($data["offer"]);
 			return $CI->offer_model->setAsFavorite($data);					
 		}
 	}
 
-	public function deleteFromFavorites($userId){
+	public function deleteFromFavorites($options){
+		$userId = $options['userId'];
+		$offer = $options['offer'];
+
 		$CI =& get_instance();
 		$CI->load->model('offer_model');
 
 		$data = array (
-			"publication_id" => $this->getId(), 
-			"user_id" => $userId
+			"publication_id" => $offer->id, 
+			"user_id" => $userId,
+			"offer" => $offer
 		);
 
-		if(!($this->checkExistingFavorite($data))){
+		if(!(CI_Offer::checkExistingFavorite($data))){
+			unset($data["offer"]);
 			return $CI->offer_model->deleteFromFavorites($data);					
 		}
 	}

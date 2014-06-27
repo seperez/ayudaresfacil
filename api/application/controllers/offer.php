@@ -1,14 +1,31 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+require APPPATH.'/libraries/REST_Controller.php';
 
-class Offer extends CI_Controller {
-	public function __construct()
-	{
-		parent::__construct(); 	
+class Offer extends REST_Controller {
+
+	public function index_get(){
+
+		//checkIsLoggedIn($this);
+		
+		$id = $this->get("publicationId"); 
+		$offers =  $id ? CI_Offer::getById($id) : CI_Offer::getCurrentOffers();
+
+		$status = 404;
+		$return["result"] = "NOOK";
+		if($offers){
+			$status = 200;
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($offers as $key => $offer) {
+				$myOffer = CI_Offer::getData($offer);
+				$return["data"][$key] = $myOffer;
+			 } 
+		}
+        $this->response($return, $status);
 	}
 
-	public function index(){}
 
 	public function getById(){
 		$id = $this->input->get('publicationId');
@@ -61,27 +78,15 @@ class Offer extends CI_Controller {
 		if($arrOptions['publicationId'] > 0){
 			$offer = CI_Offer::getById($arrOptions['publicationId']);
 
-			$offer->setTitle($arrOptions['title']);
-			$offer->setDescription($arrOptions['description']);
-			$offer->setCategory($arrOptions['category']);
-			$offer->setSubcategory($arrOptions['subcategory']);
-			$offer->setObject($arrOptions['object']);
-			$offer->setQuantity($arrOptions['quantity']);
-			$offer->setViews($arrOptions['views']);
-			$offer->setProcessState($arrOptions['processState']);
-			$offer->setCreationDate($arrOptions['creationDate']);
-			$offer->setExpirationDate($arrOptions['expirationDate']);
-			$offer->setProcessStateOffer($arrOptions['processStateIdOffer']);
-			$offer->setType($arrOptions['offerTypeId']);
-			$offer->setQuantityUsersToPaused($arrOptions['quantityUsersToPaused']);
-
 		}else{
+
 			$offer = CI_Offer::getDataFromArray($arrOptions);
 		}
 
 		$arrInfo['user'] = $arrOptions['user'];
 		$arrInfo['type'] = $arrOptions['type'];
-		$id = $offer->save($arrInfo);
+		$arrInfo['offer'] = $offer;
+		$id = CI_Offer::save($arrInfo);
 
 		if($id === NULL){
 			$return["result"] = "NOOK";
@@ -101,7 +106,7 @@ class Offer extends CI_Controller {
 
 		if($publicationId > 0){
 			$offer = CI_Offer::getById($publicationId);
-			if($offer->delete()){
+			if(CI_Offer::delete($offer)){
 				$return["result"] = "OK";
 			}
 		}
@@ -131,7 +136,7 @@ class Offer extends CI_Controller {
 
 		if($publicationId > 0){
 			$offer = CI_Offer::getById($publicationId);
-			if($offer->pause()){
+			if(CI_Offer::pause($offer)){
 				$return["result"] = "OK";
 			}
 		}
@@ -147,7 +152,9 @@ class Offer extends CI_Controller {
 
 		if($arrOptions['publicationId'] > 0){
 			$offer = CI_Offer::getById($arrOptions['publicationId']);
-			if($offer->setAsFavorite($arrOptions['userId'])){
+			$arrOptions['offer'] = $offer;
+			
+			if(CI_Offer::setAsFavorite($arrOptions)){
 				$return["result"] = "OK";
 			}
 		}
@@ -163,7 +170,9 @@ class Offer extends CI_Controller {
 
 		if($arrOptions['publicationId'] > 0){
 			$offer = CI_Offer::getById($arrOptions['publicationId']);
-			if($offer->deleteFromFavorites($arrOptions['userId'])){
+			$arrOptions['offer'] = $offer;
+			
+			if(CI_Offer::deleteFromFavorites($arrOptions)){
 				$return["result"] = "OK";
 			}
 		}
