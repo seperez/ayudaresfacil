@@ -2,12 +2,12 @@
 
 class CI_Message {
 	private $id;
-	private $userIdFrom;
-	private $userIdTo;
-	private $publicationId;
+	private $userFrom;
+	private $userTo;
+	private $publication;
 	private $firstMessageId;
 	private $FAQ;
-	private $commonStateId;
+	private $commonState;
 	private $subject;
 	private $text;
 	private $createDate;
@@ -16,14 +16,14 @@ class CI_Message {
 
 	public function getId() {return $this->id;}
 
-	public function getUserIdFrom() {return $this->userIdFrom;}
-	public function setUserIdFrom($userIdFrom) {return $this->userIdFrom = $userIdFrom;}
+	public function getUserFrom() {return $this->userFrom;}
+	public function setUserFrom($userFrom) {return $this->userFrom = $userFrom;}
 
-	public function getUserIdTo() {return $this->userIdTo;}
-	public function setUserIdTo($userIdTo) {return $this->userIdTo = $userIdTo;}
+	public function getUserTo() {return $this->userTo;}
+	public function setUserTo($userTo) {return $this->userTo = $userTo;}
 
-	public function getPublicationId(){return $this->publicationId;}
-	public function setPublicationId($publicationId){return $this->publicationId = $publicationId;}
+	public function getPublication(){return $this->publication;}
+	public function setPublication($publication){return $this->publication = $publication;}
 
 	public function getFirstMessageId(){return $this->firstMessageId; }
 	public function setFirstMessageId($firstMessageId){return $this->firstMessageId = $firstMessageId;}
@@ -31,8 +31,8 @@ class CI_Message {
 	public function getFAQ(){return $this->FAQ;}
 	public function setFAQ($FAQ){return $this->FAQ = $FAQ;}
 
-	public function getCommonStateId(){return $this->commonStateId;}
-	public function setCommonStateId($commonStateId){return $this->commonStateId = $commonStateId;}
+	public function getCommonState(){return $this->commonState;}
+	public function setCommonState($commonState){return $this->commonState = $commonState;}
 
 	public function getSubject(){return $this->subject;}
 	public function setSubject($subject){return $this->subject = $subject;}
@@ -61,12 +61,12 @@ class CI_Message {
 		$object = new stdClass();
 
 		$object->id = $this->id;
-		$object->userIdFrom = $this->userIdFrom;
-		$object->userIdTo = $this->userIdTo;
-		$object->publicationId = $this->publicationId;
+		$object->userFrom = $this->userFrom;
+		$object->userTo = $this->userTo;
+		$object->publication = $this->publication;
 		$object->firstMessageId = $this->firstMessageId;
 		$object->FAQ = $this->FAQ;
-		$object->commonStateId = $this->commonStateId;
+		$object->commonState = $this->commonState;
 		$object->subject = $this->subject;
 		$object->text = $this->text;
 		$object->createDate = $this->createDate;
@@ -82,12 +82,13 @@ class CI_Message {
 		}
 		$message = new self;
 		$message->id = (isset($row->message_id)) ? $row->message_id : 0;
-		$message->userIdFrom = (isset($row->user_id_from)) ? $row->user_id_from : '';
-		$message->userIdTo = (isset($row->user_id_to)) ? $row->user_id_to : '';
-		$message->publicationId = (isset($row->publication_id)) ? $row->publication_id : '';
+		$message->userFrom = (isset($row->user_id_from)) ? CI_User::getById ($row->user_id_from):'';
+		$message->userTo = (isset($row->user_id_to)) ? CI_User::getById ($row->user_id_to):'';
+		//$message->publication =  CI_Publication::getById ($row->publication_id);
+		$message->publication = (isset($row->publication_id)) ? $row->publication_id : '';
 		$message->firstMessageId = (isset($row->first_message_id)) ? $row->first_message_id : '';
 		$message->FAQ = (isset($row->FAQ)) ? $row->FAQ : '';
-		$message->commonStateId = (isset($row->common_state_id)) ? $row->common_state_id : '';
+		$message->commonState = (isset($row->common_state_id)) ? CI_CommonState::getById ($row->common_state_id):'';
 		$message->subject = (isset($row->subject)) ? $row->subject : '';		
 		$message->text = (isset($row->text)) ? $row->text : '';
 		$message->createDate = (isset($row->create_date)) ? $row->create_date : '';
@@ -103,7 +104,7 @@ class CI_Message {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return = self::getInstance($result);
+				$return[] = self::getInstance($result);
 			}
 		}
 		return $return;
@@ -148,12 +149,25 @@ class CI_Message {
 		return $return;
 	}
 
+	public static function getAll(){
+		$CI = & get_instance();
+		$CI->load->model('message_model');
+		$results = $CI->message_model->getAll();
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
 	public function save(){
 		$return = TRUE;
 		
 		$CI =& get_instance();
 		$CI->load->model('message_model');
-		
+
 		if(isset($this->id) && $this->id > 0)
 			$CI->message_model->update($this->getData());
 		else{
