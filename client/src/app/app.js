@@ -3,6 +3,7 @@ angular.module( 'AyudarEsFacilApp', [
     'templates-common',
     'AyudarEsFacilApp.home',
     'AyudarEsFacilApp.institutional',
+    'AyudarEsFacilApp.login',
     'ui.router'
 ])
 
