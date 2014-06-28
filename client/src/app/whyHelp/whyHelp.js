@@ -16,11 +16,7 @@ angular.module( 'AyudarEsFacilApp.whyHelp', [
 })
 
 .controller( 'WhyHelpCtrl', function WhyHelpCtrl( $scope ) {
-    $scope.dropdownDemoItems = [
-        "The first choice!",
-        "And another choice for you.",
-        "but wait! A third!"
-    ];
+
 })
 
 ;
