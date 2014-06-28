@@ -32,18 +32,11 @@
                     
                     <div class="top-nav-content">
                         
-                        <!-- Begin button sidebar right toggle -->
-                        <div class="btn-collapse-sidebar-right">
-                            <i class="fa fa-bullhorn"></i>
-                        </div><!-- /.btn-collapse-sidebar-right -->
-                        <!-- End button sidebar right toggle -->
-                        
                         <!-- Begin button nav toggle -->
                         <div class="btn-collapse-nav" data-toggle="collapse" data-target="#main-fixed-nav">
                             <i class="fa fa-plus icon-plus"></i>
                         </div><!-- /.btn-collapse-sidebar-right -->
                         <!-- End button nav toggle -->
-                        
                         
                         <!-- Begin user session nav -->
                         <ul class="nav-user navbar-right">
@@ -72,45 +65,40 @@
             </div><!-- /.top-navbar -->
             <!-- END TOP NAV -->
 
-                    <!-- BEGIN TOP MAIN NAVIGATION -->
+            <!-- BEGIN TOP MAIN NAVIGATION -->
             <div class="top-main-navigation">
                 <nav class="navbar square navbar-default no-border" role="navigation">
                     <div class="container-fluid">
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="top-main-navigation">
                             <ul class="nav navbar-nav">
-                                <li class="dropdown active">
-                                    <a href="#/" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="visible-sm visible-md"><i class="fa fa-dashboard"></i></span>
-                                        <span class="hidden-sm hidden-md">home</span>
+                                <li ui-sref-active="active">
+                                    <a href ui-sref="home">
+                                        <span class="glyphicon glyphicon-home"></span>
                                     </a>
                                 </li>
 
-                                <li class="dropdown">
-                                    <a href="#/por-que-ayudar" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="visible-sm visible-md"><i class="fa fa-dashboard"></i></span>
-                                        <span class="hidden-sm hidden-md">por que ayudar?</span>
+                                <li ui-sref-active="active">
+                                    <a href ui-sref="whyHelp">
+                                        por que ayudar?
                                     </a>
                                 </li>
 
-                                <li class="dropdown">
-                                    <a href="#/casos-de-exito" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="visible-sm visible-md"><i class="fa fa-dashboard"></i></span>
-                                        <span class="hidden-sm hidden-md">casos de éxito</span>
+                                <li ui-sref-active="active">
+                                    <a href ui-sref="casos-de-exito">
+                                        casos de éxito
                                     </a>
                                 </li>
                                 
-                                <li class="dropdown">
-                                    <a href="#conoce-el-proyecto" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="visible-sm visible-md"><i class="fa fa-dashboard"></i></span>
-                                        <span class="hidden-sm hidden-md">conoce el proyecto</span>
+                                <li ui-sref-active="active">
+                                    <a href ui-sref="conoce-el-proyecto">
+                                        conoce el proyecto
                                     </a>
                                 </li>
 
-                                <li class="dropdown">
-                                    <a href="#ayudanos-a-ayudar" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="visible-sm visible-md"><i class="fa fa-dashboard"></i></span>
-                                        <span class="hidden-sm hidden-md">ayúdanos a ayudar</span>
+                                <li ui-sref-active="active">
+                                    <a href ui-sref="ayudanos-a-ayudar">
+                                        ayúdanos a ayudar
                                     </a>
                                 </li>
                             </ul>

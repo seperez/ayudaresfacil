@@ -173,7 +173,7 @@ module.exports = function ( grunt ) {
             expand: true,
             cwd: 'vendor/bootstrap/dist/',
             src: 'fonts/*',
-            dest: '<%= build_dir %>'
+            dest: '<%= build_dir %>/vendor/bootstrap/dist/'
           },
           {
             expand: true,
