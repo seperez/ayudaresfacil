@@ -166,6 +166,22 @@
 				<!--End of Service Group-->
 
 				<!--Service Group-->
+				<div class="list-group">
+					<a href="#" class="list-group-item active">
+						<h4 class="list-group-item-heading">Offer</h4>
+					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetAll</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+					</a>
+				</div>
+				<!--End of Service Group-->
+
+				<!--Service Group-->
 				<!-- <div class="list-group">
 					<a href="#" class="list-group-item active">
 						<h4 class="list-group-item-heading">Publication</h4>
