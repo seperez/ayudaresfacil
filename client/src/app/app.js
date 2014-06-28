@@ -4,6 +4,7 @@ angular.module( 'AyudarEsFacilApp', [
     'AyudarEsFacilApp.home',
     'AyudarEsFacilApp.whyHelp',
     'AyudarEsFacilApp.successStories',
+    'AyudarEsFacilApp.meetProject',
     'ui.router'
 ])
 
