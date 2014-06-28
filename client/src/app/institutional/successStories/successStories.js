@@ -1,4 +1,4 @@
-angular.module( 'AyudarEsFacilApp.successStories', [
+angular.module( 'AyudarEsFacilApp.institutional.successStories', [
     'ui.router'
 ])
 
@@ -8,7 +8,7 @@ angular.module( 'AyudarEsFacilApp.successStories', [
         views: {
             "main": {
                 controller: 'SuccessStoriesCtrl',
-                templateUrl: 'successStories/successStories.tpl.html'
+                templateUrl: 'institutional/successStories/successStories.tpl.html'
             }
         },
         data:{ pageTitle: 'Casos de éxito' }

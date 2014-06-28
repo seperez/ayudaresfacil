@@ -1,4 +1,4 @@
-angular.module( 'AyudarEsFacilApp.helpUsToHelp', [
+angular.module( 'AyudarEsFacilApp.institutional.helpUsToHelp', [
     'ui.router'
 ])
 
@@ -8,7 +8,7 @@ angular.module( 'AyudarEsFacilApp.helpUsToHelp', [
         views: {
             "main": {
                 controller: 'HelpUsToHelpCtrl',
-                templateUrl: 'helpUsToHelp/helpUsToHelp.tpl.html'
+                templateUrl: 'institutional/helpUsToHelp/helpUsToHelp.tpl.html'
             }
         },
         data:{ pageTitle: 'Casos de éxito' }

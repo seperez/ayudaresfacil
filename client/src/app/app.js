@@ -2,10 +2,7 @@ angular.module( 'AyudarEsFacilApp', [
     'templates-app',
     'templates-common',
     'AyudarEsFacilApp.home',
-    'AyudarEsFacilApp.whyHelp',
-    'AyudarEsFacilApp.successStories',
-    'AyudarEsFacilApp.meetProject',
-    'AyudarEsFacilApp.helpUsToHelp',
+    'AyudarEsFacilApp.institutional',
     'ui.router'
 ])
 

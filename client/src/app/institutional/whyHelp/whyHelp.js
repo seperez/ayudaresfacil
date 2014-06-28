@@ -1,4 +1,4 @@
-angular.module( 'AyudarEsFacilApp.whyHelp', [
+angular.module( 'AyudarEsFacilApp.institutional.whyHelp', [
     'ui.router'
 ])
 
@@ -8,7 +8,7 @@ angular.module( 'AyudarEsFacilApp.whyHelp', [
         views: {
             "main": {
                 controller: 'WhyHelpCtrl',
-                templateUrl: 'whyHelp/whyHelp.tpl.html'
+                templateUrl: 'institutional/whyHelp/whyHelp.tpl.html'
             }
         },
         data:{ pageTitle: 'Por que ayudar' }

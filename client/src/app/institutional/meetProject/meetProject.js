@@ -1,4 +1,4 @@
-angular.module( 'AyudarEsFacilApp.meetProject', [
+angular.module( 'AyudarEsFacilApp.institutional.meetProject', [
     'ui.router'
 ])
 
@@ -8,7 +8,7 @@ angular.module( 'AyudarEsFacilApp.meetProject', [
         views: {
             "main": {
                 controller: 'MeetProjectCtrl',
-                templateUrl: 'meetProject/meetProject.tpl.html'
+                templateUrl: 'institutional/meetProject/meetProject.tpl.html'
             }
         },
         data:{ pageTitle: 'Casos de éxito' }
