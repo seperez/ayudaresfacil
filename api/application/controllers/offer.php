@@ -87,36 +87,6 @@ class Offer extends REST_Controller {
         $this->response($return, $status);
 	}
 
-	public function delete(){
-		$error = $info = $success = "";
-		$return["result"] = "NOOK";
-		$publicationId = $this->delete('publicationId');
-
-		if($publicationId > 0){
-			$offer = CI_Offer::getById($publicationId);
-			if(CI_Offer::delete($offer)){
-				$return["result"] = "OK";
-			}
-		}
-		echo json_encode($return);	
-	}
-
-	public function getCurrentOffers(){
-		$return["result"] = "NOOK";
-		$offers = CI_Offer::getCurrentOffers();
-
-		if($offers){
-			$return["result"] = "OK";
-			$return["data"] = "";
-
-			foreach ($offers as $key => $offer) {
-				$myOffer = CI_Offer::getData($offer);
-				$return["data"][$key] = $myOffer;
-			 } 
-		}
-		echo json_encode($return);
-	}
-
 	public function pause(){
 		$error = $info = $success = "";
 		$return["result"] = "NOOK";

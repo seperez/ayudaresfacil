@@ -281,6 +281,50 @@
 				<!--End of Service Group-->
 
 				<!--Service Group-->
+				<div class="list-group">
+					<a href="#" class="list-group-item active">
+						<h4 class="list-group-item-heading">Request</h4>
+					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetAll</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetById</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 80
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetByUser</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							UserId: 1
+						}
+						</code>
+					</a>
+				</div>
+				<!--End of Service Group-->
+
+				<!--Service Group-->
 				<!-- <div class="list-group">
 					<a href="#" class="list-group-item active">
 						<h4 class="list-group-item-heading">Publication</h4>
