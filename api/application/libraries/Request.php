@@ -46,6 +46,21 @@ class CI_Request extends CI_Publication {
 		return $return;
 	}
 
+	public function save($arrInfo){
+		$request = $arrInfo["request"];
+		$arrInfo["request"] = CI_Request::getData($request);
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$id = ' ';
+		if(isset($request->id) && $request->id > 0){
+			$id = $request->id;
+			$CI->request_model->update($arrInfo["request"]);
+		}else{
+			$id = $CI->request_model->create($arrInfo);
+		}
+		return $id;
+	}
+
 	public static function getCurrentRequests(){
 		$CI =& get_instance();
 		$CI->load->model('request_model');
