@@ -9,7 +9,7 @@ class Offer extends REST_Controller {
 		//checkIsLoggedIn($this);
 		
 		$id = $this->get("publicationId"); 
-		$offers =  $id ? CI_Offer::getById($id) : CI_Offer::getCurrentOffers();
+		$offers = $id ? CI_Offer::getById($id) : CI_Offer::getCurrentOffers();
 
 		$status = 404;
 		$return["result"] = "NOOK";

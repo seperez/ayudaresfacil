@@ -152,7 +152,7 @@
 						<h4 class="list-group-item-heading">DeleteById</h4>
 						<p class="list-group-item-text">
 							<strong>Url:</strong> <?php echo $SERVER_URL?>user <br>
-							<strong>Method:</strong> DELETE
+							<strong>Method:</strong> <code>DELETE</code>
 						</p>
 						<strong>Params:</strong> 
 						<code>
@@ -177,6 +177,20 @@
 							<strong>Url:</strong> <?php echo $SERVER_URL?>offer<br>
 							<strong>Method:</strong> <code>GET</code>
 						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetById</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 87
+						}
+						</code>
 					</a>
 				</div>
 				<!--End of Service Group-->
