@@ -6,7 +6,7 @@ class Offer extends REST_Controller {
 
 	public function index_get(){
 
-		//checkIsLoggedIn($this);
+		checkIsLoggedIn($this);
 
 		$status = 404;
 		$return["result"] = "NOOK";
@@ -85,6 +85,25 @@ class Offer extends REST_Controller {
 			}
 		}
         $this->response($return, $status);
+	}
+
+	public function index_delete(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+		$publicationId = ($this->delete('publicationId') > 0) ? $this->delete('publicationId') :0;
+
+		if($publicationId > 0){
+			$offer = CI_Offer::getById($publicationId);
+			if(CI_Offer::delete($offer[0])){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
 	}
 
 	public function pause(){
