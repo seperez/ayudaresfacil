@@ -195,9 +195,9 @@ class Offer_model extends CI_Model
 	public function getFavoritesByUser($userId){
 		$this->db->select('*');	
 		$this->db->from('publication');
-		$this->db->join('publication_offer', "publication.publication_id = publication_offer.publication_id");
-		$this->db->join('publication_object', "publication.publication_id = publication_object.publication_id");
-		$this->db->join('publication_favorite', "publication.publication_id = publication_object.publication_id");
+		$this->db->join('publication_favorite', "publication.publication_id = publication_favorite.publication_id");
+		$this->db->join('publication_offer', "publication_offer.publication_id = publication_favorite.publication_id");
+		$this->db->join('publication_object', "publication_object.publication_id = publication_favorite.publication_id");
 		$this->db->where('publication_favorite.user_id', $userId);	
 		$query = $this->db->get();
 		return $query->result();

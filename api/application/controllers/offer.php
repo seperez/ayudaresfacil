@@ -171,12 +171,18 @@ class Offer extends REST_Controller {
 		$this->response($return, $status);
 	}
 
-	public function getFavoritesByUser(){
-		$userId = $this->get('userId');
+	public function favorite_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
 		$return["result"] = "NOOK";
+ 
+		$userId = $this->get("userId");
 		$offers = CI_Offer::getFavoritesByUser($userId);
 
 		if($offers){
+			$status = 200;
 			$return["result"] = "OK";
 			$return["data"] = "";
 
@@ -185,6 +191,6 @@ class Offer extends REST_Controller {
 				$return["data"][$key] = $myOffer;
 			 } 
 		}
-		echo json_encode($return);
+        $this->response($return, $status);
 	}
 }
