@@ -6,7 +6,7 @@ class Offer extends REST_Controller {
 
 	public function index_get(){
 
-		checkIsLoggedIn($this);
+		//checkIsLoggedIn($this);
 
 		$status = 404;
 		$return["result"] = "NOOK";
@@ -90,7 +90,7 @@ class Offer extends REST_Controller {
 	public function delete(){
 		$error = $info = $success = "";
 		$return["result"] = "NOOK";
-		$publicationId = $this->get('publicationId');
+		$publicationId = $this->delete('publicationId');
 
 		if($publicationId > 0){
 			$offer = CI_Offer::getById($publicationId);

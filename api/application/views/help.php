@@ -263,6 +263,20 @@
 							</code>
 						</p>
 					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Delete</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer<br>
+							<strong>Method:</strong> <code>DELETE</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 81
+						}
+						</code>
+					</a>
 				</div>
 				<!--End of Service Group-->
 
