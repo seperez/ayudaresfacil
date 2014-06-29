@@ -4,7 +4,6 @@ require APPPATH.'/libraries/REST_Controller.php';
 
 class Request extends REST_Controller{
 
-	/*
 	public function index_get(){
 
 		checkIsLoggedIn($this);
@@ -33,28 +32,28 @@ class Request extends REST_Controller{
 			 } 
 		}
         $this->response($return, $status);
-	}*/
+	}
 
-	public function index_get(){
+	public function index_post(){
 		
-		//checkIsLoggedIn($this);
+		checkIsLoggedIn($this);
 
 		$status = 404;
 		$return["result"] = "NOOK";
 
-		$arrOptions['publicationId'] = ($this->get('publicationId') > 0) ? $this->get('publicationId') : 0;
-		$arrOptions['user'] = $this->get('userId');
-		$arrOptions['type'] = $this->get('publicationTypeId');
-		$arrOptions['creationDate'] = $this->get('creationDate');
-		$arrOptions['title'] = $this->get('title');
-		$arrOptions['description'] = $this->get('description');
-		$arrOptions['expirationDate'] = $this->get('expirationDate');
-		$arrOptions['category'] = $this->get('categoryId');
-		$arrOptions['subcategory'] = $this->get('subcategoryId');
-		$arrOptions['views'] = $this->get('views');
-		$arrOptions['processState'] = $this->get('processStateId');
-		$arrOptions['object'] = $this->get('objectId');
-		$arrOptions['quantity'] = $this->get('quantity');
+		$arrOptions['publicationId'] = ($this->post('publicationId') > 0) ? $this->post('publicationId') : 0;
+		$arrOptions['user'] = $this->post('userId');
+		$arrOptions['type'] = $this->post('publicationTypeId');
+		$arrOptions['creationDate'] = $this->post('creationDate');
+		$arrOptions['title'] = $this->post('title');
+		$arrOptions['description'] = $this->post('description');
+		$arrOptions['expirationDate'] = $this->post('expirationDate');
+		$arrOptions['category'] = $this->post('categoryId');
+		$arrOptions['subcategory'] = $this->post('subcategoryId');
+		$arrOptions['views'] = $this->post('views');
+		$arrOptions['processState'] = $this->post('processStateId');
+		$arrOptions['object'] = $this->post('objectId');
+		$arrOptions['quantity'] = $this->post('quantity');
 
 		if($arrOptions['publicationId'] > 0){
 			$request = CI_Request::getById($arrOptions['publicationId']);
