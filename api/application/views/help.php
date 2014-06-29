@@ -206,6 +206,63 @@
 						}
 						</code>
 					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Create</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer <br>
+							<strong>Method:</strong> <code>POST</code> <br>
+							<strong>Params:</strong> 
+							<code>
+							{
+								userId:2,
+								publicationTypeId:1,
+								creationDate:2014-06-01,
+								title:Un titulo para la publicación,
+								description:Una descripción para la publicación,
+								expirationDate:2014-06-01,
+								categoryId:1,
+								subcategoryId:1,
+								views:12,
+								processStateId:V,
+								objectId:2,
+								quantity:3,
+								processStateIdOffer:P,
+								offerTypeId:3,
+								quantityUsersToPaused:2
+							}
+							</code>
+						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Update</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer <br>
+							<strong>Method:</strong> <code>POST</code> <br>
+							<strong>Params:</strong> 
+							<code>
+							{
+								publicationId:81
+								userId:2,
+								publicationTypeId:1,
+								creationDate:2014-06-01,
+								title:Un titulo para la publicación,
+								description:Una descripción para la publicación,
+								expirationDate:2014-06-01,
+								categoryId:1,
+								subcategoryId:1,
+								views:12,
+								processStateId:V,
+								objectId:2,
+								quantity:3,
+								processStateIdOffer:P,
+								offerTypeId:3,
+								quantityUsersToPaused:2
+							}
+							</code>
+						</p>
+					</a>
 				</div>
 				<!--End of Service Group-->
 

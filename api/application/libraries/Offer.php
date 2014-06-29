@@ -55,7 +55,7 @@ class CI_Offer extends CI_Publication {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result){
-				$return[] = self::getInstance($result);
+				$return[] = CI_Offer::getInstance($result);
 			}
 		}
 		return $return;
@@ -81,6 +81,7 @@ class CI_Offer extends CI_Publication {
 		$CI->load->model('offer_model');
 		$id = ' ';
 		if(isset($offer->id) && $offer->id > 0){
+			$id = $offer->id;
 			$CI->offer_model->update($arrInfo["offer"]);
 		}else{
 			$id = $CI->offer_model->create($arrInfo);
