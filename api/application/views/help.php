@@ -192,6 +192,20 @@
 						}
 						</code>
 					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetByUser</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							UserId: 1
+						}
+						</code>
+					</a>
 				</div>
 				<!--End of Service Group-->
 

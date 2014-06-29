@@ -11,8 +11,6 @@ class Offer extends REST_Controller {
 		$id = $this->get("publicationId"); 
 		$offers = $id ? CI_Offer::getById($id) : CI_Offer::getCurrentOffers();
 
-		$status = 404;
-		$return["result"] = "NOOK";
 		if($offers){
 			$status = 200;
 			$return["result"] = "OK";
@@ -26,18 +24,26 @@ class Offer extends REST_Controller {
         $this->response($return, $status);
 	}
 
+	public function user_get(){
 
-	public function getById(){
-		$id = $this->input->get('publicationId');
+		//checkIsLoggedIn($this);
+
+		$userId = $this->get("userId");
+		$offers = CI_Offer::getByUser($userId);	
+
+		$status = 404;
 		$return["result"] = "NOOK";
-		$offer = CI_Offer::getById($id);	
-
-		if($offer){
+		if($offers){
+			$status = 200;
 			$return["result"] = "OK";
-			$myOffer = CI_Offer::getData($offer);	
-			$return["data"] = $myOffer;
+			$return["data"] = "";
+
+			foreach ($offers as $key => $offer) {
+				$myOffer = CI_Offer::getData($offer);
+				$return["data"][$key] = $myOffer;
+			 } 
 		}
-		echo json_encode($return);
+        $this->response($return, $status);
 	}
 
 	public function getByUser(){
