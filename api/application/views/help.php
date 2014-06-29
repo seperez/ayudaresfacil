@@ -188,7 +188,7 @@
 						<strong>Params:</strong> 
 						<code>
 						{
-							id: 87
+							publicationId: 87
 						}
 						</code>
 					</a>
@@ -273,7 +273,21 @@
 						<strong>Params:</strong> 
 						<code>
 						{
-							id: 81
+							publicationId: 81
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Pause</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer/pause<br>
+							<strong>Method:</strong> <code>POST</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							publicationId: 83
 						}
 						</code>
 					</a>
@@ -303,7 +317,7 @@
 						<strong>Params:</strong> 
 						<code>
 						{
-							id: 80
+							publicationId: 80
 						}
 						</code>
 					</a>

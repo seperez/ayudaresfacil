@@ -106,18 +106,23 @@ class Offer extends REST_Controller {
 		$this->response($return, $status);
 	}
 
-	public function pause(){
-		$error = $info = $success = "";
+	public function pause_post(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
 		$return["result"] = "NOOK";
-		$publicationId = $this->get('publicationId');
+		$publicationId = ($this->post('publicationId') > 0) ? $this->post('publicationId') :0;
 
 		if($publicationId > 0){
 			$offer = CI_Offer::getById($publicationId);
-			if(CI_Offer::pause($offer)){
+			if(CI_Offer::pause($offer[0])){
+				$status = 200;
 				$return["result"] = "OK";
 			}
 		}
-		echo json_encode($return);	
+		$this->response($return, $status);
 	}
 
 	public function setAsFavorite(){
