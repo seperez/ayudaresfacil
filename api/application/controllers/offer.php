@@ -125,22 +125,27 @@ class Offer extends REST_Controller {
 		$this->response($return, $status);
 	}
 
-	public function setAsFavorite(){
-		$error = $info = $success = "";
+	public function favorite_post(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
 		$return["result"] = "NOOK";
 
-		$arrOptions['publicationId'] = $this->get('publicationId');
-		$arrOptions['userId'] = $this->get('userId');
+		$arrOptions['publicationId'] = $this->post('publicationId');
+		$arrOptions['userId'] = $this->post('userId');
 
 		if($arrOptions['publicationId'] > 0){
 			$offer = CI_Offer::getById($arrOptions['publicationId']);
-			$arrOptions['offer'] = $offer;
-			
+			$arrOptions['offer'] = $offer[0];
+
 			if(CI_Offer::setAsFavorite($arrOptions)){
+				$status = 200;
 				$return["result"] = "OK";
 			}
 		}
-		echo json_encode($return);	
+		$this->response($return, $status);
 	}
 
 	public function deleteFromFavorites(){
