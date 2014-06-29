@@ -152,7 +152,7 @@
 						<h4 class="list-group-item-heading">DeleteById</h4>
 						<p class="list-group-item-text">
 							<strong>Url:</strong> <?php echo $SERVER_URL?>user <br>
-							<strong>Method:</strong> DELETE
+							<strong>Method:</strong> <code>DELETE</code>
 						</p>
 						<strong>Params:</strong> 
 						<code>
@@ -177,6 +177,149 @@
 							<strong>Url:</strong> <?php echo $SERVER_URL?>offer<br>
 							<strong>Method:</strong> <code>GET</code>
 						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetById</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 87
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetByUser</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							UserId: 1
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Create</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer <br>
+							<strong>Method:</strong> <code>POST</code> <br>
+							<strong>Params:</strong> 
+							<code>
+							{
+								userId:2,
+								publicationTypeId:1,
+								creationDate:2014-06-01,
+								title:Un titulo para la publicación,
+								description:Una descripción para la publicación,
+								expirationDate:2014-06-01,
+								categoryId:1,
+								subcategoryId:1,
+								views:12,
+								processStateId:V,
+								objectId:2,
+								quantity:3,
+								processStateIdOffer:P,
+								offerTypeId:3,
+								quantityUsersToPaused:2
+							}
+							</code>
+						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Update</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer <br>
+							<strong>Method:</strong> <code>POST</code> <br>
+							<strong>Params:</strong> 
+							<code>
+							{
+								publicationId:81
+								userId:2,
+								publicationTypeId:1,
+								creationDate:2014-06-01,
+								title:Un titulo para la publicación,
+								description:Una descripción para la publicación,
+								expirationDate:2014-06-01,
+								categoryId:1,
+								subcategoryId:1,
+								views:12,
+								processStateId:V,
+								objectId:2,
+								quantity:3,
+								processStateIdOffer:P,
+								offerTypeId:3,
+								quantityUsersToPaused:2
+							}
+							</code>
+						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Delete</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer<br>
+							<strong>Method:</strong> <code>DELETE</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 81
+						}
+						</code>
+					</a>
+				</div>
+				<!--End of Service Group-->
+
+				<!--Service Group-->
+				<div class="list-group">
+					<a href="#" class="list-group-item active">
+						<h4 class="list-group-item-heading">Request</h4>
+					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetAll</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetById</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 80
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetByUser</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							UserId: 1
+						}
+						</code>
 					</a>
 				</div>
 				<!--End of Service Group-->

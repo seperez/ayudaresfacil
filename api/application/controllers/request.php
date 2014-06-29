@@ -1,13 +1,40 @@
-<?php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+require APPPATH.'/libraries/REST_Controller.php';
 
-class Request extends CI_Controller{
-	public function __construct()
-	{
-		parent::__construct(); 	
+class Request extends REST_Controller{
+
+	public function index_get(){
+
+		//checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["result"] = "NOOK";
+
+		$id = $this->get("publicationId"); 
+		$userId = $this->get("userId");
+		
+		if($id){
+			$requests = CI_Request::getById($id);	
+		}elseif ($userId) {
+			$requests = CI_Request::getByUser($userId);	
+		}else{
+			$requests = CI_Request::getCurrentRequests();
+		}
+		if($requests){
+			$status = 200;
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($requests as $key => $request) {
+				$myRequest = CI_Request::getData($request);
+				$return["data"][$key] = $myRequest;
+			 } 
+		}
+        $this->response($return, $status);
 	}
 
+	/*
 	public function index(){}
 
 	public function getById(){
@@ -40,7 +67,6 @@ class Request extends CI_Controller{
 		echo json_encode($return);
 	}
 
-	/*
 	public function save(){
 		$arrOptions['publicationId'] = ($this->input->get('publicationId') > 0) ? $this->input->get('publicationId') : 0;
 		$arrOptions['user'] = $this->input->get('userId');

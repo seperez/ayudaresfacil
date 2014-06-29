@@ -27,7 +27,7 @@ class CI_Request extends CI_Publication {
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result){
-				$return = CI_Request::getInstance($result);
+				$return[] = CI_Request::getInstance($result);
 			}
 		}
 		return $return;
@@ -37,6 +37,19 @@ class CI_Request extends CI_Publication {
 		$CI =& get_instance();
 		$CI->load->model('request_model');
 		$results = $CI->request_model->getByUser($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result){
+				$return[] = CI_Request::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public static function getCurrentRequests(){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$results = $CI->request_model->getCurrentRequests();
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result){
