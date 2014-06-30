@@ -38,29 +38,24 @@
                         </div><!-- /.btn-collapse-sidebar-right -->
                         <!-- End button nav toggle -->
 
-                        <!-- Begin button login -->
-                        <div class="pull-right" style="margin-top:15px">
-                            <a ui-sref="login" class="text-muted" style="margin:0 15px">Inicia Sésion</a>
-                            <button ui-sref="registration" class="btn btn-warning btn-lg">Registrate</button>
-                        </div>
-                        <!-- End button login -->
+                       
                         
                         <!-- Begin user session nav -->
                         <ul class="nav-user navbar-right hidden">
                             <li class="dropdown">
-                              <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="assets/images/avatar/avatar.jpg" class="avatar img-circle" alt="Avatar">
-                                Hi, <strong>Paris Hawker</strong>
-                              </a>
-                              <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
-                                <li><a href="#fakelink">Account setting</a></li>
-                                <li><a href="#fakelink">Payment setting</a></li>
-                                <li><a href="#fakelink">Change password</a></li>
-                                <li><a href="#fakelink">My public profile</a></li>
-                                <li class="divider"></li>
-                                <li><a href="lock-screen.html">Lock screen</a></li>
-                                <li><a href="login.html">Log out</a></li>
-                              </ul>
+                                <a href="#fakelink" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="assets/images/avatar/avatar.jpg" class="avatar img-circle" alt="Avatar">
+                                    Hi, <strong>Paris Hawker</strong>
+                                </a>
+                                <ul class="dropdown-menu square primary margin-list-rounded with-triangle">
+                                    <li><a href="#fakelink">Account setting</a></li>
+                                    <li><a href="#fakelink">Payment setting</a></li>
+                                    <li><a href="#fakelink">Change password</a></li>
+                                    <li><a href="#fakelink">My public profile</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="lock-screen.html">Lock screen</a></li>
+                                    <li><a href="login.html">Log out</a></li>
+                                </ul>
                             </li>
                         </ul>
                         <!-- End user session nav -->
@@ -72,51 +67,8 @@
             </div><!-- /.top-navbar -->
             <!-- END TOP NAV -->
 
-            <!-- BEGIN TOP MAIN NAVIGATION -->
-            <div class="top-main-navigation">
-                <nav class="navbar square navbar-default no-border" role="navigation">
-                    <div class="container-fluid">
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="top-main-navigation">
-                            <ul class="nav navbar-nav">
-                                <li ui-sref-active="active">
-                                    <a href ui-sref="home">
-                                        <span class="glyphicon glyphicon-home"></span>
-                                    </a>
-                                </li>
+            <div ui-view="navigationBar"></div>
 
-                                <li ui-sref-active="active">
-                                    <a href ui-sref="whyHelp">
-                                        por que ayudar?
-                                    </a>
-                                </li>
-
-                                <li ui-sref-active="active">
-                                    <a href ui-sref="successStories">
-                                        casos de éxito
-                                    </a>
-                                </li>
-                                
-                                <li ui-sref-active="active">
-                                    <a href ui-sref="meetProject">
-                                        conoce el proyecto
-                                    </a>
-                                </li>
-
-                                <li ui-sref-active="active">
-                                    <a href ui-sref="helpUsToHelp">
-                                        ayúdanos a ayudar
-                                    </a>
-                                </li>
-                            </ul>
-                            
-                        </div><!-- /.navbar-collapse -->
-                    </div><!-- /.container-fluid -->
-                </nav>
-                <!-- End inverse navbar -->
-            </div><!-- /.top-main-navigation -->
-            <!-- END TOP MAIN NAVIGATION -->
-            
             <!-- BEGIN PAGE CONTENT -->
             <div class="page-content no-left-sidebar">
                 <div class="container-fluid" style="margin-top: 50px;">

@@ -9,7 +9,10 @@ angular.module( 'AyudarEsFacilApp.institutional.whyHelp', [
             "main": {
                 controller: 'WhyHelpCtrl',
                 templateUrl: 'institutional/whyHelp/whyHelp.tpl.html'
-            }
+            },
+            "navigationBar": {
+                templateUrl: 'navigationBar/institutional.tpl.html'
+            } 
         },
         data:{ pageTitle: 'Por que ayudar' }
     });

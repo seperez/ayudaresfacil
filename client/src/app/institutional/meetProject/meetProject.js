@@ -9,7 +9,10 @@ angular.module( 'AyudarEsFacilApp.institutional.meetProject', [
             "main": {
                 controller: 'MeetProjectCtrl',
                 templateUrl: 'institutional/meetProject/meetProject.tpl.html'
-            }
+            },
+            "navigationBar": {
+                templateUrl: 'navigationBar/institutional.tpl.html'
+            } 
         },
         data:{ pageTitle: 'Casos de éxito' }
     });

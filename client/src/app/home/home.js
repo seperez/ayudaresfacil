@@ -9,7 +9,10 @@ angular.module( 'AyudarEsFacilApp.home', [
             "main": {
                 controller: 'HomeCtrl',
                 templateUrl: 'home/home.tpl.html'
-            }
+            }, 
+            "navigationBar": {
+                templateUrl: 'navigationBar/institutional.tpl.html'
+            } 
         },
         data:{ pageTitle: 'Home' }
     });
