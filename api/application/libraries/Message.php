@@ -2,9 +2,9 @@
 
 class CI_Message {
 	private $id;
-	private $userFrom;
-	private $userTo;
-	private $publication;
+	private $UserIdFrom;
+	private $UserIdTo;
+	private $publicationId;
 	private $firstMessageId;
 	private $FAQ;
 	private $commonState;
@@ -16,14 +16,14 @@ class CI_Message {
 
 	public function getId() {return $this->id;}
 
-	public function getUserFrom() {return $this->userFrom;}
-	public function setUserFrom($userFrom) {return $this->userFrom = $userFrom;}
+	public function getUserIdFrom() {return $this->UserIdFrom;}
+	public function setUserIdFrom($UserIdFrom) {return $this->UserIdFrom = $UserIdFrom;}
 
-	public function getUserTo() {return $this->userTo;}
-	public function setUserTo($userTo) {return $this->userTo = $userTo;}
+	public function getUserIdTo() {return $this->UserIdTo;}
+	public function setUserIdTo($UserIdTo) {return $this->UserIdTo = $UserIdTo;}
 
-	public function getPublication(){return $this->publication;}
-	public function setPublication($publication){return $this->publication = $publication;}
+	public function getPublicationId(){return $this->publicationId;}
+	public function setPublicationId($publicationId){return $this->publicationId = $publicationId;}
 
 	public function getFirstMessageId(){return $this->firstMessageId; }
 	public function setFirstMessageId($firstMessageId){return $this->firstMessageId = $firstMessageId;}
@@ -61,9 +61,9 @@ class CI_Message {
 		$object = new stdClass();
 
 		$object->id = $this->id;
-		$object->userFrom = $this->userFrom;
-		$object->userTo = $this->userTo;
-		$object->publication = $this->publication;
+		$object->UserIdFrom = $this->UserIdFrom;
+		$object->UserIdTo = $this->UserIdTo;
+		$object->publicationId = $this->publicationId;
 		$object->firstMessageId = $this->firstMessageId;
 		$object->FAQ = $this->FAQ;
 		$object->commonState = $this->commonState;
@@ -82,9 +82,8 @@ class CI_Message {
 		}
 		$message = new self;
 		$message->id = (isset($row->message_id)) ? $row->message_id : 0;
-		$message->userFrom = (isset($row->user_id_from)) ? CI_User::getById ($row->user_id_from):'';
-		$message->userTo = (isset($row->user_id_to)) ? CI_User::getById ($row->user_id_to):'';
-		//$message->publication =  CI_Publication::getById ($row->publication_id);
+		$message->UserIdFrom = (isset($row->user_id_from)) ? $row->user_id_from : '';
+		$message->UserIdTo = (isset($row->user_id_to)) ? $row->user_id_to : '';
 		$message->publication = (isset($row->publication_id)) ? $row->publication_id : '';
 		$message->firstMessageId = (isset($row->first_message_id)) ? $row->first_message_id : '';
 		$message->FAQ = (isset($row->FAQ)) ? $row->FAQ : '';
@@ -182,5 +181,30 @@ class CI_Message {
 		$CI =& get_instance();
 		$CI->load->model('message_model');
 		return $CI->message_model->delete($this->id);
+	}
+
+	public static function getConversation($firstMessageId){
+		$CI = & get_instance();
+		$CI->load->model('message_model');
+		$results = $CI->message_model->getConversation($firstMessageId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result) {
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public function isValidToInsert($options){
+		$return = FALSE;
+		
+		$CI =& get_instance();
+
+		if ( (CI_User::getById($arrOptions['userIdFrom']))||
+			 (CI_User::getById($arrOptions['userIdTo'])))
+			//(isset($arrOptions['publicationId']) && !isset(CI_User::getById($arrOptions['publicationId'])))
+			$return = TRUE;
+		return $return;
 	}
 }

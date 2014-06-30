@@ -551,7 +551,146 @@
 					</a>
 				</div> -->
 				<!--End of Service Group-->
+				
+				<!--Service Group-->
+				<div class="list-group">
+					<a href="#" class="list-group-item active">
+						<h4 class="list-group-item-heading">Message</h4>
+					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetAll</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>message <br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+					</a>
 
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetById</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>message <br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: "4",
+							token: "Aadsjk34hjksad"
+						}
+						</code>
+					</a>		
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">getByUserIdTo</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>message <br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							userIdTo:"4",
+							token: "Aadsjk34hjksad"
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">getByUserIdFrom</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>message <br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							userIdFrom:"4",
+							token: "Aadsjk34hjksad"
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">getConversation</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>message <br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							firstMessageId:"2",
+							token:"Aadsjk34hjksad"
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Send</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>message <br>
+							<strong>Method:</strong> <code>POST</code> <br>
+							<strong>Params:</strong> 
+							<code>
+							{
+								userIdFrom:"4",
+							    userIdTo:"2",
+							    publicationId:"1",
+							    firstMessageId:"1",
+							    FAQ:"0",
+							    commonStateId:"N",
+							    subject:"subject Prueba",
+							    text:"Texto Prueba",
+							    createDate:"2014/05/12 17:13:50",
+							    updateDate:"2014/06/27 03:13:50",
+							    token:"Aadsjk34hjksad"
+							}
+							</code>
+						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Update</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>message <br>
+							<strong>Method:</strong> <code>POST</code> <br>
+							<strong>Params:</strong> 
+							<code>
+							{
+								id:"1",
+								userIdFrom:"4",
+							    userIdTo:"2",
+							    publicationId:"1",
+							    firstMessageId:"1",
+							    FAQ:"0",
+							    commonStateId:"N",
+							    subject:"subject Prueba",
+							    text:"Texto Prueba",
+							    createDate:"2014/05/12 17:13:50",
+							    updateDate:"2014/06/27 03:13:50",
+							    token:"Aadsjk34hjksad"
+							}
+							</code>
+						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">DeleteById</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>message <br>
+							<strong>Method:</strong> <code>DELETE</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							id: 1,
+							token: 'Aadsjk34hjksad'
+						}
+						</code>
+					</a>
+				</div>
+				<!--End of Service Group-->
 			</div>
 		</div>
 	</div>

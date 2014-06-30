@@ -46,18 +46,37 @@ class Message_model extends CI_Model
 		return $query->result();
 	}
 
+	public function getConversation($firstMessageId){
+		$this->db->select('*');
+		$this->db->from('message');
+		$this->db->where('message_id',$firstMessageId);
+		$this->db->where('delete_date',null);
+		$query1 = $this->db->get()->result();
+
+		$this->db->select('*');
+		$this->db->from('message');
+		$this->db->where('first_message_id',$firstMessageId);
+		$this->db->where('delete_date',null);
+		$this->db->order_by('create_date','asc');
+		$query2 = $this->db->get()->result();
+
+		$query = array_merge($query1, $query2);
+
+		return $query;
+	}
+
 	public function create($options){
 		$this->db->trans_start();
 		$data = array 	(
-							'user_Id_From' => $options->userFrom[0]->getId(),
-							'user_Id_To' => $options->userTo[0]->getId(),
-							'publication_Id' => $options->publication,
+							'user_Id_From' => $options->UserIdFrom,
+							'user_Id_To' => $options->UserIdTo,
+							'publication_Id' => $options->publicationId,
 							'first_Message_Id' => $options->firstMessageId,
 							'FAQ' => $options->FAQ,
 							'common_State_Id' => $options->commonState->getId(),
 							'subject' => $options->subject,
 							'text' => $options->text,
-							'create_Date' => $options->createDate
+							'create_date' => $options->createDate
 						);
 		$this->db->insert('message', $data);
 		$this->db->trans_complete();
@@ -76,9 +95,9 @@ class Message_model extends CI_Model
 		$this->db->trans_start();
 		
 		$data = array 	(
-							'user_Id_From' => $options->userFrom->getId(),
-							'user_Id_To' => $options->userTo->getId(),
-							'publication_Id' => $options->publication->getId(),
+							'user_Id_From' => $options->UserIdFrom,
+							'user_Id_To' => $options->UserIdTo,
+							'publication_Id' => $options->publicationId,
 							'first_Message_Id' => $options->firstMessageId,
 							'FAQ' => $options->FAQ,
 							'common_State_Id' => $options->commonState->getId(),
