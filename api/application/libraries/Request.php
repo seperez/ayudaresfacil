@@ -119,6 +119,25 @@ class CI_Request extends CI_Publication {
 		}
 	}
 
+	public function deleteFromFavorites($options){
+		$userId = $options['userId'];
+		$request = $options['request'];
+
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+
+		$data = array (
+			"publication_id" => $request->id, 
+			"user_id" => $userId,
+			"request" => $request
+		);
+
+		if(!(CI_Offer::checkExistingFavorite($data))){
+			unset($data["request"]);
+			return $CI->request_model->deleteFromFavorites($data);					
+		}
+	}
+	
 	/*
 	public static function getMonetaryRequestsByUserId($userId){
 		$CI =& get_instance();

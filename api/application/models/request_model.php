@@ -155,7 +155,20 @@ class Request_model extends CI_Model
 		}
 		return TRUE;
 	}
-	
+
+	public function deleteFromFavorites($data){
+		$this->db->trans_start();
+		$this->db->where('publication_id', $data["publication_id"]);
+		$this->db->where('user_id', $data["user_id"]);
+		$this->db->delete('publication_favorite');
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return TRUE;
+	}
 	/*
 
 	public function create($options, $userId){

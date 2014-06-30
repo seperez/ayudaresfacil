@@ -147,4 +147,27 @@ class Request extends REST_Controller{
 		}
 		$this->response($return, $status);
 	}
+
+	public function favorite_delete(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->delete('publicationId');
+		$arrOptions['userId'] = $this->delete('userId');
+
+		if($arrOptions['publicationId'] > 0){
+			$request = CI_Request::getById($arrOptions['publicationId']);
+			$arrOptions['request'] = $request[0];
+
+			if(CI_Request::deleteFromFavorites($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
 }
