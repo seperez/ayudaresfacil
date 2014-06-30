@@ -130,6 +130,32 @@ class Request_model extends CI_Model
 		return $query->result();
 	}
 
+	public function checkExistingFavorite($data){
+		$this->db->select('*');	
+		$this->db->from('publication_favorite');
+		$this->db->where('publication_id', $data["publication_id"]);	
+		$this->db->where('user_id', $data["user_id"]);	
+		$query = $this->db->get();
+
+		if (!empty($query->result())){
+			return FALSE;
+		}else{
+			return TRUE;			
+		}				
+	}
+
+	public function setAsFavorite($data){
+		$this->db->trans_start();
+		$this->db->insert('publication_favorite', $data);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return TRUE;
+	}
+	
 	/*
 
 	public function create($options, $userId){

@@ -66,7 +66,7 @@ class CI_Request extends CI_Publication {
 		$CI->load->model('request_model');
 		return $CI->request_model->delete($request->id);
 	}
-	
+
 	public static function getCurrentRequests(){
 		$CI =& get_instance();
 		$CI->load->model('request_model');
@@ -93,57 +93,33 @@ class CI_Request extends CI_Publication {
 		return $return;
 	}
 
+	public function checkExistingFavorite($data){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		
+		return $CI->request_model->checkExistingFavorite($data);
+	}
+
+	public function setAsFavorite($options){
+		$userId = $options['userId'];
+		$request = $options['request'];
+
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+
+		$data = array (
+			"publication_id" => $request->id, 
+			"user_id" => $userId,
+			"request" => $request
+		);
+
+		if (CI_Request::checkExistingFavorite($data)){
+			unset($data["request"]);
+			return $CI->request_model->setAsFavorite($data);					
+		}
+	}
+
 	/*
-
-	public function save($userId){
-		$CI =& get_instance();
-		$CI->load->model('request_model');
-		$id = $this->getId();
-		if(isset($id) && $id > 0){
-			$CI->request_model->update(CI_Request::getData($this));
-		}else{
-			//$id = $CI->request_model->create(CI_Request::getData($this), $userId);
-		}
-		return $id;
-	}
-	
-	public static function getRequests(){
-		$CI =& get_instance();
-		$CI->load->model('request_model');
-		$results = $CI->request_model->getRequests();
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = self::getInstance($result);
-			}
-		}
-		return $return;
-	}
-
-	public static function getById($id){
-		$CI =& get_instance();
-		$CI->load->model('request_model');
-		$results = $CI->request_model->getById($id);
-		$return = array();
-		if(!empty($results)){
-			$return = self::getInstance($results[0]);
-		}
-		return $return;
-	}
-
-	public static function getRequestsByUserId($userId){
-		$CI =& get_instance();
-		$CI->load->model('request_model');
-		$results = $CI->request_model->getRequestsByUserId($userId);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = self::getInstance($result);
-			}
-		}
-		return $return;
-	}
-
 	public static function getMonetaryRequestsByUserId($userId){
 		$CI =& get_instance();
 		$CI->load->model('request_model');
@@ -169,17 +145,5 @@ class CI_Request extends CI_Publication {
 		}
 		return $return;
 	}
-
-	public static function getFavoritesByUserId($userId){
-		$CI =& get_instance();
-		$CI->load->model('request_model');
-		$results = $CI->request_model->getFavoritesByUserId($userId);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = self::getInstance($result);
-			}
-		}
-		return $return;
-	}*/
+	*/
 }
