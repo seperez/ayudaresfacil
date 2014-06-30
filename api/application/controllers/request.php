@@ -82,4 +82,23 @@ class Request extends REST_Controller{
 		}
         $this->response($return, $status);
 	}
+
+	public function index_delete(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+		$publicationId = ($this->delete('publicationId') > 0) ? $this->delete('publicationId') :0;
+
+		if($publicationId > 0){
+			$request = CI_Request::getById($publicationId);
+			if(CI_Request::delete($request[0])){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
 }

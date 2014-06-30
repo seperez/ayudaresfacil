@@ -103,6 +103,21 @@ class Request_model extends CI_Model
 		}
 	}
 
+	public function delete($publicationId){
+
+		$this->db->trans_start();
+		$data = array ('process_state_id' => 'B');
+		$this->db->where('publication_id', $publicationId);
+		$this->db->update('publication',$data);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return TRUE;
+	}
+	
 	/*
 
 	public function create($options, $userId){

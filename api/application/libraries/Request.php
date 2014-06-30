@@ -61,6 +61,12 @@ class CI_Request extends CI_Publication {
 		return $id;
 	}
 
+	public function delete($request){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		return $CI->request_model->delete($request->id);
+	}
+	
 	public static function getCurrentRequests(){
 		$CI =& get_instance();
 		$CI->load->model('request_model');
