@@ -642,8 +642,6 @@
 							    commonStateId:"N",
 							    subject:"subject Prueba",
 							    text:"Texto Prueba",
-							    createDate:"2014/05/12 17:13:50",
-							    updateDate:"2014/06/27 03:13:50",
 							    token:"Aadsjk34hjksad"
 							}
 							</code>
@@ -667,8 +665,6 @@
 							    commonStateId:"N",
 							    subject:"subject Prueba",
 							    text:"Texto Prueba",
-							    createDate:"2014/05/12 17:13:50",
-							    updateDate:"2014/06/27 03:13:50",
 							    token:"Aadsjk34hjksad"
 							}
 							</code>
