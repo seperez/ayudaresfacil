@@ -117,7 +117,19 @@ class Request_model extends CI_Model
 		}
 		return TRUE;
 	}
-	
+
+	public function getFavoritesByUser($userId){
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->join('publication_favorite', "publication.publication_id = publication_favorite.publication_id");
+		$this->db->join('publication_object', "publication_object.publication_id = publication_favorite.publication_id");
+		$this->db->where('publication_favorite.user_id', $userId);	
+		$this->db->where('publication.publication_type_id', 2);
+		$this->db->where('publication.expiration_date >', date('Y/m/d H:i:s'));
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	/*
 
 	public function create($options, $userId){

@@ -430,6 +430,34 @@
 							</code>
 						</p>
 					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">Delete</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request <br>
+							<strong>Method:</strong> <code>DELETE</code> <br>
+							<strong>Params:</strong> 
+							<code>
+							{
+								publicationId:133
+							}
+							</code>
+						</p>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetFavoriteByUser</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request/favorite <br>
+							<strong>Method:</strong> <code>GET</code> <br>
+							<strong>Params:</strong> 
+							<code>
+							{
+								publicationId:133
+							}
+							</code>
+						</p>
+					</a>
 				</div>
 				<!--End of Service Group-->
 
