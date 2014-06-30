@@ -6,7 +6,7 @@ class Request extends REST_Controller{
 
 	public function index_get(){
 
-		//checkIsLoggedIn($this);
+		checkIsLoggedIn($this);
 
 		$status = 404;
 		$return["result"] = "NOOK";
@@ -34,28 +34,86 @@ class Request extends REST_Controller{
         $this->response($return, $status);
 	}
 
-	/*
-	public function index(){}
+	public function index_post(){
+		
+		checkIsLoggedIn($this);
 
-	public function getById(){
-		$id = $this->input->get('publicationId');
+		$status = 404;
 		$return["result"] = "NOOK";
-		$request = CI_Request::getById($id);	
 
-		if($request){
-			$return["result"] = "OK";
-			$myRequest = CI_Request::getData($request);	
-			$return["data"] = $myRequest;
+		$arrOptions['publicationId'] = ($this->post('publicationId') > 0) ? $this->post('publicationId') : 0;
+		$arrOptions['user'] = $this->post('userId');
+		$arrOptions['type'] = $this->post('publicationTypeId');
+		$arrOptions['creationDate'] = $this->post('creationDate');
+		$arrOptions['title'] = $this->post('title');
+		$arrOptions['description'] = $this->post('description');
+		$arrOptions['expirationDate'] = $this->post('expirationDate');
+		$arrOptions['category'] = $this->post('categoryId');
+		$arrOptions['subcategory'] = $this->post('subcategoryId');
+		$arrOptions['views'] = $this->post('views');
+		$arrOptions['processState'] = $this->post('processStateId');
+		$arrOptions['object'] = $this->post('objectId');
+		$arrOptions['quantity'] = $this->post('quantity');
+
+		if($arrOptions['publicationId'] > 0){
+			$request = CI_Request::getById($arrOptions['publicationId']);
+			if ($request <> NULL) {
+				$request = CI_Request::getDataFromArray($arrOptions);
+			}						
+		}else{
+			$request = CI_Request::getDataFromArray($arrOptions);
 		}
-		echo json_encode($return);
+
+		if ($request <> NULL) {
+			$arrInfo['user'] = $arrOptions['user'];
+			$arrInfo['type'] = $arrOptions['type'];
+			$arrInfo['request'] = $request;
+
+			$id = CI_Request::save($arrInfo);
+
+			if($id <> NULL){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";			
+				$return["publicationId"] = $id;
+				$myRequest = CI_Request::getData($request);	
+				$return["data"] = $myRequest;
+			}
+		}
+        $this->response($return, $status);
 	}
 
-	public function getByUser(){
-		$userId = $this->input->get('userId');
+	public function index_delete(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
 		$return["result"] = "NOOK";
-		$requests = CI_Request::getByUser($userId);	
+		$publicationId = ($this->delete('publicationId') > 0) ? $this->delete('publicationId') :0;
+
+		if($publicationId > 0){
+			$request = CI_Request::getById($publicationId);
+			if(CI_Request::delete($request[0])){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
+
+	public function favorite_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["result"] = "NOOK";
+ 
+		$userId = $this->get("userId");
+		$requests = CI_Request::getFavoritesByUser($userId);
 
 		if($requests){
+			$status = 200;
 			$return["result"] = "OK";
 			$return["data"] = "";
 
@@ -64,55 +122,52 @@ class Request extends REST_Controller{
 				$return["data"][$key] = $myRequest;
 			 } 
 		}
-		echo json_encode($return);
+        $this->response($return, $status);
 	}
 
-	public function save(){
-		$arrOptions['publicationId'] = ($this->input->get('publicationId') > 0) ? $this->input->get('publicationId') : 0;
-		$arrOptions['user'] = $this->input->get('userId');
-		$arrOptions['type'] = $this->input->get('publicationTypeId');
-		$arrOptions['creationDate'] = $this->input->get('creationDate');
-		$arrOptions['title'] = $this->input->get('title');
-		$arrOptions['description'] = $this->input->get('description');
-		$arrOptions['expirationDate'] = $this->input->get('expirationDate');
-		$arrOptions['category'] = $this->input->get('categoryId');
-		$arrOptions['subcategory'] = $this->input->get('subcategoryId');
-		$arrOptions['views'] = $this->input->get('views');
-		$arrOptions['processState'] = $this->input->get('processStateId');
-		$arrOptions['object'] = $this->input->get('objectId');
-		$arrOptions['quantity'] = $this->input->get('quantity');
+	public function favorite_post(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->post('publicationId');
+		$arrOptions['userId'] = $this->post('userId');
 
 		if($arrOptions['publicationId'] > 0){
 			$request = CI_Request::getById($arrOptions['publicationId']);
+			$arrOptions['request'] = $request[0];
 
-			$request->setTitle($arrOptions['title']);
-			$request->setDescription($arrOptions['description']);
-			$request->setCategory($arrOptions['category']);
-			$request->setSubcategory($arrOptions['subcategory']);
-			$request->setObject($arrOptions['object']);
-			$request->setQuantity($arrOptions['quantity']);
-			$request->setViews($arrOptions['views']);
-			$request->setProcessState($arrOptions['processState']);
-			$request->setCreationDate($arrOptions['creationDate']);
-			$request->setExpirationDate($arrOptions['expirationDate']);
-
-		}else{
-			$request = CI_Request::getDataFromArray($arrOptions);
+			if(CI_Request::setAsFavorite($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
 		}
-
-		$userId = $arrOptions['user'];
-		$id = $request->save($userId);
-
-		if($id === NULL){
-			$return["result"] = "NOOK";
-		}else{
-			$return["result"] = "OK";			
-			$return["publicationId"] = $id;
-			$myRequest = CI_Request::getData($request);	
-			$return["data"] = $myRequest;
-		}
-		echo json_encode($return);
+		$this->response($return, $status);
 	}
-	*/
 
+	public function favorite_delete(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->delete('publicationId');
+		$arrOptions['userId'] = $this->delete('userId');
+
+		if($arrOptions['publicationId'] > 0){
+			$request = CI_Request::getById($arrOptions['publicationId']);
+			$arrOptions['request'] = $request[0];
+
+			if(CI_Request::deleteFromFavorites($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
 }

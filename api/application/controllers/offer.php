@@ -6,7 +6,7 @@ class Offer extends REST_Controller {
 
 	public function index_get(){
 
-		//checkIsLoggedIn($this);
+		checkIsLoggedIn($this);
 
 		$status = 404;
 		$return["result"] = "NOOK";
@@ -87,62 +87,56 @@ class Offer extends REST_Controller {
         $this->response($return, $status);
 	}
 
-	public function pause(){
-		$error = $info = $success = "";
+	public function index_delete(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
 		$return["result"] = "NOOK";
-		$publicationId = $this->get('publicationId');
+		$publicationId = ($this->delete('publicationId') > 0) ? $this->delete('publicationId') :0;
 
 		if($publicationId > 0){
 			$offer = CI_Offer::getById($publicationId);
-			if(CI_Offer::pause($offer)){
+			if(CI_Offer::delete($offer[0])){
+				$status = 200;
 				$return["result"] = "OK";
 			}
 		}
-		echo json_encode($return);	
+		$this->response($return, $status);
 	}
 
-	public function setAsFavorite(){
-		$error = $info = $success = "";
+	public function pause_post(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
 		$return["result"] = "NOOK";
+		$publicationId = ($this->post('publicationId') > 0) ? $this->post('publicationId') :0;
 
-		$arrOptions['publicationId'] = $this->get('publicationId');
-		$arrOptions['userId'] = $this->get('userId');
-
-		if($arrOptions['publicationId'] > 0){
-			$offer = CI_Offer::getById($arrOptions['publicationId']);
-			$arrOptions['offer'] = $offer;
-			
-			if(CI_Offer::setAsFavorite($arrOptions)){
+		if($publicationId > 0){
+			$offer = CI_Offer::getById($publicationId);
+			if(CI_Offer::pause($offer[0])){
+				$status = 200;
 				$return["result"] = "OK";
 			}
 		}
-		echo json_encode($return);	
+		$this->response($return, $status);
 	}
 
-	public function deleteFromFavorites(){
-		$error = $info = $success = "";
+	public function favorite_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
 		$return["result"] = "NOOK";
-
-		$arrOptions['publicationId'] = $this->get('publicationId');
-		$arrOptions['userId'] = $this->get('userId');
-
-		if($arrOptions['publicationId'] > 0){
-			$offer = CI_Offer::getById($arrOptions['publicationId']);
-			$arrOptions['offer'] = $offer;
-			
-			if(CI_Offer::deleteFromFavorites($arrOptions)){
-				$return["result"] = "OK";
-			}
-		}
-		echo json_encode($return);	
-	}
-
-	public function getFavoritesByUser(){
-		$userId = $this->get('userId');
-		$return["result"] = "NOOK";
+ 
+		$userId = $this->get("userId");
 		$offers = CI_Offer::getFavoritesByUser($userId);
 
 		if($offers){
+			$status = 200;
 			$return["result"] = "OK";
 			$return["data"] = "";
 
@@ -151,6 +145,52 @@ class Offer extends REST_Controller {
 				$return["data"][$key] = $myOffer;
 			 } 
 		}
-		echo json_encode($return);
+        $this->response($return, $status);
+	}
+	
+	public function favorite_post(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->post('publicationId');
+		$arrOptions['userId'] = $this->post('userId');
+
+		if($arrOptions['publicationId'] > 0){
+			$offer = CI_Offer::getById($arrOptions['publicationId']);
+			$arrOptions['offer'] = $offer[0];
+
+			if(CI_Offer::setAsFavorite($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
+
+	public function favorite_delete(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->delete('publicationId');
+		$arrOptions['userId'] = $this->delete('userId');
+
+		if($arrOptions['publicationId'] > 0){
+			$offer = CI_Offer::getById($arrOptions['publicationId']);
+			$arrOptions['offer'] = $offer[0];
+
+			if(CI_Offer::deleteFromFavorites($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
 	}
 }
