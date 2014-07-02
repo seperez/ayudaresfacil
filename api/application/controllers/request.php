@@ -170,4 +170,31 @@ class Request extends REST_Controller{
 		}
 		$this->response($return, $status);
 	}
+
+	public function test_get(){
+	//public function monetary_get(){
+
+		//checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["result"] = "NOOK";
+
+		$userId = $this->get("userId");
+		
+		if($userId) {
+			$requests = CI_Request::getMonetaryRequestsByUser($userId);	
+		}
+		
+		if($requests){
+			$status = 200;
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($requests as $key => $request) {
+				$myRequest = CI_Request::getData($request);
+				$return["data"][$key] = $myRequest;
+			 } 
+		}
+        $this->response($return, $status);
+	}
 }

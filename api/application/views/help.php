@@ -489,67 +489,21 @@
 						}
 						</code>
 					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">getMonetaryRequestsByUser</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request/monetary<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							userId: 1
+						}
+						</code>
+					</a>
 				</div>
-				<!--End of Service Group-->
-
-				<!--Service Group-->
-				<!-- <div class="list-group">
-					<a href="#" class="list-group-item active">
-						<h4 class="list-group-item-heading">Publication</h4>
-					</a>
-					
-					<a href="#" class="list-group-item">
-						<h4 class="list-group-item-heading">GetAll</h4>
-						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>publication <br>
-							<strong>Method:</strong> <code>GET</code>
-						</p>
-					</a>
-
-					<a href="#" class="list-group-item">
-						<h4 class="list-group-item-heading">GetById</h4>
-						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>publication?id=1 <br>
-							<strong>Method:</strong> <code>GET</code>
-						</p>
-					</a>
-
-					<a href="#" class="list-group-item">
-						<h4 class="list-group-item-heading">Add</h4>
-						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>publication <br>
-							<strong>Method:</strong> <code>PUT</code> <br>
-							<strong>Params:</strong> 
-							<code>
-							{
-								name:'foo'
-							}
-							</code>
-						</p>
-					</a>
-
-					<a href="#" class="list-group-item">
-						<h4 class="list-group-item-heading">Update</h4>
-						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>publication <br>
-							<strong>Method:</strong> <code>POST</code> <br>
-							<strong>Params:</strong> 
-							<code>
-							{
-								name: 'foo'
-							}
-							</code>
-						</p>
-					</a>
-
-					<a href="#" class="list-group-item">
-						<h4 class="list-group-item-heading">DeleteById</h4>
-						<p class="list-group-item-text">
-							<strong>Url:</strong> <?php echo $SERVER_URL?>publication?id=1 <br>
-							<strong>Method:</strong> DELETE
-						</p>
-					</a>
-				</div> -->
 				<!--End of Service Group-->
 				
 				<!--Service Group-->

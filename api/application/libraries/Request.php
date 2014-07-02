@@ -138,31 +138,16 @@ class CI_Request extends CI_Publication {
 		}
 	}
 	
-	/*
-	public static function getMonetaryRequestsByUserId($userId){
+	public static function getMonetaryRequestsByUser($userId){
 		$CI =& get_instance();
 		$CI->load->model('request_model');
-		$results = $CI->request_model->getMonetaryRequestsByUserId($userId);
+		$results = $CI->request_model->getMonetaryRequestsByUser($userId);
 		$return = array();
 		if(!empty($results)){
 			foreach($results as $result) {
-				$return[] = self::getInstance($result);
+				$return[] = CI_Request::getInstance($result);
 			}
 		}
 		return $return;
 	}
-
-	public static function getObjectRequestsByUserId($userId){
-		$CI =& get_instance();
-		$CI->load->model('request_model');
-		$results = $CI->request_model->getObjectRequestsByUserId($userId);
-		$return = array();
-		if(!empty($results)){
-			foreach($results as $result) {
-				$return[] = self::getInstance($result);
-			}
-		}
-		return $return;
-	}
-	*/
 }
