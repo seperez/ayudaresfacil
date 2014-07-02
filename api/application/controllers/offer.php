@@ -193,4 +193,29 @@ class Offer extends REST_Controller {
 		}
 		$this->response($return, $status);
 	}
+
+	public function state_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["result"] = "NOOK";
+ 
+		$publicationId = $this->get("publicationId");
+		$offers = CI_Offer::getById($publicationId);
+		$state = " ";
+
+		if($offers){
+			$status = 200;
+			$return["result"] = "OK";
+			$return["data"] = "";
+
+			foreach ($offers as $key => $offer) {
+				$myOffer = CI_Offer::getData($offer);
+				$state = $myOffer->processStateOffer;
+				$return["data"][$key] = $state->id;
+			 } 
+		}
+        $this->response($return, $status);
+	}
 }
