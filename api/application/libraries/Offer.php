@@ -177,4 +177,17 @@ class CI_Offer extends CI_Publication {
 		$CI->load->model('offer_model');
 		return $CI->offer_model->changeState($options);
 	}
+
+	public static function getExpiredByUser($userId){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+		$results = $CI->offer_model->getExpiredByUser($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result){
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
 }

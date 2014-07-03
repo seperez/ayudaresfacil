@@ -303,4 +303,31 @@ class Offer extends REST_Controller {
 			$this->response($return, $status);
 		}
 	}
+
+	public function expired_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['userId'] = $this->get('userId');
+
+		if($arrOptions['userId'] > 0){
+			$offers = CI_Offer::getExpiredByUser($arrOptions['userId']);
+			
+			if($offers){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";
+
+				foreach ($offers as $key => $offer) {
+					$myOffer = CI_Offer::getData($offer);
+					$return["data"][$key] = $myOffer;
+				 } 
+			}
+			$this->response($return, $status);
+		}
+	}
 }

@@ -379,7 +379,7 @@
 						}
 						</code>
 					</a>
-					
+
 					<a href="#" class="list-group-item">
 						<h4 class="list-group-item-heading">GetQuantityUsersToPaused</h4>
 						<p class="list-group-item-text">
@@ -390,6 +390,20 @@
 						<code>
 						{
 							publicationId: 83
+						}
+						</code>
+					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetExpiredPublicationByUser</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer/expired<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							userId: 83
 						}
 						</code>
 					</a>

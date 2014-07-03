@@ -220,4 +220,15 @@ class Offer_model extends CI_Model
 		}
 		return TRUE;
 	}
+
+	public function getExpiredByUser($userId){
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->join('publication_offer', "publication_offer.publication_id = publication.publication_id");
+		$this->db->join('publication_object', "publication_object.publication_id = publication.publication_id");
+		$this->db->where('publication.user_id', $userId);	
+		$this->db->where('publication.expiration_date <', date('Y/m/d H:i:s'));
+		$query = $this->db->get();
+		return $query->result();
+	}
 }
