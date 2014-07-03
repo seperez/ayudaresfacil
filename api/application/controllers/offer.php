@@ -275,4 +275,32 @@ class Offer extends REST_Controller {
 			$this->response($return, $status);
 		}
 	}	
+
+	public function quantity_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->get('publicationId');
+
+		if($arrOptions['publicationId'] > 0){
+			$offers = CI_Offer::getById($arrOptions['publicationId']);
+			
+			if($offers){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";
+
+				foreach ($offers as $key => $offer) {
+					$myOffer = CI_Offer::getData($offer);
+					$type = $myOffer->quantityUsersToPaused;
+					$return["data"][$key] = $type;
+				 } 
+			}
+			$this->response($return, $status);
+		}
+	}
 }

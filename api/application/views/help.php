@@ -365,11 +365,25 @@
 						}
 						</code>
 					</a>
-					
+
 					<a href="#" class="list-group-item">
 						<h4 class="list-group-item-heading">GetOfferType</h4>
 						<p class="list-group-item-text">
 							<strong>Url:</strong> <?php echo $SERVER_URL?>offer/type<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							publicationId: 83
+						}
+						</code>
+					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetQuantityUsersToPaused</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer/quantity<br>
 							<strong>Method:</strong> <code>GET</code>
 						</p>
 						<strong>Params:</strong> 
