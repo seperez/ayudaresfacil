@@ -631,7 +631,7 @@
 						}
 						</code>
 					</a>
-					
+
 					<a href="#" class="list-group-item">
 						<h4 class="list-group-item-heading">setSponsor</h4>
 						<p class="list-group-item-text">
@@ -643,6 +643,20 @@
 						{
 							publicationId: 83,
 							userTw: @sabricasado
+						}
+						</code>
+					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">getSponsor</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request/sponsor<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							publicationId: 83
 						}
 						</code>
 					</a>

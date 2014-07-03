@@ -311,4 +311,30 @@ class Request extends REST_Controller{
 		}
 		$this->response($return, $status);
 	}
+
+	public function sponsor_get(){
+
+		//checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->get('publicationId');
+
+		if($arrOptions['publicationId'] > 0){
+			$sponsors = CI_Request::getSponsors($arrOptions['publicationId']);
+			
+			if($sponsors){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";
+
+				foreach ($sponsors as $key => $sponsor) {
+					$return["data"][$key] = $sponsor;
+				 } 
+			}
+			$this->response($return, $status);
+		}
+	}
 }

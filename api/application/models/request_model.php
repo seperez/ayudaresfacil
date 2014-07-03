@@ -241,4 +241,12 @@ class Request_model extends CI_Model
 		}
 		return TRUE;
 	}
+	
+	public function getSponsors($publicationId){
+		$this->db->select('user_tw');	
+		$this->db->from('publication_sponsor');
+		$this->db->where('publication_sponsor.publication_id', $publicationId);
+		$query = $this->db->get();
+		return $query->result();
+	}
 }

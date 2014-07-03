@@ -207,4 +207,17 @@ class CI_Request extends CI_Publication {
 		
 		return $CI->request_model->setSponsor($data);					
 	}
+
+	public static function getSponsors($publicationId){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$sponsors = $CI->request_model->getSponsors($publicationId);
+		$return = array();
+		if($sponsors){
+			foreach($sponsors as $sponsor){
+				$return[] = $sponsor;
+			}
+		}
+		return $return;
+	}
 }
