@@ -393,7 +393,7 @@
 						}
 						</code>
 					</a>
-					
+
 					<a href="#" class="list-group-item">
 						<h4 class="list-group-item-heading">GetExpiredPublicationByUser</h4>
 						<p class="list-group-item-text">
@@ -585,6 +585,20 @@
 						<code>
 						{
 							userId: 1
+						}
+						</code>
+					</a>
+
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">GetExpiredPublicationByUser</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>request/expired<br>
+							<strong>Method:</strong> <code>GET</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							userId: 83
 						}
 						</code>
 					</a>

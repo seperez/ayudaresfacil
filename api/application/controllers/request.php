@@ -222,4 +222,31 @@ class Request extends REST_Controller{
 		}
         $this->response($return, $status);
 	}
+
+	public function expired_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['userId'] = $this->get('userId');
+
+		if($arrOptions['userId'] > 0){
+			$requests = CI_Request::getExpiredByUser($arrOptions['userId']);
+			
+			if($requests){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";
+
+				foreach ($requests as $key => $request) {
+					$myRequest = CI_Request::getData($request);
+					$return["data"][$key] = $myRequest;
+				 } 
+			}
+			$this->response($return, $status);
+		}
+	}
 }

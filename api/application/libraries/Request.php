@@ -163,4 +163,17 @@ class CI_Request extends CI_Publication {
 		}
 		return $return;
 	}
+
+	public static function getExpiredByUser($userId){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$results = $CI->request_model->getExpiredByUser($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result){
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
 }
