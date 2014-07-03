@@ -229,4 +229,16 @@ class Request_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function setSponsor($data){
+		$this->db->trans_start();
+		$this->db->insert('publication_sponsor', $data);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return TRUE;
+	}
 }

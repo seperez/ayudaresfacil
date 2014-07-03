@@ -195,4 +195,16 @@ class CI_Request extends CI_Publication {
 		$return = $CI->request_model->getVotes($publicationId);
 		return $return;
 	}
+
+	public function setSponsor($options){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+
+		$data = array (
+			"publication_id" => $options["publicationId"], 
+			"user_tw" => $options["userTw"]
+		);
+		
+		return $CI->request_model->setSponsor($data);					
+	}
 }

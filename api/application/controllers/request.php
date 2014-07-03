@@ -291,4 +291,24 @@ class Request extends REST_Controller{
 			$this->response($return, $status);
 		}
 	}
+
+	public function sponsor_post(){
+	
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->post('publicationId');
+		$arrOptions['userTw'] = $this->post('userTw');
+
+		if($arrOptions['publicationId'] > 0){
+			if(CI_Request::setSponsor($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
 }
