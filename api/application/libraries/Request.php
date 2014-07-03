@@ -188,4 +188,11 @@ class CI_Request extends CI_Publication {
 		
 		return $CI->request_model->setVote($data);					
 	}
+
+	public static function getVotes($publicationId){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$return = $CI->request_model->getVotes($publicationId);
+		return $return;
+	}
 }
