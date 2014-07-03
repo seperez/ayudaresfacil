@@ -202,4 +202,22 @@ class Offer_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function changeState($options){
+
+		$state = $options["state"];
+		$offer = $options["offer"];
+
+		$this->db->trans_start();
+		$data = array ('process_state_offer' => $state);
+		$this->db->where('publication_id', $offer->id);
+		$this->db->update('publication_offer', $data);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return TRUE;
+	}
 }

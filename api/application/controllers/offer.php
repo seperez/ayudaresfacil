@@ -218,4 +218,33 @@ class Offer extends REST_Controller {
 		}
         $this->response($return, $status);
 	}
+
+	public function changestate_post(){
+		
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";       
+		$publicationId = $this->post('publicationId');
+		$state = $this->post('state');
+
+		$arrOptions = "";
+		
+		if($publicationId > 0){
+			$offers = CI_Offer::getById($publicationId);
+
+			foreach ($offers as $key => $offer) {
+				$myOffer = CI_Offer::getData($offer);
+				$arrOptions["offer"] = $myOffer;
+				$arrOptions["state"] = $state;
+			 } 
+
+			if(CI_Offer::changeState($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
 }

@@ -350,6 +350,21 @@
 						}
 						</code>
 					</a>
+					
+					<a href="#" class="list-group-item">
+						<h4 class="list-group-item-heading">ChangeState</h4>
+						<p class="list-group-item-text">
+							<strong>Url:</strong> <?php echo $SERVER_URL?>offer/state<br>
+							<strong>Method:</strong> <code>POST</code>
+						</p>
+						<strong>Params:</strong> 
+						<code>
+						{
+							publicationId: 83
+							state: P
+						}
+						</code>
+					</a>
 				</div>
 				<!--End of Service Group-->
 

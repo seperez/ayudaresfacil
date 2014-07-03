@@ -171,4 +171,10 @@ class CI_Offer extends CI_Publication {
 		}
 		return $return;
 	}
+
+	public function changeState($options){
+		$CI =& get_instance();
+		$CI->load->model('offer_model');
+		return $CI->offer_model->changeState($options);
+	}
 }
