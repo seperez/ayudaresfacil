@@ -249,4 +249,24 @@ class Request extends REST_Controller{
 			$this->response($return, $status);
 		}
 	}
+
+	public function vote_post(){
+	
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->post('publicationId');
+		$arrOptions['userId'] = $this->post('userId');
+
+		if($arrOptions['publicationId'] > 0){
+			if(CI_Request::setVote($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
 }

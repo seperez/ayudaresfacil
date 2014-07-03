@@ -176,4 +176,16 @@ class CI_Request extends CI_Publication {
 		}
 		return $return;
 	}
+
+	public function setVote($options){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+
+		$data = array (
+			"publication_id" => $options["publicationId"], 
+			"user_id" => $options["userId"]
+		);
+		
+		return $CI->request_model->setVote($data);					
+	}
 }
