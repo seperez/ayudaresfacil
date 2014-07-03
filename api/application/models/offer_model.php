@@ -202,4 +202,33 @@ class Offer_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function changeState($options){
+
+		$state = $options["state"];
+		$offer = $options["offer"];
+
+		$this->db->trans_start();
+		$data = array ('process_state_offer' => $state);
+		$this->db->where('publication_id', $offer->id);
+		$this->db->update('publication_offer', $data);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return TRUE;
+	}
+
+	public function getExpiredByUser($userId){
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->join('publication_offer', "publication_offer.publication_id = publication.publication_id");
+		$this->db->join('publication_object', "publication_object.publication_id = publication.publication_id");
+		$this->db->where('publication.user_id', $userId);	
+		$this->db->where('publication.expiration_date <', date('Y/m/d H:i:s'));
+		$query = $this->db->get();
+		return $query->result();
+	}
 }

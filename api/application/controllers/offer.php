@@ -218,4 +218,116 @@ class Offer extends REST_Controller {
 		}
         $this->response($return, $status);
 	}
+
+	public function changestate_post(){
+		
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";       
+		$publicationId = $this->post('publicationId');
+		$state = $this->post('state');
+
+		$arrOptions = "";
+		
+		if($publicationId > 0){
+			$offers = CI_Offer::getById($publicationId);
+
+			foreach ($offers as $key => $offer) {
+				$myOffer = CI_Offer::getData($offer);
+				$arrOptions["offer"] = $myOffer;
+				$arrOptions["state"] = $state;
+			 } 
+
+			if(CI_Offer::changeState($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
+
+	public function type_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->get('publicationId');
+
+		if($arrOptions['publicationId'] > 0){
+			$offers = CI_Offer::getById($arrOptions['publicationId']);
+			
+			if($offers){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";
+
+				foreach ($offers as $key => $offer) {
+					$myOffer = CI_Offer::getData($offer);
+					$type = $myOffer->type;
+					$return["data"][$key] = $type->id;
+				 } 
+			}
+			$this->response($return, $status);
+		}
+	}	
+
+	public function quantity_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->get('publicationId');
+
+		if($arrOptions['publicationId'] > 0){
+			$offers = CI_Offer::getById($arrOptions['publicationId']);
+			
+			if($offers){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";
+
+				foreach ($offers as $key => $offer) {
+					$myOffer = CI_Offer::getData($offer);
+					$type = $myOffer->quantityUsersToPaused;
+					$return["data"][$key] = $type;
+				 } 
+			}
+			$this->response($return, $status);
+		}
+	}
+
+	public function expired_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['userId'] = $this->get('userId');
+
+		if($arrOptions['userId'] > 0){
+			$offers = CI_Offer::getExpiredByUser($arrOptions['userId']);
+			
+			if($offers){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";
+
+				foreach ($offers as $key => $offer) {
+					$myOffer = CI_Offer::getData($offer);
+					$return["data"][$key] = $myOffer;
+				 } 
+			}
+			$this->response($return, $status);
+		}
+	}
 }

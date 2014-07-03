@@ -222,4 +222,119 @@ class Request extends REST_Controller{
 		}
         $this->response($return, $status);
 	}
+
+	public function expired_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['userId'] = $this->get('userId');
+
+		if($arrOptions['userId'] > 0){
+			$requests = CI_Request::getExpiredByUser($arrOptions['userId']);
+			
+			if($requests){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";
+
+				foreach ($requests as $key => $request) {
+					$myRequest = CI_Request::getData($request);
+					$return["data"][$key] = $myRequest;
+				 } 
+			}
+			$this->response($return, $status);
+		}
+	}
+
+	public function vote_post(){
+	
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->post('publicationId');
+		$arrOptions['userId'] = $this->post('userId');
+
+		if($arrOptions['publicationId'] > 0){
+			if(CI_Request::setVote($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
+
+	public function vote_get(){
+
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->get('publicationId');
+
+		if($arrOptions['publicationId'] > 0){
+			$quantityVotes = CI_Request::getVotes($arrOptions['publicationId']);
+			
+			if($quantityVotes){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = $quantityVotes;
+			}
+			$this->response($return, $status);
+		}
+	}
+
+	public function sponsor_post(){
+	
+		checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->post('publicationId');
+		$arrOptions['userTw'] = $this->post('userTw');
+
+		if($arrOptions['publicationId'] > 0){
+			if(CI_Request::setSponsor($arrOptions)){
+				$status = 200;
+				$return["result"] = "OK";
+			}
+		}
+		$this->response($return, $status);
+	}
+
+	public function sponsor_get(){
+
+		//checkIsLoggedIn($this);
+
+		$status = 404;
+		$return["data"] = "";
+		$return["result"] = "NOOK";
+
+		$arrOptions['publicationId'] = $this->get('publicationId');
+
+		if($arrOptions['publicationId'] > 0){
+			$sponsors = CI_Request::getSponsors($arrOptions['publicationId']);
+			
+			if($sponsors){
+				$status = 200;
+				$return["result"] = "OK";
+				$return["data"] = "";
+
+				foreach ($sponsors as $key => $sponsor) {
+					$return["data"][$key] = $sponsor;
+				 } 
+			}
+			$this->response($return, $status);
+		}
+	}
 }

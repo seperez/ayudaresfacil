@@ -198,4 +198,55 @@ class Request_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	public function getExpiredByUser($userId){
+		$this->db->select('*');	
+		$this->db->from('publication');
+		$this->db->join('publication_object', "publication_object.publication_id = publication.publication_id");
+		$this->db->where('publication.user_id', $userId);	
+		$this->db->where('publication.publication_type_id', 2);
+		$this->db->where('publication.expiration_date <', date('Y/m/d H:i:s'));
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function setVote($data){
+		$this->db->trans_start();
+		$this->db->insert('publication_vote', $data);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return TRUE;
+	}
+
+	public function getVotes($publicationId){
+		$this->db->select('count(*)');	
+		$this->db->from('publication_vote');
+		$this->db->where('publication_vote.publication_id', $publicationId);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function setSponsor($data){
+		$this->db->trans_start();
+		$this->db->insert('publication_sponsor', $data);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE){
+			$publicationId = null;
+      		log_message('error', "DB Error: (".$this->db->_error_number().") ".$this->db->_error_message());
+		}
+		return TRUE;
+	}
+	
+	public function getSponsors($publicationId){
+		$this->db->select('user_tw');	
+		$this->db->from('publication_sponsor');
+		$this->db->where('publication_sponsor.publication_id', $publicationId);
+		$query = $this->db->get();
+		return $query->result();
+	}
 }

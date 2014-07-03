@@ -163,4 +163,61 @@ class CI_Request extends CI_Publication {
 		}
 		return $return;
 	}
+
+	public static function getExpiredByUser($userId){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$results = $CI->request_model->getExpiredByUser($userId);
+		$return = array();
+		if(!empty($results)){
+			foreach($results as $result){
+				$return[] = self::getInstance($result);
+			}
+		}
+		return $return;
+	}
+
+	public function setVote($options){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+
+		$data = array (
+			"publication_id" => $options["publicationId"], 
+			"user_id" => $options["userId"]
+		);
+		
+		return $CI->request_model->setVote($data);					
+	}
+
+	public static function getVotes($publicationId){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$return = $CI->request_model->getVotes($publicationId);
+		return $return;
+	}
+
+	public function setSponsor($options){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+
+		$data = array (
+			"publication_id" => $options["publicationId"], 
+			"user_tw" => $options["userTw"]
+		);
+		
+		return $CI->request_model->setSponsor($data);					
+	}
+
+	public static function getSponsors($publicationId){
+		$CI =& get_instance();
+		$CI->load->model('request_model');
+		$sponsors = $CI->request_model->getSponsors($publicationId);
+		$return = array();
+		if($sponsors){
+			foreach($sponsors as $sponsor){
+				$return[] = $sponsor;
+			}
+		}
+		return $return;
+	}
 }

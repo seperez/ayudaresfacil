@@ -496,5 +496,32 @@ CREATE TABLE `user_score` (
 
 /*Data for the table `user_score` */
 
+/*Table structure for table `publication_vote` */
+DROP TABLE IF EXISTS `publication_vote`;
+
+CREATE TABLE `publication_vote` (
+  `vote_id` int(11) NOT NULL AUTO_INCREMENT,
+  `publication_id` int(11) NOT NULL,
+  `user_id` mediumint(9) NOT NULL,
+  PRIMARY KEY (`vote_id`,`publication_id`,`user_id`),
+  KEY `publication_id` (`publication_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `FK_Publication_vote_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
+  CONSTRAINT `FK_Publication_vote_User` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+/*Table structure for table `publication_sponsor` */
+DROP TABLE IF EXISTS `publication_sponsor`;
+
+CREATE TABLE `publication_sponsor` (
+  `sponsor_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `publication_id` INT(11) NOT NULL,
+  `user_tw` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`sponsor_id`,`publication_id`,`user_tw`),
+  KEY `publication_id` (`publication_id`),
+  CONSTRAINT `FK_Publication_sponsor_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
+) ENGINE=INNODB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
