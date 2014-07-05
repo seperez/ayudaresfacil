@@ -335,6 +335,6 @@ class Request extends REST_Controller{
 				 } 
 			}
 			$this->response($return, $status);
-		}
+		}	
 	}
 }
