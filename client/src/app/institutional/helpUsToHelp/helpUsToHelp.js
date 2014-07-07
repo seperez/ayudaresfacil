@@ -3,17 +3,10 @@ angular.module( 'AyudarEsFacilApp.institutional.helpUsToHelp', [
 ])
 
 .config(function config( $stateProvider ) {
-    $stateProvider.state( 'helpUsToHelp', {
+    $stateProvider.state( 'web.helpUsToHelp', {
         url: '/ayudanos-a-ayudar',
-        views: {
-            "main": {
-                controller: 'HelpUsToHelpCtrl',
-                templateUrl: 'institutional/helpUsToHelp/helpUsToHelp.tpl.html'
-            },
-            "navigationBar": {
-                templateUrl: 'navigationBar/institutional.tpl.html'
-            } 
-        },
+        controller: 'HelpUsToHelpCtrl',
+        templateUrl: 'institutional/helpUsToHelp/helpUsToHelp.tpl.html',
         data:{ pageTitle: 'Casos de éxito' }
     });
 })

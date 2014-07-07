@@ -3,17 +3,10 @@ angular.module( 'AyudarEsFacilApp.institutional.meetProject', [
 ])
 
 .config(function config( $stateProvider ) {
-    $stateProvider.state( 'meetProject', {
+    $stateProvider.state( 'web.meetProject', {
         url: '/conoce-el-proyecto',
-        views: {
-            "main": {
-                controller: 'MeetProjectCtrl',
-                templateUrl: 'institutional/meetProject/meetProject.tpl.html'
-            },
-            "navigationBar": {
-                templateUrl: 'navigationBar/institutional.tpl.html'
-            } 
-        },
+        controller: 'MeetProjectCtrl',
+        templateUrl: 'institutional/meetProject/meetProject.tpl.html',
         data:{ pageTitle: 'Casos de éxito' }
     });
 })

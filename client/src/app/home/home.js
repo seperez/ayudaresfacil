@@ -3,17 +3,10 @@ angular.module( 'AyudarEsFacilApp.home', [
 ])
 
 .config(function config( $stateProvider ) {
-    $stateProvider.state( 'home', {
+    $stateProvider.state( 'web.home', {
         url: '/home',
-        views: {
-            "main": {
-                controller: 'HomeCtrl',
-                templateUrl: 'home/home.tpl.html'
-            }, 
-            "navigationBar": {
-                templateUrl: 'navigationBar/institutional.tpl.html'
-            } 
-        },
+        controller: 'HomeCtrl',
+        templateUrl: 'home/home.tpl.html',
         data:{ pageTitle: 'Home' }
     });
 })

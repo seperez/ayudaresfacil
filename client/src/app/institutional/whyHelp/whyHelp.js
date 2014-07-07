@@ -3,17 +3,10 @@ angular.module( 'AyudarEsFacilApp.institutional.whyHelp', [
 ])
 
 .config(function config( $stateProvider ) {
-    $stateProvider.state( 'whyHelp', {
+    $stateProvider.state( 'web.whyHelp', {
         url: '/por-que-ayudar',
-        views: {
-            "main": {
-                controller: 'WhyHelpCtrl',
-                templateUrl: 'institutional/whyHelp/whyHelp.tpl.html'
-            },
-            "navigationBar": {
-                templateUrl: 'navigationBar/institutional.tpl.html'
-            } 
-        },
+        controller: 'WhyHelpCtrl',
+        templateUrl: 'institutional/whyHelp/whyHelp.tpl.html',
         data:{ pageTitle: 'Por que ayudar' }
     });
 })

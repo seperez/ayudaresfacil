@@ -3,23 +3,18 @@ angular.module( 'AyudarEsFacilApp.login', [
 ])
 
 .config(function config( $stateProvider ) {
-    $stateProvider.state( 'login', {
+    $stateProvider.state( 'account.login', {
         url: '/login',
-        views: {
-            "main": {
-                controller: 'LoginCtrl',
-                templateUrl: 'login/login.tpl.html'
-            },
-            "navigationBar": {
-                templateUrl: 'navigationBar/institutional.tpl.html'
-            } 
-        },
-        data:{ pageTitle: 'Casos de éxito' }
+        controller: 'LoginCtrl',
+        templateUrl: 'login/login.tpl.html',
+        data:{ 
+            pageTitle: 'Casos de éxito',
+            bodyClass: "login tooltips"
+        }
     });
 })
 
 .controller( 'LoginCtrl', function LoginCtrl( $scope ) {
-
 })
 
 ;

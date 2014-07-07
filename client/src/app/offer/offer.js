@@ -3,17 +3,10 @@ angular.module( 'AyudarEsFacilApp.offer', [
 ])
 
 .config(function config( $stateProvider ) {
-    $stateProvider.state( 'offerList', {
+    $stateProvider.state( 'web.offerList', {        
         url: '/ofrecimientos',
-        views: {
-            "main": {
-                controller: 'ofrecimientos',
-                templateUrl: 'offer/offer-list.tpl.html'
-            },
-            "navigationBar": {
-                templateUrl: 'navigationBar/institutional.tpl.html'
-            } 
-        },
+        controller: 'OfferCtrl',
+        templateUrl: 'offer/offer-list.tpl.html',
         data:{ pageTitle: 'Ofrecimientos' }
     });
 })
