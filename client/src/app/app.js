@@ -6,6 +6,7 @@ angular.module( 'AyudarEsFacilApp', [
     'AyudarEsFacilApp.login',
     'AyudarEsFacilApp.registration',
     'AyudarEsFacilApp.offer',
+    'AyudarEsFacilApp.mail',
     'ui.router'
 ])
 
