@@ -20,10 +20,15 @@ angular.module( 'AyudarEsFacilApp', [
         })
         .state('account', {
             template: '<ui-view/>'
+        })
+        .state('account.404', {
+            templateUrl: '404/404.tpl.html',
+            url: '/pagina-no-encontrada',
+            data:{ pageTitle: "Ups! Página no encontrada", bodyClass: 'login tooltips'}
         });
 
   
-    $urlRouterProvider.otherwise( '/home' );
+    $urlRouterProvider.otherwise( '/pagina-no-encontrada' );
 })
 
 .run( function run () {
