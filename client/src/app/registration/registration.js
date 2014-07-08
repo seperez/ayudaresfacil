@@ -8,7 +8,7 @@ angular.module( 'AyudarEsFacilApp.registration', [
         controller: 'RegistrationCtrl',
         templateUrl: 'registration/registration.tpl.html',
         data:{ 
-            pageTitle: 'Casos de éxito',
+            pageTitle: 'Registrarme',
             bodyClass: 'login tooltips'
         }
     });
