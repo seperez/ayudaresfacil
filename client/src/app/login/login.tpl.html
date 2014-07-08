@@ -1,38 +1,38 @@
 <div class="login-header text-center">
-    <img src="assets/images/logo-login.png" class="logo" alt="Logo">
+    <img src="assets/images/logo.png" class="logo" alt="Logo">
 </div>
 <div class="login-wrapper">
     <div class="alert alert-warning alert-bold-border fade in alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong>Warning!</strong>Better check yourself, you're <a href="#fakelink" class="alert-link">not looking too good</a>.
+        <strong>Oye!</strong> Al parecer tus datos no son correctos. <strong class="text-warning">Corrigelos e intenta nuevamente.</strong>
     </div>
-    <form role="form" action="index.html">
+    <form role="form" action="">
         <div class="form-group has-feedback lg left-feedback no-label">
-            <input type="text" class="form-control no-border input-lg rounded" placeholder="Enter username" autofocus>
+            <input type="text" class="form-control no-border input-lg rounded" placeholder="Tu email..." autofocus>
             <span class="fa fa-user form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback lg left-feedback no-label">
-            <input type="password" class="form-control no-border input-lg rounded" placeholder="Enter password">
+            <input type="password" class="form-control no-border input-lg rounded" placeholder="Tu contraseña...">
             <span class="fa fa-unlock-alt form-control-feedback"></span>
         </div>
         <div class="form-group">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" class="i-yellow-flat">Remember me
+                    <input type="checkbox" class="i-yellow-flat">Recuerdame
                 </label>
             </div>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block">LOGIN</button>
+            <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block">INICIAR SESIÓN</button>
         </div>
     </form>
     <p class="text-center">
-        <strong><a href="forgot-password.html">Forgot your password?</a>
+        <strong><a href="forgot-password.html">Olvidates tu contraseña?</a>
         </strong>
     </p>
-    <p class="text-center">or</p>
+    <p class="text-center">o</p>
     <p class="text-center">
-        <strong><a href="register.html">Create new account</a>
+        <strong><a ui-sref="account.registration">Crear una cuenta</a>
         </strong>
     </p>
 </div>
