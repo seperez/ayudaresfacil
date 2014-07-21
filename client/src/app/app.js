@@ -7,7 +7,12 @@ angular.module( 'AyudarEsFacilApp', [
     'AyudarEsFacilApp.registration',
     'AyudarEsFacilApp.offer',
     'AyudarEsFacilApp.mail',
-    'ui.router'
+    'ui.router',
+    'services.breadcrumbs',
+    'services.i18nNotifications',
+    'services.httpRequestTracker',
+    'security',
+    'directives.crud'        
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
