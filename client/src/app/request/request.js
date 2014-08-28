@@ -9,6 +9,12 @@ angular.module( 'AyudarEsFacilApp.request', [
         templateUrl: 'request/request-list.tpl.html',
         data:{ pageTitle: 'Pedidos' }
     });
+    $stateProvider.state( 'web.requestCreate', {        
+        url: '/pedir-ayuda',
+        controller: 'RequestCreateCtrl',
+        templateUrl: 'request/request-create.tpl.html',
+        data:{ pageTitle: 'Crear Pedido' }
+    });
 })
 
 .controller( 'RequestCtrl', function RequestCtrl( $scope ) {
