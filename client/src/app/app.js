@@ -33,8 +33,8 @@ angular.module( 'AyudarEsFacilApp', [
             data:{ pageTitle: "Ups! Página no encontrada", bodyClass: 'login tooltips'}
         });
 
-    $urlRouterProvider.when('/', "/home");
-    //$urlRouterProvider.otherwise( '/pagina-no-encontrada' );
+    $urlRouterProvider.when('', "/home");
+    $urlRouterProvider.otherwise( '/pagina-no-encontrada' );
 })
 
 .run( function run ($rootScope) {
