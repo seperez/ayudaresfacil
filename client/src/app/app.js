@@ -7,6 +7,7 @@ angular.module( 'AyudarEsFacilApp', [
     'AyudarEsFacilApp.registration',
     'AyudarEsFacilApp.offer',
     'AyudarEsFacilApp.mail',
+    'AyudarEsFacilApp.sponsor',
     'ui.router',
     'services.breadcrumbs',
     'services.i18nNotifications',
@@ -33,7 +34,7 @@ angular.module( 'AyudarEsFacilApp', [
         });
 
     $urlRouterProvider.when('/', "/home");
-    $urlRouterProvider.otherwise( '/pagina-no-encontrada' );
+    //$urlRouterProvider.otherwise( '/pagina-no-encontrada' );
 })
 
 .run( function run ($rootScope) {
