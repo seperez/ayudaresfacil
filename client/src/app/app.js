@@ -8,6 +8,7 @@ angular.module( 'AyudarEsFacilApp', [
     'AyudarEsFacilApp.offer',
     'AyudarEsFacilApp.mail',
     'AyudarEsFacilApp.sponsor',
+    'AyudarEsFacilApp.request',
     'ui.router',
     'services.breadcrumbs',
     'services.i18nNotifications',
