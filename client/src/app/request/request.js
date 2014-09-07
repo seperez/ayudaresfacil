@@ -15,6 +15,9 @@ angular.module( 'AyudarEsFacilApp.request', [
         templateUrl: 'request/request-create.tpl.html',
         data:{ pageTitle: 'Crear Pedido' }
     });
+    $stateProvider.state( 'web.FavoriteCreate', {     
+        //
+    });
 })
 
 .controller( 'RequestCtrl', function RequestCtrl( $scope ) {
