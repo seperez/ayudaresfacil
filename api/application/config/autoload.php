@@ -73,7 +73,9 @@ $autoload['libraries'] = array(
 								'City',
 								'Offer',
 								'OfferType',
-								'Request'
+								'Request',
+								'Donation',
+								'DonatedObject',
 								);
 /*
 | -------------------------------------------------------------------
