@@ -1,5 +1,6 @@
 angular.module( 'AyudarEsFacilApp.user', [
-    'ui.router'
+    'ui.router','ui.bootstrap'
+
 ])
 
 .config(function config( $stateProvider ) {
@@ -14,8 +15,18 @@ angular.module( 'AyudarEsFacilApp.user', [
 		});
 })
 
-.controller( 'UserCtrl', function UserCtrl( $scope ) {
-
+.controller( 'UserCtrl', function UserCtrl($scope) {
+  $scope.today = function() {
+    $scope.datepicker = new Date();
+  };
+  $scope.today();
+  $scope.clear = function () {
+    $scope.datepicker = null;
+  };
+  $scope.dateOptions = {
+    formatYear: 'yyyy',
+    startingDay: 1
+  };
 })
 
 ;
