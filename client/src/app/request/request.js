@@ -20,13 +20,13 @@ angular.module( 'AyudarEsFacilApp.request', [
     });
     $stateProvider.state( 'web.requestDetail', {     
         url: '/pedido-detalle',
-        controller: 'RequestDetailCtrl',
+        controller: 'RequestCtrl',
         templateUrl: 'request/request-detail.tpl.html',
         data:{ pageTitle: 'Detalle del Pedido' }
     });
 })
 
-.controller( 'RequestDetailCtrl', function RequestCtrl( $scope ) {
+.controller( 'RequestCtrl', function RequestCtrl( $scope ) {
   $scope.myInterval = 5000;
   var slides = $scope.slides = [];
   $scope.addSlide = function() {

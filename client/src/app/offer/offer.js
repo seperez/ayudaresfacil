@@ -17,13 +17,13 @@ angular.module( 'AyudarEsFacilApp.offer', [
     });
     $stateProvider.state( 'web.offerDetail', {     
         url: '/ofrecimiento-detalle',
-        controller: 'OfferDetailCtrl',
+        controller: 'OfferCtrl',
         templateUrl: 'offer/offer-detail.tpl.html',
         data:{ pageTitle: 'Detalle del Ofrecimiento' }
     });
 })
 
-.controller( 'OfferDetailCtrl', function OfferCtrl( $scope ) {
+.controller( 'OfferCtrl', function OfferCtrl( $scope ) {
   $scope.myInterval = 5000;
   var slides = $scope.slides = [];
   $scope.addSlide = function() {
