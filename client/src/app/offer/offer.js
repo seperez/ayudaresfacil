@@ -1,5 +1,5 @@
 angular.module( 'AyudarEsFacilApp.offer', [
-    'ui.router'
+  'ui.router','ui.bootstrap'
 ])
 
 .config(function config( $stateProvider ) {
@@ -23,8 +23,18 @@ angular.module( 'AyudarEsFacilApp.offer', [
     });
 })
 
-.controller( 'OfferCtrl', function OfferCtrl( $scope ) {
-
-})
-
-;
+.controller( 'OfferDetailCtrl', function OfferCtrl( $scope ) {
+  $scope.myInterval = 5000;
+  var slides = $scope.slides = [];
+  $scope.addSlide = function() {
+    var newWidth = 600 + slides.length;
+    slides.push({
+      image: 'assets/images/shop/img-shop.jpg',
+      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+    });
+  };
+  for (var i=0; i<4; i++) {
+    $scope.addSlide();
+  }
+});
