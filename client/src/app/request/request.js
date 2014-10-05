@@ -26,8 +26,20 @@ angular.module( 'AyudarEsFacilApp.request', [
     });
 })
 
-.controller( 'RequestCtrl', function RequestCtrl( $scope ) {
-
+.controller( 'RequestDetailCtrl', function RequestCtrl( $scope ) {
+  $scope.myInterval = 5000;
+  var slides = $scope.slides = [];
+  $scope.addSlide = function() {
+    var newWidth = 600 + slides.length;
+    slides.push({
+      image: 'assets/images/shop/img-shop.jpg',
+      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+    });
+  };
+  for (var i=0; i<4; i++) {
+    $scope.addSlide();
+  }
 })
 
 ;
