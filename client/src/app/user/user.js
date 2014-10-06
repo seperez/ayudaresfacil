@@ -1,5 +1,6 @@
-angular.module('AyudarEsFacilApp.user', [
-    'ui.router'
+
+angular.module( 'AyudarEsFacilApp.user', [
+    'ui.router','ui.bootstrap'
 ])
 
 .config(function config($stateProvider, $httpProvider) {
@@ -115,6 +116,7 @@ angular.module('AyudarEsFacilApp.user', [
     };
 })
 
+
 .controller('UserCtrl', function UserCtrl($scope, $http, $location, Users, Authentication) {
     $scope.user = Authentication.user;
 
@@ -145,6 +147,20 @@ angular.module('AyudarEsFacilApp.user', [
         }).error(function(response) {
             $scope.error = response.message;
         });
+    };
+
+    $scope.today = function() {
+        $scope.datepicker = new Date();
+    };
+
+    $scope.today();
+    $scope.clear = function() {
+        $scope.datepicker = null;
+    };
+
+    $scope.dateOptions = {
+        formatYear: 'yyyy',
+        startingDay: 1
     };
 })
 
