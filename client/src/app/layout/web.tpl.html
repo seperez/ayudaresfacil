@@ -94,8 +94,11 @@
                     </ul>
                     <!-- Begin button login -->
                     <div class="pull-right" style="margin:8px 0">
-                        <a ui-sref="account.login" class="text-muted" style="margin:0 15px">Inicia Sésion</a>
-                        <button ui-sref="account.registration" class="btn btn-warning">Registrate</button>
+                        <a ui-sref="account.signin" class="text-muted" style="margin:0 15px" ng-if="!authentication.user">Inicia Sésion</a>
+
+                        <a ui-sref="account.signout" class="text-muted" style="margin:0 15px" ng-if="authentication.user">Cerrar Sésion</a>
+
+                        <button ui-sref="account.signup" class="btn btn-warning">Registrate</button>
                     </div>
                     <!-- End button login -->
                 </div><!-- /.navbar-collapse -->

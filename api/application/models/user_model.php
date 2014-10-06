@@ -74,6 +74,7 @@ class User_model extends CI_Model
 		$this->db->where('password',sha1($options['password']));
 		$this->db->where('enabled',1);
 		$this->db->where('deleted',0);
+		
 		$query = $this->db->get();
 		return $query->result();
 	}

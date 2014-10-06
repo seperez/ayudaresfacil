@@ -10,6 +10,7 @@
     "angular-ui-router": "~0.2",
     "fontawesome": "~4.1.0",
     "magnific-popup": "~0.9.9",
-    "angular-ui": "~0.4.0"
+    "angular-ui": "~0.4.0",
+    "angular-resource": "~1.2.25"
   }
 }

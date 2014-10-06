@@ -13,10 +13,12 @@ class Authentication extends REST_Controller{
 	}
 
 	private function login(){
-		$arrOptions['email'] = $this->get('email');
+		$arrOptions['email'] = $this->get('username');
 		$arrOptions['password'] = $this->get('password');
-		
-		$data = CI_Authentication::login($arrOptions);
+
+	
+
+		$data = CI_Authentication::login($arrOptions); 
 
 		$status = 404;
 		$return["result"] = "NOOK";

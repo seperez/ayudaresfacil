@@ -6,7 +6,9 @@ class CI_Authentication {
 		$CI = & get_instance();
 		$CI->load->library("JWT");
 		$CI->load->model('user_model');
+
 		$results = $CI->user_model->getByUsernameAndPassword($options);
+
 		$return = array();
 		if(!empty($results)){
 			$user = CI_User::getInstance($results[0]);			

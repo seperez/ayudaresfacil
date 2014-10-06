@@ -3,8 +3,6 @@ angular.module( 'AyudarEsFacilApp', [
     'templates-common',
     'AyudarEsFacilApp.home',
     'AyudarEsFacilApp.institutional',
-    'AyudarEsFacilApp.login',
-    'AyudarEsFacilApp.registration',
     'AyudarEsFacilApp.offer',
     'AyudarEsFacilApp.mail',
     'AyudarEsFacilApp.sponsor',
@@ -14,8 +12,8 @@ angular.module( 'AyudarEsFacilApp', [
     'services.breadcrumbs',
     'services.i18nNotifications',
     'services.httpRequestTracker',
-    'security',
-    'directives.crud'        
+    'directives.crud', 
+    'ngResource'       
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
@@ -36,13 +34,14 @@ angular.module( 'AyudarEsFacilApp', [
         });
 
     $urlRouterProvider.when('', "/home");
+    $urlRouterProvider.when('/', "/home");
     $urlRouterProvider.otherwise( '/pagina-no-encontrada' );
 })
 
 .run( function run ($rootScope) {
 })
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location, $rootScope ) {
     $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
         if ( angular.isDefined( toState.data.pageTitle ) ) {
             $scope.pageTitle = toState.data.pageTitle + ' | AyudarEsFacil' ;
@@ -53,6 +52,7 @@ angular.module( 'AyudarEsFacilApp', [
             $scope.bodyClass = toState.data.bodyClass;
         }
     });
+
 })
 
 ;

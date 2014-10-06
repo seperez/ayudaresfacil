@@ -2,37 +2,45 @@
     <img src="assets/images/logo.png" class="logo" alt="Logo">
 </div>
 <div class="login-wrapper">
-    <div class="alert alert-warning alert-bold-border fade in alert-dismissable">
+    <div class="alert alert-warning alert-bold-border fade in alert-dismissable" ng-show="error">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong>Oye!</strong> Al parecer tus datos no son correctos. <strong class="text-warning">Corrigelos e intenta nuevamente.</strong>
     </div>
-    <form role="form" action="">
+    <form role="form" action="" ng-submit="signin()">
+        
         <div class="form-group has-feedback lg left-feedback no-label">
-            <input type="text" class="form-control no-border input-lg rounded" placeholder="Tu email..." autofocus>
+            <input type="text" class="form-control no-border input-lg rounded" placeholder="Tu email..." autofocus data-ng-model="credentials.username">
             <span class="fa fa-user form-control-feedback"></span>
         </div>
+        
         <div class="form-group has-feedback lg left-feedback no-label">
-            <input type="password" class="form-control no-border input-lg rounded" placeholder="Tu contraseña...">
+            <input type="password" class="form-control no-border input-lg rounded" placeholder="Tu contraseña..." data-ng-model="credentials.password">
             <span class="fa fa-unlock-alt form-control-feedback"></span>
         </div>
-        <div class="form-group">
+        
+       <!--  <div class="form-group">
             <div class="checkbox">
                 <label>
                     <input type="checkbox" class="i-yellow-flat">Recuerdame
                 </label>
             </div>
-        </div>
+        </div> -->
+        <p class="text-right">
+            <small>
+                <a href="forgot-password.html">Olvidaste tu contraseña?</a>
+            </small>
+        </p>
+        
         <div class="form-group">
             <button type="submit" class="btn btn-warning btn-lg btn-perspective btn-block">INICIAR SESIÓN</button>
         </div>
     </form>
-    <p class="text-center">
-        <strong><a href="forgot-password.html">Olvidates tu contraseña?</a>
-        </strong>
-    </p>
+
     <p class="text-center">o</p>
+    
     <p class="text-center">
-        <strong><a ui-sref="account.registration">Crear una cuenta</a>
+        <strong>
+            <a ui-sref="account.signup">Crea una cuenta</a>
         </strong>
     </p>
 </div>
