@@ -13,7 +13,8 @@ angular.module( 'AyudarEsFacilApp', [
     'services.i18nNotifications',
     'services.httpRequestTracker',
     'directives.crud', 
-    'ngResource'       
+    'directives.sessionNav',
+    'ngResource'     
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {

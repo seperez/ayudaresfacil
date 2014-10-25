@@ -62,7 +62,7 @@ angular.module( 'AyudarEsFacilApp.user', [
 // Users service used for communicating with the users REST endpoint
 .factory('Users', ['$resource',
     function($resource) {
-        return $resource('http://localhost/ayudaresfacil/api/user', {}, {
+        return $resource('/ayudaresfacil/api/user', {}, {
             update: {
                 method: 'PUT'
             }
@@ -77,7 +77,7 @@ angular.module( 'AyudarEsFacilApp.user', [
         var _this = this;
 
         _this._data = {
-            user: window.user
+            user: JSON.parse(localStorage.getItem("user"))
         };
 
         return _this._data;
@@ -87,12 +87,8 @@ angular.module( 'AyudarEsFacilApp.user', [
 .controller('AuthenticationCtrl', function AuthenticationCtrl($scope, $http, $location, Authentication) {
     $scope.authentication = Authentication;
 
-    if ($scope.authentication.user) {
-		$location.path('/user/data');
-    }
-
     $scope.signup = function() {
-        $http.put('http://localhost/ayudaresfacil/api/account', $scope.credentials).success(function(response) {
+        $http.put('/ayudaresfacil/api/account', $scope.credentials).success(function(response) {
             $scope.authentication.user = response;
 
             $location.path('/user/data');
@@ -102,12 +98,38 @@ angular.module( 'AyudarEsFacilApp.user', [
     };
 
     $scope.signin = function() {
-        $http.get('http://localhost/ayudaresfacil/api/authentication/', {
+        $http.get('/ayudaresfacil/api/authentication/signin', {
+            params: $scope.credentials
+        })
+        .success(function(response) {
+            $scope.error = false;
+
+            var user = {
+                id: response.data.id,
+                email: response.data.email,
+                token: response.token
+            };
+
+            $scope.authentication.user = user;
+
+            localStorage.setItem("user", JSON.stringify(user));
+
+            $location.path('/user/data');
+        }).error(function(response) { 
+            $scope.error = true;
+            $scope.credentials = {};
+        });
+    };
+    
+    $scope.signout = function() {
+        $http.get('/ayudaresfacil/api/authentication/signout', {
             params: $scope.credentials
         })
         .success(function(response) {
             $scope.error = false;
             $scope.authentication.user = response;
+            localStorage.clear();
+
             $location.path('/user/data');
         }).error(function(response) {
             $scope.error = true;

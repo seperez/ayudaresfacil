@@ -76,6 +76,7 @@ class User_model extends CI_Model
 		$this->db->where('deleted',0);
 		
 		$query = $this->db->get();
+
 		return $query->result();
 	}
 	
