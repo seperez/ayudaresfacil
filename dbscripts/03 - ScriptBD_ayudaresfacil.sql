@@ -299,7 +299,7 @@ CREATE TABLE `publication_sponsor` (
   KEY `common_state_id` (`common_state_id`),
   KEY `publication_id` (`publication_id`),
   KEY `sponsor_id` (`sponsor_id`),
-  CONSTRAINT `FK_Publication_Sponsor_Sponsor` FOREIGN KEY (`sponsor_id`) REFERENCES `sponsor` (`sponsor_id`),
+  CONSTRAINT `FK_Publication_Sponsor_Sponsor` FOREIGN KEY (`sponsor_id`) REFERENCES `publication_sponsor` (`sponsor_id`),
   CONSTRAINT `FK_Publication_Sponsor_Common_State` FOREIGN KEY (`common_state_id`) REFERENCES `common_state` (`common_state_id`),
   CONSTRAINT `FK_Publication_Sponsor_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -340,6 +340,22 @@ CREATE TABLE `publication_type` (
 /*Data for the table `publication_type` */
 
 insert  into `publication_type`(`publication_type_id`,`name`,`description`) values (1,'Ofrecimiento',NULL),(2,'Pedido Monetario',NULL),(3,'Pedido de Objetos',NULL);
+
+/*Table structure for table `publication_object` */
+
+DROP TABLE IF EXISTS `publication_image`;
+
+CREATE TABLE `publication_image` (
+  `publication_id` INT(11) NOT NULL,
+  `image_id` BIGINT NOT NULL,
+  `path` VARCHAR(500) NOT NULL,
+  PRIMARY KEY (`publication_id`,`image_id`),
+  KEY `publication_id` (`publication_id`),
+  KEY `image_id` (`image_id`),
+  CONSTRAINT `FK_Publication_Image_Publication` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/*Data for the table `publication_object` */
 
 /*Table structure for table `sponsor` */
 
