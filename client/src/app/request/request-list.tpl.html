@@ -15,132 +15,25 @@
     <!-- End breadcrumb -->
 
     <div class="row">
-        <div class="the-box no-border property-list">
+        <div class="the-box no-border property-list" ng-repeat="request in requests">
          <div class="media">
             <a class="pull-left" href="#fakelink">
-                <img alt="image" class="property-image img-responsive" src="assets\images\avatar\avatar@2x.jpg"></a>
+                <img alt="image" class="property-image img-responsive" ng-src="{{request.image.path}}">
+            </a>
                 <div class="clearfix visible-xs"></div>
                 <div class="media-body">
                     <a href="#fakelink"></a>
                     <h4 class="media-heading">
-                      <strong>Titulo de la publicación</strong>      
+                      <strong>{{request.title}}</strong>      
                     <a ui-sref="web.favoriteCreate" class="pull-right active"><i class="fa fa-heart icon-circle icon-xs icon-danger"></i></a>                
                     </h4>
                       <ul class="list-inline">
-                        <li>Category</li>
+                        <li>{{request.category.description}}</li>
                         <li style="list-style: none">|</li>
-                        <li>Subcategory</li>
+                        <li>{{request.subcategory.description}}</li>
                     </ul>
                     <p class="hidden-xs">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                    </p>
-                </div><!-- /.media-body -->
-                <div class="row">
-                    <div class="col-xs-2">
-                        <button ui-sref="web.requestDetail"class="btn btn-danger btn-block">Ver detalle</button>
-                    </div>
-                    <!-- /.col-xs-6 -->
-                    <div class="col-xs-2">
-                        <button class="btn btn-success btn-block">Ayudar!</button>
-                    </div>
-                    <!-- /.col-xs-6 -->
-                </div>
-            </div><!-- /.media -->
-        </div><!-- /.the-box no-border -->
-    </div>
-    <div class="row">
-        <div class="the-box no-border property-list">
-         <div class="media">
-            <a class="pull-left" href="#fakelink">
-                <img alt="image" class="property-image img-responsive" src="assets\images\avatar\avatar@2x.jpg"></a>
-                <div class="clearfix visible-xs"></div>
-                <div class="media-body">
-                    <a href="#fakelink"></a>
-                    <h4 class="media-heading">
-                      <strong>Titulo de la publicación</strong>      
-                    <a ui-sref="web.favoriteCreate" class="pull-right active"><i class="fa fa-heart icon-circle icon-xs icon-danger"></i></a>                
-                    </h4>
-                      <ul class="list-inline">
-                        <li>Category</li>
-                        <li style="list-style: none">|</li>
-                        <li>Subcategory</li>
-                    </ul>
-                    <p class="hidden-xs">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                    </p>
-                </div><!-- /.media-body -->
-                <div class="row">
-                    <div class="col-xs-2">
-                        <button ui-sref="web.requestDetail"class="btn btn-danger btn-block">Ver detalle</button>
-                    </div>
-                    <!-- /.col-xs-6 -->
-                    <div class="col-xs-2">
-                        <button class="btn btn-success btn-block">Ayudar!</button>
-                    </div>
-                    <!-- /.col-xs-6 -->
-                </div>
-            </div><!-- /.media -->
-        </div><!-- /.the-box no-border -->
-    </div>
-
-    <div class="row">
-        <div class="the-box no-border property-list">
-         <div class="media">
-            <a class="pull-left" href="#fakelink">
-                <img alt="image" class="property-image img-responsive" src="assets\images\avatar\avatar@2x.jpg"></a>
-                <div class="clearfix visible-xs"></div>
-                <div class="media-body">
-                    <a href="#fakelink"></a>
-                    <h4 class="media-heading">
-                      <strong>Titulo de la publicación</strong>      
-                    <a ui-sref="web.favoriteCreate" class="pull-right active"><i class="fa fa-heart icon-circle icon-xs icon-danger"></i></a>                
-                    </h4>
-                      <ul class="list-inline">
-                        <li>Category</li>
-                        <li style="list-style: none">|</li>
-                        <li>Subcategory</li>
-                    </ul>
-                    <p class="hidden-xs">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                    </p>
-                </div><!-- /.media-body -->
-                <div class="row">
-                    <div class="col-xs-2">
-                        <button ui-sref="web.requestDetail"class="btn btn-danger btn-block">Ver detalle</button>
-                    </div>
-                    <!-- /.col-xs-6 -->
-                    <div class="col-xs-2">
-                        <button class="btn btn-success btn-block">Ayudar!</button>
-                    </div>
-                    <!-- /.col-xs-6 -->
-                </div>
-            </div><!-- /.media -->
-        </div><!-- /.the-box no-border -->
-    </div>
-    
-    <div class="row">
-        <div class="the-box no-border property-list">
-         <div class="media">
-            <a class="pull-left" href="#fakelink">
-                <img alt="image" class="property-image img-responsive" src="assets\images\avatar\avatar@2x.jpg"></a>
-                <div class="clearfix visible-xs"></div>
-                <div class="media-body">
-                    <a href="#fakelink"></a>
-                    <h4 class="media-heading">
-                      <strong>Titulo de la publicación</strong>      
-                    <a ui-sref="web.favoriteCreate" class="pull-right active"><i class="fa fa-heart icon-circle icon-xs icon-danger"></i></a>                
-                    </h4>
-                      <ul class="list-inline">
-                        <li>Category</li>
-                        <li style="list-style: none">|</li>
-                        <li>Subcategory</li>
-                    </ul>
-                    <p class="hidden-xs">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+                      {{request.description}}
                     </p>
                 </div><!-- /.media-body -->
                 <div class="row">
