@@ -14,108 +14,23 @@
         <li class="active">Ofrecimientos</li>
     </ol>
     <!-- End breadcrumb -->
-
-    <div class="row" ng-controller="OfferCtrl">
-        <div class="col-sm-4">
+    <div class="row">
+        <div class="col-sm-4" ng-repeat="offer in offers">
             <div class="the-box full no-border property-card">
-                <img src="assets/images/photo/small/img.jpg" alt="Image">
+                <img ng-src="{{offer.image.path}}" alt="Image">
                 <div class="the-box no-margin no-border bg-success">
                     <div class="row">
-                        <div class="col-xs-3">
-                            <p class="property-type-circle bg-warning"><span class="glyphicon glyphicon-gift"></span></p>
+                        <div class="col-xs-2">
+                            <span class="property-type-circle bg-warning glyphicon glyphicon-gift"></span>
                         </div>
                         <div class="col-xs-9">
-                            <h2>Nombre del objeto</h2>
+                            <h3>{{offer.title}}</h3>
+                            <p>{{offer.object.description}}</p>
                         </div>
                     </div>
                     <button ui-sref="web.offerDetail" class="btn btn-success btn-block">Ver detalle</button>
                     <button class="btn btn-danger btn-block">Pedir!</button>
                 </div>
             </div>
-        </div>        
-        <div class="col-sm-4">
-            <div class="the-box full no-border property-card">
-                <img src="assets/images/photo/small/img.jpg" alt="Image">
-                <div class="the-box no-margin no-border bg-success">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <p class="property-type-circle bg-warning"><span class="glyphicon glyphicon-gift"></span></p>
-                        </div>
-                        <div class="col-xs-9">
-                            <h2>Nombre del objeto</h2>
-                        </div>
-                    </div>
-                    <button ui-sref="web.offerDetail"class="btn btn-success btn-block">Ver detalle</button>
-                    <button class="btn btn-danger btn-block">Pedir!</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="the-box full no-border property-card">
-                <img src="assets/images/photo/small/img.jpg" alt="Image">
-                <div class="the-box no-margin no-border bg-success">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <p class="property-type-circle bg-warning"><span class="glyphicon glyphicon-gift"></span></p>
-                        </div>
-                        <div class="col-xs-9">
-                            <h2>Nombre del objeto</h2>
-                        </div>
-                    </div>
-                    <button ui-sref="web.offerDetail"class="btn btn-success btn-block">Ver detalle</button>
-                    <button class="btn btn-danger btn-block">Pedir!</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="the-box full no-border property-card">
-                <img src="assets/images/photo/small/img.jpg" alt="Image">
-                <div class="the-box no-margin no-border bg-success">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <p class="property-type-circle bg-warning"><span class="glyphicon glyphicon-gift"></span></p>
-                        </div>
-                        <div class="col-xs-9">
-                            <h2>Nombre del objeto</h2>
-                        </div>
-                    </div>
-                    <button ui-sref="web.offerDetail"class="btn btn-success btn-block">Ver detalle</button>
-                    <button class="btn btn-danger btn-block">Pedir!</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="the-box full no-border property-card">
-                <img src="assets/images/photo/small/img.jpg" alt="Image">
-                <div class="the-box no-margin no-border bg-success">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <p class="property-type-circle bg-warning"><span class="glyphicon glyphicon-gift"></span></p>
-                        </div>
-                        <div class="col-xs-9">
-                            <h2>Nombre del objeto</h2>
-                        </div>
-                    </div>
-                    <button ui-sref="web.offerDetail"class="btn btn-success btn-block">Ver detalle</button>
-                    <button class="btn btn-danger btn-block">Pedir!</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="the-box full no-border property-card">
-                <img src="assets/images/photo/small/img.jpg" alt="Image">
-                <div class="the-box no-margin no-border bg-success">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <p class="property-type-circle bg-warning"><span class="glyphicon glyphicon-gift"></span></p>
-                        </div>
-                        <div class="col-xs-9">
-                            <h2>Nombre del objeto</h2>
-                        </div>
-                    </div>
-                    <button ui-sref="web.offerDetail"class="btn btn-success btn-block">Ver detalle</button>
-                    <button class="btn btn-danger btn-block">Pedir!</button>
-                </div>
-            </div>
-        </div>
+        </div>     
     </div>
