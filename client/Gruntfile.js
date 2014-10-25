@@ -580,10 +580,15 @@ module.exports = function(grunt) {
      */
     grunt.registerTask('serve', [
         'default',
-        'express',
-        'open',
         'delta'
     ]);
+
+    // grunt.registerTask('serve', [
+    //     'default',
+    //     'express',
+    //     'open',
+    //     'delta'
+    // ]);
 
     /**
      * The `build` task gets your app ready to run for development and testing.
