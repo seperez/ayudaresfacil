@@ -41,7 +41,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 | Authentication
 |--------------------------------------------------------------------------
 */
-define('TOKEN_TTL', 3600);
+define('TOKEN_TTL', 1000);
 define('SECRET', 'ayudaresfacil-unlam');
 
 /* End of file constants.php */
