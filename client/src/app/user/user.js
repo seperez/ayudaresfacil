@@ -24,6 +24,14 @@ angular.module( 'AyudarEsFacilApp.user', [
             bodyClass: "login tooltips"
         }
     })
+    .state('account.signout', {
+        url: '/signout',
+        controller: 'AuthenticationCtrl',
+        templateUrl: 'user/signin.tpl.html',
+        data: {
+            isSignout: true
+        }
+    })
     .state('account.signup', {
         url: '/signup',
         controller: 'AuthenticationCtrl',
@@ -84,8 +92,22 @@ angular.module( 'AyudarEsFacilApp.user', [
     }
 ])
 
-.controller('AuthenticationCtrl', function AuthenticationCtrl($scope, $http, $location, Authentication) {
-    $scope.authentication = Authentication;
+.controller('AuthenticationCtrl', function AuthenticationCtrl($scope, $http, $location, $state, Authentication) {
+    
+    this.signout = function(){
+        console.log("entra");
+        console.log($scope.authentication);
+        localStorage.clear();
+        $scope.authentication = null;
+        console.log($scope.authentication);
+        $state.transitionTo('web.home'); 
+    };
+
+    if($state.current.data.isSignout){
+        this.signout();
+    }else{
+        $scope.authentication = Authentication;
+    }
 
     $scope.signup = function() {
         $http.put('/ayudaresfacil/api/account', $scope.credentials).success(function(response) {
@@ -107,6 +129,8 @@ angular.module( 'AyudarEsFacilApp.user', [
             var user = {
                 id: response.data.id,
                 email: response.data.email,
+                name: response.data.name,
+                lastName: response.data.lastName,
                 token: response.token
             };
 
@@ -116,22 +140,6 @@ angular.module( 'AyudarEsFacilApp.user', [
 
             $location.path('/user/data');
         }).error(function(response) { 
-            $scope.error = true;
-            $scope.credentials = {};
-        });
-    };
-    
-    $scope.signout = function() {
-        $http.get('/ayudaresfacil/api/authentication/signout', {
-            params: $scope.credentials
-        })
-        .success(function(response) {
-            $scope.error = false;
-            $scope.authentication.user = response;
-            localStorage.clear();
-
-            $location.path('/user/data');
-        }).error(function(response) {
             $scope.error = true;
             $scope.credentials = {};
         });
