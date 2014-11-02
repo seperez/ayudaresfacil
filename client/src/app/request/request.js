@@ -26,8 +26,23 @@ angular.module( 'AyudarEsFacilApp.request', [
     });
 })
 
-.controller( 'RequestCtrl', function RequestCtrl( $scope ) {
+// Users service used for communicating with the users REST endpoint
+.factory('Requests', ['$resource',
+    function($resource) {
+        return $resource('http://localhost/ayudaresfacil/api/request', {}, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }
+])
+
+.controller( 'RequestCtrl', function RequestCtrl( $scope, Requests ) {
   $scope.myInterval = 5000;
+
+  var requests = new Requests();
+
+  /*Slides*/
   var slides = $scope.slides = [];
   $scope.addSlide = function() {
     var newWidth = 600 + slides.length;
@@ -37,9 +52,16 @@ angular.module( 'AyudarEsFacilApp.request', [
         ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
     });
   };
+
   for (var i=0; i<4; i++) {
     $scope.addSlide();
   }
+  /*Slides*/
+
+  requests.$get(function(){
+    $scope.requests=requests.data;
+    //alert('alert: '+JSON.stringify($scope.requests));
+  });
 })
 
 ;

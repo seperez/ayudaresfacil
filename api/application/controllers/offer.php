@@ -6,8 +6,6 @@ class Offer extends REST_Controller {
 
 	public function index_get(){
 
-		checkIsLoggedIn($this);
-
 		$status = 404;
 		$return["result"] = "NOOK";
 
@@ -58,6 +56,7 @@ class Offer extends REST_Controller {
 		$arrOptions['processStateIdOffer'] = $this->post('processStateIdOffer');
 		$arrOptions['offerTypeId'] = $this->post('offerTypeId');
 		$arrOptions['quantityUsersToPaused'] = $this->post('quantityUsersToPaused');
+		$arrOptions['image'] = $this->post('image');
 
 		if($arrOptions['publicationId'] > 0){
 			$offer = CI_Offer::getById($arrOptions['publicationId']);

@@ -23,8 +23,23 @@ angular.module( 'AyudarEsFacilApp.offer', [
     });
 })
 
-.controller( 'OfferCtrl', function OfferCtrl( $scope ) {
+// Users service used for communicating with the users REST endpoint
+.factory('Offers', ['$resource',
+    function($resource) {
+        return $resource('http://localhost/ayudaresfacil/api/offer', {}, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    }
+])
+
+.controller( 'OfferCtrl', function OfferCtrl( $scope, Offers ) {
   $scope.myInterval = 5000;
+
+  var offers = new Offers();
+
+  /*Slides*/
   var slides = $scope.slides = [];
   $scope.addSlide = function() {
     var newWidth = 600 + slides.length;
@@ -34,7 +49,17 @@ angular.module( 'AyudarEsFacilApp.offer', [
         ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
     });
   };
+  
   for (var i=0; i<4; i++) {
     $scope.addSlide();
   }
-});
+  /*Slides*/
+
+  offers.$get(function(){
+    $scope.offers=offers.data;
+    //alert('alert: '+JSON.stringify($scope.offers));
+  });
+
+})
+
+;

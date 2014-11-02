@@ -1,17 +1,18 @@
 <?php
 
 class CI_Publication {
-	protected $id;
-	protected $title;
-	protected $description;
-	protected $category;
-	protected $subcategory;
-	protected $object;
-	protected $quantity;
-	protected $views;
-	protected $processState;
-	protected $creationDate;
-	protected $expirationDate;
+	private $id;
+	private $title;
+	private $description;
+	private $category;
+	private $subcategory;
+	private $object;
+	private $quantity;
+	private $views;
+	private $processState;
+	private $creationDate;
+	private $expirationDate;
+	private $image;
 
 	public function getId() {return $this->id;}
 	
@@ -21,13 +22,44 @@ class CI_Publication {
 	public function getDescription(){return $this->description;}
 	public function setDescription($description){$this->description = $description;}
 
-	public function getCategory(){return $this->category;}
+	public function getCategory(){
+		$category = null;
+		foreach ($this->category as $key => $categor){
+			$myCategory = new stdClass();
+			$myCategory->id = $categor->getId();
+			$myCategory->description = $categor->getDescription();
+			$myCategory->commonState = $categor->getCommonState();
+			$category[$key] = $myCategory;
+		}
+		return $category;
+	}
 	public function setCategory($category){$this->category = CI_Category::getById($category);}
 
-	public function getSubcategory(){return $this->subcategory;}
+	public function getSubcategory(){
+		$subcategory = null;
+		foreach ($this->subcategory as $key => $subcategor){
+			$mySubcategory = new stdClass();
+			$mySubcategory->id = $subcategor->getId();
+			$mySubcategory->category = $subcategor->getCategory();
+			$mySubcategory->description = $subcategor->getDescription();
+			$mySubcategory->commonState = $subcategor->getCommonState();
+			$subcategory[$key] = $mySubcategory;
+		}
+		return $subcategory;
+	}
 	public function setSubcategory($subcategory){$this->subcategory = CI_Subcategory::getById($subcategory);}
 	
-	public function getObject(){return $this->object;}
+	public function getObject(){
+		$object = null;
+		foreach ($this->object as $key => $objec){
+			$myObject = new stdClass();
+			$myObject->id = $objec->getId();
+			$myObject->description = $objec->getDescription();
+			$myObject->createdDate = $objec->getCreatedDate();
+			$object[$key] = $myObject;
+		}
+		return $object;
+	}
 	public function setObject($object){$this->object = CI_Object::getById($object);}
 
 	public function getQuantity(){return $this->quantity;}
@@ -36,7 +68,16 @@ class CI_Publication {
 	public function getViews(){return $this->views;}
 	public function setViews($views){$this->views = $views;}
 
-	public function getProcessState(){return $this->processState;}
+	public function getProcessState(){
+		$processState = null;
+		foreach ($this->processState as $key => $processStat){
+			$myProcessState = new stdClass();
+			$myProcessState->id = $processStat->getId();
+			$myProcessState->description = $processStat->getDescription();
+			$processState[$key] = $myProcessState;
+		}
+		return $processState;
+	}
 	public function setProcessState($processState){$this->processState = CI_ProcessState::getById($processState);}
 
 	public function getCreationDate(){return $this->creationDate;}
@@ -45,6 +86,18 @@ class CI_Publication {
 	public function getExpirationDate(){return $this->expirationDate;}
 	public function setExpirationDate($expirationDate){$this->expirationDate = $expirationDate;}
 	
+	public function getImage(){
+		$image = null;
+		foreach ($this->image as $key => $imag){
+			$myImage = new stdClass();
+			$myImage->id = $imag->getId();
+			$myImage->path = $imag->getPath();
+			$image[$key] = $myImage;
+		}
+		return $image;
+	}
+	public function setImage($image){$this->image = CI_Image::getById($image);}
+
 	/**
 	 * Devuelve la informacion cargada del objeto 
 	 * Uso interno
@@ -66,6 +119,7 @@ class CI_Publication {
 		$publication->processState = CI_ProcessState::getById($options["processState"]);
 		$publication->creationDate = $options["creationDate"];
 		$publication->expirationDate = $options["expirationDate"];
+		$publication->image = CI_Image::getById($options["image"]);
 		return $publication;
 	}
 
@@ -84,6 +138,7 @@ class CI_Publication {
 		$publication->processState = CI_ProcessState::getData($options->processState);
 		$publication->creationDate = $options->creationDate;
 		$publication->expirationDate = $options->expirationDate;
+		$publication->image = CI_Image::getData($options->image);
 		return $publication;
 	}
 
@@ -103,6 +158,7 @@ class CI_Publication {
 		$publication->processState = (isset($row->process_state_id)) ? CI_ProcessState::getById($row->process_state_id) : '';
 		$publication->creationDate = (isset($row->creation_date)) ? $row->creation_date : '';
 		$publication->expirationDate = (isset($row->expiration_date)) ? $row->expiration_date : '';
+		$publication->image = (isset($row->image_id)) ? CI_Image::getById($row->image_id) : '';
 		return $publication;
 	}
 }

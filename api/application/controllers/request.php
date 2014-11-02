@@ -6,8 +6,6 @@ class Request extends REST_Controller{
 
 	public function index_get(){
 
-		checkIsLoggedIn($this);
-
 		$status = 404;
 		$return["result"] = "NOOK";
 
