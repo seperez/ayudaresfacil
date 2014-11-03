@@ -14,39 +14,27 @@
 </ol>
 <div class="the-box no-border">
 	<div class="row">
-		<div class="col-md-4" ng-controller="OfferCtrl">
-			<carousel interval="myInterval">
-				<slide ng-repeat="slide in slides" active="slide.active">
-					<img ng-src="{{slide.image}}" style="margin:auto;">
-					<div class="carousel-caption">
-						<h4>Slide {{$index}}</h4>
-						<p>{{slide.text}}</p>
-					</div>
-				</slide>
-			</carousel>
+		<div class="col-md-4">
+			<img ng-src="{{offer.image.path}}" style="margin:auto;">
 		</div>
-		<div class="col-md-8 col-sm-6">
-			<h2 class="medium-heading more-margin-bottom">Titulo de la publicación
-				<span class="text-danger pull-right">Ofrecimiento: Objeto</span>
-			</h2>
+		<div class="col-md-8">
+			<h2 class="medium-heading more-margin-bottom">{{offer.title}}
+				<span class="text-danger pull-right">Ofrecimiento: {{offer.object.description}}</span>
+			</h2>  
+			<div class="panel panel-default" style="height:170px">
+				<div class="panel-body">
+					{{offer.description}}
+				</div>
+			</div>
 			<p>
-				Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. 
-				Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. 
-				Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. 
+			  <button ng-if="offer.processStateOffer.id == 'V' " type="button" class="btn btn-primary">
+  				<span class="glyphicon glyphicon-ok"></span> Pedir !</button>
+			  <button ng-if="offer.processStateOffer.id == 'P' " type="button" class="btn btn-danger disabled">
+  				<span class="glyphicon glyphicon-ban-circle"></span> Publicación Pausada</button>
+			  <button type="button" class="btn btn-default">
+  				<span class="glyphicon glyphicon-star"></span> Poner en Favoritos!</button>
 			</p>
-
-			<div class="row">
-				<div class="col-md-8">
-					<button class="btn btn-danger btn-perspective btn-md">Pedir! / Publicación pausada</button>
-				</div><!-- /.col-xs-6 -->   
-				<div class="col-md-4">   
-					<p class="text-danger pull-right">Poner en favoritos
-						<a ui-sref="web.favoriteCreate" class="pull-right active">
-							<i class="fa fa-heart icon-circle icon-xs icon-danger"></i>
-						</a>   
-					</p>   
-				</div><!-- /.col-xs-6 -->
-			</div><!-- /.row -->
-		</div><!-- /.col-md-8 col-sm-6 -->
-	</div><!-- /.row -->
+		</div>
+	</div>
+</div>
 </div><!-- /.the-box no-border -->
