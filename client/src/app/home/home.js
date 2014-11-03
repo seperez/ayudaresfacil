@@ -13,5 +13,5 @@ angular.module( 'AyudarEsFacilApp.home', [
 
 .controller( 'HomeCtrl', function HomeController( $scope, Authentication ) {
 	$scope.authentication = Authentication;
-	console.log("Home - Auth: ", $scope.authentication);
+	//console.log("Home - Auth: ", $scope.authentication);
 });

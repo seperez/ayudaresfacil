@@ -1,0 +1,12 @@
+<div class="pull-right" style="margin:8px 0">
+    USER: {{authentication.user.name}}
+    <!--Is not logged in-->
+    <a data-ui-sref="account.signin" class="text-muted" style="margin:0 15px" data-ng-if="!authentication.user">Inicia Sésion</a>
+    
+    <a data-ui-sref="account.signup" class="btn btn-warning" data-ng-if="!authentication.user">Registrate</a>
+    
+    <!--Is logged in-->
+    <a data-ui-sref="account.signout" class="text-muted" style="margin:0 15px" data-ng-if="authentication.user">Cerrar Sésion</a>
+    
+    <button ui-sref="panel.user.data" class="btn btn-warning" data-ng-if="authentication.user">Mi Cuenta</button>
+</div>

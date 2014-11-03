@@ -70,6 +70,7 @@ class User_model extends CI_Model
 	public function getByUsernameAndPassword($options){
 		$this->db->select('*');	
 		$this->db->from('user');
+		$this->db->join('user_data', 'user.user_id = user_data.user_id');
 		$this->db->where('email',$options['email']);
 		$this->db->where('password',sha1($options['password']));
 		$this->db->where('enabled',1);
